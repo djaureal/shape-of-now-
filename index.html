@@ -8,8 +8,8 @@
 <meta property="og:title" content="The Shape of Now — a cinematic audiovisual experience"/>
 <meta property="og:description" content="Original score, full-stage projection, and @Ephemera. A journey into the presence of time, by Tony Funiciello."/>
 <meta property="og:image" content="https://djaureal.github.io/shape-of-now-/media/og.jpg"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="media/fonts/fonts.css" rel="stylesheet">
+<script src="media/lib/three.min.js"></script>
 <script src="media/lib/hls.min.js"></script>
 <style>
 :root{
@@ -722,9 +722,14 @@ if(sessionStorage.getItem("son_gate")==="1")gateEl.classList.add("hide");
 document.getElementById("gateForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const val=document.getElementById("gateIn").value.trim().toUpperCase();
-  const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(val));
-  const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
-  if(hex===GATE_H){sessionStorage.setItem("son_gate","1");gateEl.classList.add("hide");}
+  let pass=false;
+  try{
+    if(window.crypto&&crypto.subtle){
+      const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(val));
+      pass=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("")===GATE_H;
+    } else { pass=val===atob("RVBIRU1FUkE="); }
+  }catch(err){ pass=val===atob("RVBIRU1FUkE="); }
+  if(pass){sessionStorage.setItem("son_gate","1");gateEl.classList.add("hide");}
   else{const er=document.getElementById("gateErr");er.style.opacity=1;setTimeout(()=>er.style.opacity=0,1600);}
 });
 
@@ -1072,6 +1077,8 @@ const navLinks=[...document.querySelectorAll(".nav a")];
 const io=new IntersectionObserver(es=>{
   es.forEach(e=>{
     if(e.isIntersecting){
+      const tall=e.target.offsetHeight>innerHeight*1.6;
+      if(e.intersectionRatio<.12&&!tall)return;
       e.target.classList.add("in");
       const v=e.target.querySelector("video[data-vid]");
       if(v){if(!v.src)v.src=CDN+SRC[v.dataset.vid];v.play().catch(()=>{});}
@@ -1092,7 +1099,7 @@ const io=new IntersectionObserver(es=>{
       if(v&&!v.closest("#cover"))v.pause();
     }
   });
-},{threshold:.42});
+},{threshold:[0,.12,.42]});
 document.querySelectorAll(".panel").forEach(p=>io.observe(p));
 
 /* nav active state by scroll */
@@ -1520,7 +1527,7 @@ function initRoom(){
   loop();
 }
 const roomIO=new IntersectionObserver(es=>{
-  es.forEach(e=>{roomOn=e.isIntersecting;if(e.isIntersecting)initRoom();else if(R.setLoop&&R.loopActive)R.setLoop(false);});
+  es.forEach(e=>{roomOn=e.isIntersecting;if(e.isIntersecting){try{initRoom()}catch(err){roomOn=false;console.warn("room disabled",err)}}else if(R.setLoop&&R.loopActive)R.setLoop(false);});
 },{threshold:.2});
 roomIO.observe(document.getElementById("room"));
 </script>
