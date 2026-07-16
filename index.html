@@ -241,6 +241,11 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .trk .pl{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;transition:.3s}
 .trk .pl svg{width:11px;height:11px;fill:var(--dim);transition:.3s}
 .trk:hover .pl{border-color:var(--glow)}.trk:hover .pl svg{fill:var(--signal)}
+.trk.wip{cursor:default;opacity:.45}
+.trk.wip:hover{background:none;padding-left:clamp(8px,1vw,16px)}
+.trk.wip .pl{border-style:dashed}
+.trk.wip .du{letter-spacing:.2em;text-transform:uppercase;font-size:9px;color:var(--dimmer)}
+.wipdot{width:5px;height:5px;border-radius:50%;background:var(--dimmer);display:block}
 .trk.active .num{color:var(--filament)}
 .trk.active .pl{border-color:var(--filament);background:var(--filament)}
 .trk.active .pl svg{fill:var(--void)}
@@ -389,9 +394,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="eyebrow reveal">prologue &middot; the journey</div>
     <p class="statement reveal d1">You are about to enter<br>the presence of <em>time</em>.</p>
     <div class="prose reveal d2">
-      <p>What follows is not a page. It is a threshold. On the other side of it, time stops being the thing that carries you and becomes the thing you are standing inside. One continuous <b>now</b>, assembled around you as you move.</p>
-      <p>The journey descends in stages. First an argument, that the present you trust is built. Then the evidence, the philosophy, the research it rests on. Then the stage itself, and the three acts that carry you from a world before time was divided, through the spreading of a self across an imagined timeline, to the moment the illusion collapses and only the present remains.</p>
-      <p>Move slowly. Let the sound run. Every signal on this page arrives the way it will arrive in the room: in the only moment there is. <b>This one.</b></p>
+      <p>A story told in light, sound and one luminous figure. Its teaching is old and its evidence is new: the present is the only place you have ever been &mdash; and like a river, it <b>never stops being born</b>.</p>
+      <p>Scroll slowly. Let the sound run. Hold nothing. Everything opens as you arrive.</p>
     </div>
   </div></div>
 </section>
@@ -408,7 +412,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container"><div class="col">
     <div class="eyebrow reveal">01. The claim &middot; philosophy</div>
     <p class="statement reveal d1">No one has ever lived in the present.</p>
-    <p class="body reveal d2">Augustine confessed it sixteen centuries ago: ask him what time is and he knows. Until he tries to say. The present has no width. The instant you name <b>now</b>, it is already gone. What stays is a story the mind tells to make the passing bearable. Past and future, stitched into a place that <b>feels</b> like here.</p>
+    <p class="body reveal d2">The present has no width. Name <b>now</b> and it has already dissolved, like a wave you cannot hold. What stays is the story the mind tells: past and future, stitched into a place that <b>feels</b> like here.</p>
   </div></div>
 </section>
 
@@ -418,7 +422,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container"><div class="col">
     <div class="eyebrow reveal">02. The evidence &middot; neuroscience</div>
     <p class="statement reveal d1">Your <em>now</em> is about eighty milliseconds late.</p>
-    <p class="body reveal d2">Light, sound and touch reach the brain at different speeds. It waits, gathers them, edits. Then hands you one seamless moment that has already happened. To hide the lag it predicts forward and rewrites backward. Perception is not a window onto the world. It is the brain&rsquo;s best guess, <b>rendered late and backdated as truth</b>.</p>
+    <p class="body reveal d2">Light, sound and touch arrive at different speeds. The brain waits, edits, and hands you a moment that has already passed. You have never seen the world &mdash; only the mind&rsquo;s picture of it, <b>rendered late and backdated as truth</b>.</p>
   </div></div>
 </section>
 
@@ -428,7 +432,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container"><div class="col">
     <div class="eyebrow reveal">03. The stakes &middot; social</div>
     <p class="statement reveal d1">If <em>now</em> is built. <br>someone is building yours.</p>
-    <p class="body reveal d2">A present that can be constructed can be captured. We hand our attention to systems engineered to fracture the moment and sell the pieces back to us. A culture that cannot hold its present loses its memory and its future along with it. To reclaim presence is no longer a luxury. It is the <b>last act of authorship we have left</b>.</p>
+    <p class="body reveal d2">A present that can be built can be captured; a mind that clings can be led. Attention is the ground of freedom. To stand fully in the moment is the <b>last act of authorship we have left</b>.</p>
   </div></div>
 </section>
 
@@ -438,7 +442,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container"><div class="col">
     <div class="eyebrow reveal">04. The answer &middot; the work</div>
     <p class="statement reveal d1">So we built a show<br>to make you <em>feel</em> it.</p>
-    <p class="body reveal d2">Not a lecture about time. Not a documentary. A cinematic experience that puts you inside the argument. @Ephemera appears on stage: an observer with no past and no future, the pure now made visible, translucent where the brain&rsquo;s guess meets the signal. An original score drives the narrative forward, because rhythm is the oldest way the body knows time. For the length of the show, the past and the future are <b>exposed as the illusions they are</b>.</p>
+    <p class="body reveal d2">Not a lecture. A rite of passage in sound and light. @Ephemera &mdash; no past, no future &mdash; walks ahead like a lamp on the path, and the score carries you, because rhythm is the oldest way the body knows time. For one hour, past and future are <b>exposed as the illusions they are</b>.</p>
   </div></div>
 </section>
 
@@ -450,9 +454,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
       <p class="statement">The only reality that has<br>ever existed is <em>now</em>.</p>
     </div>
     <div class="prose reveal d1">
-      <p>Everything you have ever lived happened in a present moment. The past is not a place you can return to. It is memory, held <b>now</b>. The future is not a place you can travel to. It is expectation, modelled <b>now</b>. Neither has ever been touched directly. The only reality anyone can inhabit is the present.</p>
-      <p>And yet the present is built entirely from the two things that do not exist. The mind takes a remembered past and an anticipated future and presses them together into the thin, living sheet we call <b>now</b>. Past and future never stop acting on us. They are the pressure that gives the present its shape. Alter the memory, or change the expectation, and the present itself changes, though nothing in the room has moved.</p>
-      <p>This is the construct of time: not a line we travel along, but a shape continuously assembled. <b>The Shape of Now</b> takes the inversion as its first principle. If the present is the only reality, and the present is constructed, then to compose a present out of light, sound and image is to compose reality itself, for as long as the audience is standing inside it.</p>
+      <p>The past is memory, held <b>now</b>. The future is expectation, modelled <b>now</b>. Neither can be touched &mdash; clouds crossing an open sky. The mind presses them together into the thin, living sheet we call the present: not a line we travel, but a shape <b>continuously assembled</b>.</p>
+      <p>This is old wisdom and new science in the same breath. And it is freedom: if the present is composed, it can be composed differently. To shape light, sound and image into one shared moment is to <b>compose reality itself</b>.</p>
     </div>
     <p class="foot reveal d2"><b>the argument</b>&nbsp;&nbsp;Presentism holds that only the now exists; eternalism, that all moments exist at once. This work lives in the tension between them. Staging a present that is the only thing real, and revealing it to be authored by a past and a future that are not.</p>
   </div>
@@ -464,7 +467,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="sec-head reveal">
       <div class="eyebrow">the science of now &middot; research</div>
       <p class="statement">Six findings the work is built on.</p>
-      <p class="body">There is no clock in the brain. The sense of a present moment is manufactured. Assembled from signals of different ages, smoothed, predicted, and quietly edited. Below, the research that turns that claim into evidence, and how each finding drives the story the show tells.</p>
+      <p class="body">There is no clock in the brain. The present is manufactured &mdash; what contemplatives sensed for millennia, measured. Open any finding to see the science, and how it drives the show.</p>
     </div>
     <div class="finds reveal d1" id="finds"></div>
   </div>
@@ -476,26 +479,26 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="sec-head reveal">
       <div class="eyebrow">the show &middot; cinematic storytelling</div>
       <p class="statement">A stage that dissolves the illusion.</p>
-      <p class="body">Past and future feel real. They govern how we plan, grieve, hope, and fear. But neither has ever been touched. The stage show takes this invisible architecture apart in front of a live audience, using the three forces that make the illusion hold.</p>
+      <p class="body">Past and future govern how we plan, grieve, hope and fear. Yet neither has ever been touched. On stage, the illusion is taken apart by the three forces that hold it together &mdash; until only presence remains.</p>
     </div>
     <div class="cols3">
       <div class="imat reveal d1">
         <div class="k">Image</div>
         <h4>Show the invisible architecture.</h4>
-        <p>Full-stage projection wraps the audience in the argument. @Ephemera, the figure with no history and no future, appears as a living diagram of pure presence. Cinematic visuals shift between abstract geometry, data fields and vast dark landscapes that strip away the familiar markers of when and where.</p>
-        <p class="got"><b>The effect:</b> the audience watches the illusion of time being built and dismantled in real-time, on a scale that fills their peripheral vision and overwhelms the brain&rsquo;s ordinary sense of duration.</p>
+        <p>Full-stage projection wraps the audience in the argument. @Ephemera appears as a living diagram of pure presence &mdash; form made of light, empty of history.</p>
+        <p class="got"><b>The effect:</b> you watch time being built and dismantled, at a scale that overwhelms the eye.</p>
       </div>
       <div class="imat reveal d2">
         <div class="k">Score</div>
         <h4>The music is the narrator.</h4>
-        <p>An original score moves from ambient stillness through cinematic breaks to a single devastating drop. Each act is a chapter in the argument: the world before time was divided, the moment identity spreads across duration, and the collapse that forces reality into a single point. Sub-bass is felt in the body before it reaches the ears.</p>
-        <p class="got"><b>The effect:</b> the score does what dialogue cannot. It makes the audience <em>feel</em> the philosophical argument physically, in their chest, before the mind can intellectualise it.</p>
+        <p>The score moves from stillness through cinematic breaks to a single devastating drop &mdash; form arising, peaking, dissolving. Sub-bass is felt in the body before it reaches the ears.</p>
+        <p class="got"><b>The effect:</b> the argument lands in the chest before the mind can intellectualise it.</p>
       </div>
       <div class="imat reveal d3">
         <div class="k">Stage</div>
         <h4>There is no fourth wall.</h4>
-        <p>The stage is not a picture frame. It is a world the audience is pulled into. Dark, vast, architectural. The performer, the projections and the sound system operate as a single organism. There is no separation between the story being told and the space it is told in. The audience does not watch the show. They are inside it.</p>
-        <p class="got"><b>The effect:</b> a collective experience. A room full of strangers confronted with the same revelation at the same moment: that the past they carry and the future they fear have never existed anywhere except inside their own heads.</p>
+        <p>No fourth wall. Dark, vast, architectural &mdash; performer, projection and sound as one organism. You are not watching the river. <b>You are in it.</b></p>
+        <p class="got"><b>The effect:</b> a room full of strangers awakening to the same moment at the same time.</p>
       </div>
     </div>
     <p class="peak reveal">At the climax, everything converges. Image, score and stage collapse into one moment, and the audience feels the illusion break: the past dissolves, the future vanishes, and what remains is <em>the only thing that was ever real.</em></p>
@@ -568,7 +571,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="room-cap">
       <div class="eyebrow">the stage &middot; visual preview</div>
       <h3>The stage world.</h3>
-      <p>Full-width projection behind and above the performer. Dark, architectural, monochrome. @Ephemera at the centre, the audience in front. Drag to look around, zoom with the buttons, scroll to continue. Two 15-second loops preview the stage&rsquo;s visual and sonic language: <b>calm</b>, the deep sub-bass bed and slow geometric drift of the opening acts; and <b>strobe</b>, the accelerating intensity and climax. The strobe carries a photosensitivity warning.</p>
+      <p>@Ephemera at the centre, the audience in front. Drag to look around, zoom, scroll to continue. Two 15-second loops preview the stage&rsquo;s language: <b>calm</b>, the sub-bass bed of the opening acts; <b>strobe</b>, the accelerating climax (photosensitivity warning).</p>
     </div>
     <div class="room-ctrl">
       <button id="btnCalm" class="primary"><span class="ic" id="calmIcon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span id="calmLabel">calm loop</span></button>
@@ -587,23 +590,23 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="sec-head reveal" style="max-width:840px">
       <div class="eyebrow">the narrative &middot; the story the show tells</div>
       <p class="statement">A story told in<br>three acts.</p>
-      <p class="body">No dialogue, no plot in the ordinary sense. The story is a revelation: that the past you carry and the future you fear are <em>constructions</em>, and that this changes everything. @Ephemera is the audience&rsquo;s guide: a figure with no history and no expectation, showing what reality looks like when the illusion of time is <b>stripped away</b>.</p>
+      <p class="body">No dialogue. One revelation: the past you carry and the future you fear are <em>constructions</em>. @Ephemera &mdash; empty of history, empty of expectation &mdash; walks with you as the illusion is <b>stripped away</b>.</p>
     </div>
     <div class="story-arc reveal d1">
       <div class="beat"><div class="rn">I</div><div>
         <div class="bt">We Measure &middot; before division</div>
         <h4>It begins before time.</h4>
-        <p>No beat, no division. Only field. The stage opens onto a world that has never known a past or a future. @Ephemera exists here, complete and still, in a reality that has not yet been split into before and after. This is what the present looks like before the mind builds a story around it. Whole. Undivided. Timeless.</p>
+        <p>No beat, no division. Only field. @Ephemera rests complete and still, before the mind cuts the world into before and after. This is the ocean, before it is told it is waves.</p>
       </div></div>
       <div class="beat"><div class="rn">II</div><div>
         <div class="bt">You&rsquo;re the Wave &middot; the spreading</div>
         <h4>Then the illusion begins.</h4>
-        <p>The mind divides. It invents a past and projects a future, and suddenly a self appears, stretched across a timeline that does not exist. Identity is revealed as something built from memory and anticipation, both of which are happening now, in the only moment that is real. The past you remember is a story. The future you fear is a dream. Both are made of the same material: the present.</p>
+        <p>The mind divides. It invents a past, projects a future &mdash; and a self appears, stretched across a timeline that does not exist. But you were never the particle pinned to a point. You are the wave &mdash; and the water was never divided.</p>
       </div></div>
       <div class="beat"><div class="rn">III</div><div>
         <div class="bt">Beyond the End &middot; the reading</div>
         <h4>And the illusion breaks.</h4>
-        <p>The climax strips everything away. The accumulated weight of the imagined past and the projected future collapses into one undeniable instant. The audience feels it in their body before their mind catches up: this is the only moment that has ever existed. Every regret, every fear, every plan was constructed here, now, in the only place anything has ever happened. And it is still happening.</p>
+        <p>Everything collapses into one undeniable instant. The body knows before the mind catches up: this is the only moment that has ever existed. Nothing was lost &mdash; it was never yours to hold. <b>That is the liberation.</b></p>
       </div></div>
     </div>
     <p class="story-loop reveal d2">There is no final scene. Because the present never ends. It is constructed, held, broken and rebuilt, endlessly. That is not the tragedy. That is the freedom. The only story there has ever been is happening now.</p>
@@ -616,7 +619,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="sec-head reveal">
       <div class="eyebrow">the films &middot; the three acts on screen</div>
       <p class="statement">Watch the three acts.</p>
-      <p class="body">The finished films for each act, full length and full resolution, with their original sound. Press play and the site&rsquo;s music steps aside; the film carries the moment on its own. Best experienced fullscreen, in the dark, <b>loud</b>.</p>
+      <p class="body">The finished films for each act &mdash; full length, original sound. Press play and the site&rsquo;s music steps aside. Best fullscreen, in the dark, <b>loud</b>.</p>
     </div>
     <div class="films reveal d1">
 
@@ -686,8 +689,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container">
     <div class="sec-head reveal">
       <div class="eyebrow">the score &middot; original music by Tony Funiciello</div>
-      <p class="statement">Six measures of time.</p>
-      <p class="body">Every track is a different relationship to the present. Written and produced by hand. <em>We Measure</em> runs beneath this whole presentation; tap any track to hear where it sits.</p>
+      <p class="statement">Nine measures of time.</p>
+      <p class="body">Nine relationships to the present &mdash; six complete, three still forming. Written and produced by hand. <em>We Measure</em> runs beneath this page; tap any track to hear where it sits.</p>
     </div>
     <div class="tracks reveal d1" id="tracks"></div>
   </div>
@@ -986,17 +989,20 @@ const TRACKS=[
  {id:"beyond",n:"Beyond the End",d:"Act IV · dark techno · 125 BPM",dur:"5:09",full:true},
  {id:"pattern",n:"Pattern",d:"Act III · tech house · 126 BPM",dur:"7:01",full:true},
  {id:"field",n:"The Field",d:"the ground of being",dur:"5:02",full:true},
- {id:"clok",n:"CloK",d:"time, abstracted past recognition",dur:"2:48",full:true}
+ {id:"clok",n:"CloK",d:"time, abstracted past recognition",dur:"2:48",full:true},
+ {id:"threshold",n:"Threshold",d:"the edge of the moment",dur:"in progress",wip:true},
+ {id:"drift",n:"Drift",d:"time, unmoored",dur:"in progress",wip:true},
+ {id:"the_return",n:"The Return",d:"every ending, a beginning",dur:"in progress",wip:true}
 ];
 const tracksEl=document.getElementById("tracks");
 TRACKS.forEach((t,i)=>{
-  const r=document.createElement("div");r.className="trk";r.dataset.id=t.id;
+  const r=document.createElement("div");r.className="trk"+(t.wip?" wip":"");r.dataset.id=t.id;
   r.innerHTML=`<div class="num">0${i+1}</div>
    <div><div class="ti">${t.n}</div><div class="ds">${t.d}</div></div>
    <div class="eqmini"><i></i><i></i><i></i><i></i></div>
    <div class="du">${t.dur}</div>
-   <div class="pl"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>`;
-  r.addEventListener("click",()=>loadTrack(t.id,true));
+   <div class="pl">${t.wip?'<span class="wipdot"></span>':'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'}</div>`;
+  if(!t.wip)r.addEventListener("click",()=>loadTrack(t.id,true));
   tracksEl.appendChild(r);
 });
 
