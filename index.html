@@ -336,27 +336,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   .cover-eye,.cover-sub,.enter,.scrollcue{opacity:1}
 }
 
-/* ---------- passcode gate ---------- */
-#gate{position:fixed;inset:0;z-index:200;background:#04060a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px}
-#gate .ge{font-family:var(--mono);font-size:10.5px;letter-spacing:.5em;text-transform:uppercase;color:var(--dim)}
-#gate h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5vw,54px);color:var(--signal)}
-#gate h2 em{font-style:italic;color:var(--filament)}
-#gate form{display:flex;gap:10px}
-#gate input{font-family:var(--mono);font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--signal);background:none;border:1px solid var(--line);padding:13px 18px;width:min(280px,60vw);outline:none;text-align:center}
-#gate input:focus{border-color:var(--glow)}
-#gate button{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--signal);background:none;border:1px solid var(--line);padding:13px 26px;cursor:pointer;transition:.3s}
-#gate button:hover{border-color:var(--glow);background:rgba(207,230,239,.05)}
-#gate .gerr{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#a33;opacity:0;transition:opacity .3s;height:12px}
-#gate.hide{display:none}
 </style>
 </head>
 <body>
-<div id="gate">
-  <div class="ge">private preview &middot; enter passcode</div>
-  <h2>The Shape <em>of Now</em></h2>
-  <form id="gateForm"><input id="gateIn" type="password" autocomplete="off" placeholder="PASSCODE" aria-label="passcode"><button type="submit">enter</button></form>
-  <div class="gerr" id="gateErr">incorrect &mdash; try again</div>
-</div>
 <div class="grain"></div>
 
 <div class="hud"><b>THE SHAPE OF NOW</b><span class="now" id="hudNow">○ a work by Tony Funiciello</span></div>
@@ -718,24 +700,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 <audio id="roomAudio" loop preload="auto"></audio>
 
 <script>
-/* ---------- passcode gate ---------- */
-const GATE_H="29b59a341b53c50cc8c3ec6e3d9b35cef8c268f3ec8e0004644255164fb1e687";
-const gateEl=document.getElementById("gate");
-if(sessionStorage.getItem("son_gate")==="1")gateEl.classList.add("hide");
-document.getElementById("gateForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const val=document.getElementById("gateIn").value.trim().toUpperCase();
-  let pass=false;
-  try{
-    if(window.crypto&&crypto.subtle){
-      const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(val));
-      pass=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("")===GATE_H;
-    } else { pass=val===atob("RVBIRU1FUkE="); }
-  }catch(err){ pass=val===atob("RVBIRU1FUkE="); }
-  if(pass){sessionStorage.setItem("son_gate","1");gateEl.classList.add("hide");}
-  else{const er=document.getElementById("gateErr");er.style.opacity=1;setTimeout(()=>er.style.opacity=0,1600);}
-});
-
 /* ---------- media ---------- */
 const CDN="media/video/";
 const SRC={a1:"a1.mp4",a2:"a2.mp4",b1:"b1.mp4",b2:"b2.mp4",c1:"c1.mp4",c2:"c2.mp4",d1:"d1.mp4",d2:"d2.mp4"};
