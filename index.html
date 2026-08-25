@@ -336,6 +336,16 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .chapter{min-height:auto;padding-block:clamp(52px,7vh,88px)}
 #philosophy{min-height:auto;padding-block:clamp(52px,7vh,88px)}
 .chapter .chapnum{top:6vh}
+/* ---------- centred intro text ---------- */
+#prologue .col,.chapter .col{margin-inline:auto;text-align:center;max-width:760px}
+#prologue .eyebrow,.chapter .eyebrow{justify-content:center}
+#prologue .eyebrow::before,.chapter .eyebrow::before{display:none}
+#prologue .prose,#prologue .body,.chapter .body{margin-inline:auto}
+.chapter .vbg::after{background:radial-gradient(95% 85% at 50% 50%,rgba(4,6,9,.92),rgba(5,7,10,.55) 72%,rgba(5,7,10,.35))}
+#philosophy .sec-head,#philosophy .prose{margin-inline:auto;text-align:center}
+#philosophy .eyebrow{justify-content:center}
+#philosophy .eyebrow::before{display:none}
+#philosophy .foot{margin-inline:auto;text-align:left}
 
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
