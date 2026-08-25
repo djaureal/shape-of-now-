@@ -335,7 +335,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .interlude{min-height:auto;padding-block:clamp(44px,6vh,72px)}
 .chapter{min-height:auto;padding-block:clamp(52px,7vh,88px)}
 #philosophy{min-height:auto;padding-block:clamp(52px,7vh,88px)}
-.chapter .chapnum{top:50%;transform:translateY(-50%);right:5vw;font-size:clamp(38px,6vw,84px);color:rgba(207,230,239,.09)}
+.chapter .chapnum{display:none}
+.chapdiv{display:flex;align-items:center;gap:22px;width:min(560px,72vw);margin:clamp(12px,2vh,24px) auto;position:relative;z-index:3}
+.chapdiv span{flex:1;height:1px}
+.chapdiv span:first-child{background:linear-gradient(90deg,transparent,var(--glow))}
+.chapdiv span:last-child{background:linear-gradient(90deg,var(--glow),transparent)}
+.chapdiv i{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(19px,2.4vw,28px);color:var(--filament);opacity:.85;line-height:1}
 /* ---------- centred intro text ---------- */
 #prologue .col,.chapter .col{margin-inline:auto;text-align:center;max-width:760px}
 #prologue .eyebrow,.chapter .eyebrow{justify-content:center}
@@ -407,41 +412,41 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container"><div class="col reveal"><p class="statement">Between what happened and what might happen,<br>we call ourselves <em>present</em>.</p><div class="rule"></div></div></div>
 </section>
 
-<section class="panel chapter" data-label="01 &middot; yesterday">
+<div class="chapdiv"><span></span><i>I</i><span></span></div>
+<section class="panel chapter" data-label="I &middot; yesterday">
   <div class="vbg"><video data-vid="b1" muted loop playsinline preload="none"></video></div>
-  <div class="chapnum">I</div>
   <div class="container"><div class="col">
-    <div class="eyebrow reveal">01. Yesterday</div>
+    <div class="eyebrow reveal">Yesterday</div>
     <p class="statement reveal d1">You can remember yesterday.<br>You cannot <em>return</em> to it.</p>
     <p class="body reveal d2">You can describe it. You can still feel what it changed in you. But the event itself is no longer where experience is happening. What remains is <b>memory</b>: vivid, real, yours.</p>
   </div></div>
 </section>
 
-<section class="panel chapter" data-label="02 &middot; impermanence">
+<div class="chapdiv"><span></span><i>II</i><span></span></div>
+<section class="panel chapter" data-label="II &middot; impermanence">
   <div class="vbg"><video data-vid="d1" muted loop playsinline preload="none"></video></div>
-  <div class="chapnum">II</div>
   <div class="container"><div class="col">
-    <div class="eyebrow reveal">02. Impermanence</div>
+    <div class="eyebrow reveal">Impermanence</div>
     <p class="statement reveal d1">A moment does not have to remain<br>to have <em>mattered</em>.</p>
     <p class="body reveal d2">A person can leave and still change the direction of a life. An experience can end without losing its meaning. Yesterday can shape you without being somewhere you can go. <b>Letting go is not the same as losing.</b></p>
   </div></div>
 </section>
 
-<section class="panel chapter" data-label="03 &middot; tomorrow">
+<div class="chapdiv"><span></span><i>III</i><span></span></div>
+<section class="panel chapter" data-label="III &middot; tomorrow">
   <div class="vbg"><video data-vid="d2" muted loop playsinline preload="none"></video></div>
-  <div class="chapnum">III</div>
   <div class="container"><div class="col">
-    <div class="eyebrow reveal">03. Tomorrow</div>
+    <div class="eyebrow reveal">Tomorrow</div>
     <p class="statement reveal d1">Tomorrow is somewhere you can<br>plan for, but never <em>visit</em>.</p>
     <p class="body reveal d2">We imagine. We plan. We hope, fear, rehearse. It is an extraordinary ability, and we need it. But notice something quiet underneath: every future you imagine is imagined <b>now</b>.</p>
   </div></div>
 </section>
 
-<section class="panel chapter" data-label="04 &middot; the return">
+<div class="chapdiv"><span></span><i>IV</i><span></span></div>
+<section class="panel chapter" data-label="IV &middot; the return">
   <div class="vbg"><video data-vid="c2" muted loop playsinline preload="none"></video></div>
-  <div class="chapnum">IV</div>
   <div class="container"><div class="col">
-    <div class="eyebrow reveal">04. The return</div>
+    <div class="eyebrow reveal">The return</div>
     <p class="statement reveal d1">Everything keeps returning<br>to the same <em>place</em>.</p>
     <p class="body reveal d2">Every memory is remembered now. Every expectation is felt now. Regret happens now. Hope happens now. Wherever the mind travels, it travels from <b>here</b>.</p>
   </div></div>
