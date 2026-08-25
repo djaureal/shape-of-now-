@@ -36,6 +36,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .hud{position:fixed;top:20px;left:var(--gutter);z-index:60;font-family:var(--mono);
   font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);pointer-events:none}
 .hud b{color:var(--filament);font-weight:400}
+.hud .by{display:block;color:var(--dim);margin-top:5px;font-size:10px;letter-spacing:.2em;text-transform:uppercase}
 .hud .now{display:block;color:var(--signal);margin-top:6px;font-size:11px;letter-spacing:.16em;transition:opacity .5s}
 .nav{position:fixed;top:20px;right:var(--gutter);z-index:61;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
 .nav a{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--dimmer);
@@ -365,7 +366,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 <body>
 <div class="grain"></div>
 
-<div class="hud"><b>THE SHAPE OF NOW</b><span class="now" id="hudNow">○ a work by Tony Funiciello</span></div>
+<div class="hud"><b>THE SHAPE OF NOW</b><span class="by">a work by Tony Funiciello</span><span class="now" id="hudNow"></span></div>
 <nav class="nav" id="nav">
   <a href="#cover" data-s="cover"><span>cover</span><span class="dot"></span></a>
   <a href="#arg" data-s="arg"><span>the thought</span><span class="dot"></span></a>
@@ -1087,7 +1088,7 @@ const io=new IntersectionObserver(es=>{
       else if(e.target.id==="films")hudNow.textContent="· the films";
       else if(e.target.id==="score")hudNow.textContent="· the score";
       else if(e.target.id==="close")hudNow.textContent="· the shape of now";
-      else if(e.target.id==="cover")hudNow.textContent="○ a work by Tony Funiciello";
+      else if(e.target.id==="cover")hudNow.textContent="";
     } else {
       const v=e.target.querySelector("video[data-vid]");
       if(v&&!v.closest("#cover"))v.pause();
