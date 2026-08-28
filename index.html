@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>The Shape of Now · Tony Funiciello</title>
+<title>Construct of Time · Tony Funiciello</title>
 <meta property="og:url" content="https://djaureal.github.io/shape-of-now-/"/>
-<meta property="og:title" content="The Shape of Now · a cinematic audiovisual experience"/>
-<meta property="og:description" content="Original score, full-stage projection, and @Ephemera. A journey into the presence of time, by Tony Funiciello."/>
+<meta property="og:title" content="Construct of Time · audiovisual performance and immersive work"/>
+<meta property="og:description" content="An audiovisual work by Tony Funiciello. Live performance and immersive installation exploring how time is perceived, remembered and constructed."/>
 <meta property="og:image" content="https://djaureal.github.io/shape-of-now-/media/og.jpg"/>
 <link href="media/fonts/fonts.css" rel="stylesheet">
 <script src="media/lib/three.min.js"></script>
@@ -361,19 +361,38 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   .cover-eye,.cover-sub,.enter,.scrollcue{opacity:1}
 }
 
+
+/* ---------- construct of time · live ---------- */
+#stage-design{background:#05070a;padding:clamp(90px,12vh,150px) 0}
+.stage-design-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:clamp(32px,7vw,90px);align-items:end;margin-bottom:clamp(46px,7vh,84px)}
+.stage-design-head .statement{font-size:clamp(32px,5vw,66px);margin-top:15px}
+.stage-design-copy{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.8;color:var(--ink);max-width:58ch}
+.stage-design-copy b{color:var(--filament);font-weight:400}
+.stage-demo{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:18px}
+.stage-demo video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#020304;border:1px solid var(--line-soft);box-shadow:0 28px 90px rgba(0,0,0,.45)}
+.stage-demo-cap,.stage-image-cap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:9.5px;line-height:1.65;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+.stage-demo-cap b,.stage-image-cap b{color:var(--filament);font-weight:400}
+.stage-gallery{margin-top:clamp(88px,13vh,150px);display:flex;flex-direction:column;gap:clamp(90px,14vh,170px)}
+.stage-image{margin:0}
+.stage-image video,.stage-image img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#06070a;border:1px solid var(--line-soft);box-shadow:0 26px 84px rgba(0,0,0,.38)}
+.stage-image.narrow{width:min(1080px,92%);margin-left:auto;margin-right:auto}
+.stage-image .image-index{color:var(--filament)}
+@media(max-width:820px){.stage-design-head{grid-template-columns:1fr}.stage-image.narrow{width:100%}}
+
 </style>
 </head>
 <body>
 <div class="grain"></div>
 
-<div class="hud"><b>THE SHAPE OF NOW</b><span class="by">a work by Tony Funiciello</span><span class="now" id="hudNow"></span></div>
+<div class="hud"><b>CONSTRUCT OF TIME</b><span class="by">a work by Tony Funiciello</span><span class="now" id="hudNow"></span></div>
 <nav class="nav" id="nav">
   <a href="#cover" data-s="cover"><span>cover</span><span class="dot"></span></a>
   <a href="#arg" data-s="arg"><span>the thought</span><span class="dot"></span></a>
   <a href="#philosophy" data-s="philosophy"><span>the question</span><span class="dot"></span></a>
   <a href="#research" data-s="research"><span>research</span><span class="dot"></span></a>
-  <a href="#installation" data-s="installation"><span>the show</span><span class="dot"></span></a>
-  <a href="#room" data-s="room"><span>the stage</span><span class="dot"></span></a>
+  <a href="#installation" data-s="installation"><span>the work</span><span class="dot"></span></a>
+  <a href="#stage-design" data-s="stage-design"><span>live</span><span class="dot"></span></a>
+  <a href="#room" data-s="room"><span>immersive</span><span class="dot"></span></a>
   <a href="#story" data-s="story"><span>narrative</span><span class="dot"></span></a>
   <a href="#films" data-s="films"><span>the films</span><span class="dot"></span></a>
   <a href="#acts" data-s="acts"><span>the acts</span><span class="dot"></span></a>
@@ -468,6 +487,47 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   </div>
 </section>
 
+
+
+<!-- ============ LIVE ============ -->
+<section class="panel tall" id="stage-design">
+  <div class="container">
+    <div class="stage-design-head reveal">
+      <div>
+        <div class="eyebrow">construct of time &middot; live</div>
+        <p class="statement">The film becomes<br><em>physical architecture</em>.</p>
+      </div>
+      <div class="stage-design-copy">
+        <p>The live manifestation is built as one cinematic environment: image, electronic performance, bass, drums, architectural light, haze and laser geometry occupying the same visual world.</p>
+        <p style="margin-top:14px"><b>Three performers only:</b> bass stage left, electronic drums elevated at centre, keys / synth stage right. The rear screen architecture carries the film; lighting extends its geometry into the venue.</p>
+      </div>
+    </div>
+
+    <div class="stage-demo reveal d1">
+      <video controls playsinline preload="metadata" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/74e8c7c2-5276-4c19-877b-afb0f3744f4d.png">
+        <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4" type="video/mp4">
+      </video>
+      <div class="stage-demo-cap"><span>stage demo &middot; We Measure &middot; 02:59–04:14</span><span><b>75 sec</b> &middot; cinematic live-show study</span></div>
+    </div>
+
+    <div class="stage-gallery">
+      <figure class="stage-image reveal">
+        <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>
+        <figcaption class="stage-image-cap"><span><span class="image-index">01</span> &middot; impact state</span><span>portal &middot; strobe architecture &middot; rear visual field</span></figcaption>
+      </figure>
+      <figure class="stage-image narrow reveal">
+        <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>
+        <figcaption class="stage-image-cap"><span><span class="image-index">02</span> &middot; aerial scale</span><span>venue depth &middot; beam geometry &middot; crowd field</span></figcaption>
+      </figure>
+      <figure class="stage-image reveal">
+        <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>
+        <figcaption class="stage-image-cap"><span><span class="image-index">03</span> &middot; master wide</span><span>three performers &middot; monochrome field &middot; audience scale</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
 <!-- ============ RESEARCH ============ -->
 <section class="panel tall" id="research">
   <div class="container">
@@ -484,8 +544,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 <section class="panel tall" id="installation">
   <div class="container">
     <div class="sec-head reveal">
-      <div class="eyebrow">the shape of now &middot; the artistic response</div>
-      <p class="statement">This is where<br>The Shape of Now begins.</p>
+      <div class="eyebrow">construct of time &middot; the artistic response</div>
+      <p class="statement">This is where<br>Construct of Time begins.</p>
       <p class="body">We took these questions about memory, prediction, perception and duration, and asked: what would happen if you could <b>experience</b> them, rather than read about them? The answer is a live show, built from three forces.</p>
     </div>
     <div class="cols3">
@@ -516,7 +576,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 
         <div class="acc"><div class="acc-h"><div class="l"><span class="n">01</span><h4>The premise: what it is</h4></div><span class="plus">+</span></div>
           <div class="c"><div class="inner">
-            <p><b>The Shape of Now</b> is a cinematic audiovisual stage show. A live performance built from original music, full-stage projection, and one luminous figure, @Ephemera. The show tells a single story: that we live most of our lives in memory and anticipation, and that the present, the only place experience actually happens, is stranger and more moving than it seems.</p>
+            <p><b>Construct of Time</b> is a cinematic audiovisual stage show. A live performance built from original music, full-stage projection, and one luminous figure, @Ephemera. The show tells a single story: that we live most of our lives in memory and anticipation, and that the present, the only place experience actually happens, is stranger and more moving than it seems.</p>
             <p>Three acts build the argument from silence to climax. The audience does not need to understand neuroscience or philosophy. They feel the argument in the music, see it in the visuals, and recognise it in themselves.</p>
           </div></div>
         </div>
@@ -576,9 +636,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   </div>
   <div class="room-ov"><div class="container">
     <div class="room-cap">
-      <div class="eyebrow">the stage &middot; visual preview</div>
-      <h3>The stage world.</h3>
-      <p>@Ephemera at the centre, the audience in front. Drag to look around, zoom, scroll to continue. Two 15-second loops preview the stage&rsquo;s language: <b>calm</b>, the sub-bass bed of the opening acts; <b>strobe</b>, the accelerating climax (photosensitivity warning).</p>
+      <div class="eyebrow">construct of time &middot; immersive installation &middot; spatial preview</div>
+      <h3>The installation world.</h3>
+      <p>This real-time spatial study previews the immersive installation language of Construct of Time. Drag to look around, zoom, and move through the room. The <b>calm</b> and <b>strobe</b> states explore how image, sound, light and spatial perception can occupy one environment (photosensitivity warning).</p>
     </div>
     <div class="room-ctrl">
       <button id="btnCalm" class="primary"><span class="ic" id="calmIcon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span id="calmLabel">calm loop</span></button>
@@ -707,7 +767,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 <section class="panel" id="close">
   <div class="container" style="text-align:center">
     <p class="statement reveal">You do not have to hold a moment<br>for it to <em>matter</em>.<br>You only have to be there while it happens.</p>
-    <p class="sig reveal d1">The Shape of Now &middot; <b>Tony Funiciello</b></p>
+    <p class="sig reveal d1">Construct of Time &middot; <b>Tony Funiciello</b></p>
     <p class="coda reveal d1">a cinematic audiovisual experience. For the stage.</p>
   </div>
 </section>
@@ -1087,7 +1147,7 @@ const io=new IntersectionObserver(es=>{
       else if(e.target.id==="prologue")hudNow.textContent="· a thought";
       else if(e.target.id==="films")hudNow.textContent="· the films";
       else if(e.target.id==="score")hudNow.textContent="· the score";
-      else if(e.target.id==="close")hudNow.textContent="· the shape of now";
+      else if(e.target.id==="close")hudNow.textContent="· construct of time";
       else if(e.target.id==="cover")hudNow.textContent="";
     } else {
       const v=e.target.querySelector("video[data-vid]");
