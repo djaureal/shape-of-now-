@@ -557,7 +557,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     </div>
 
     <div class="stage-demo reveal d1">
-      <video controls playsinline preload="metadata" poster="media/stage/stage-01.jpg">
+      <video controls playsinline preload="metadata">
         <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4" type="video/mp4">
       </video>
       <div class="stage-demo-cap"><span>stage demo · We Measure · 02:59–04:14</span><span><b>75 sec</b> · cinematic live-show study</span></div>
@@ -565,17 +565,17 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 
     <div class="stage-gallery">
       <figure class="stage-image reveal">
-        <img src="media/stage/stage-01.jpg" alt="Construct of Time live stage — central portal, rear screen architecture and three performers" loading="lazy">
+        <video class="stage-still" muted playsinline preload="metadata" data-still-time="2.1"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>
         <figcaption class="stage-image-cap"><span><span class="image-index">01</span> · portal / performance field</span><span>rear film architecture · three performers · haze</span></figcaption>
       </figure>
 
       <figure class="stage-image narrow reveal">
-        <img src="media/stage/stage-02.jpg" alt="Construct of Time live stage — wide monochrome audience view" loading="lazy">
+        <video class="stage-still" muted playsinline preload="metadata" data-still-time="4.6"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>
         <figcaption class="stage-image-cap"><span><span class="image-index">02</span> · wide venue state</span><span>deep audience perspective · architectural beams</span></figcaption>
       </figure>
 
       <figure class="stage-image reveal">
-        <img src="media/stage/stage-03.jpg" alt="Construct of Time live stage — luminous figure and eclipse visual across the rear screen array" loading="lazy">
+        <video class="stage-still" muted playsinline preload="metadata" data-still-time="6.8"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>
         <figcaption class="stage-image-cap"><span><span class="image-index">03</span> · alternate live scene</span><span>luminous geometry · scale · atmosphere</span></figcaption>
       </figure>
     </div>
@@ -1635,6 +1635,21 @@ roomIO.observe(document.getElementById("room"));
   });
   var demo=document.querySelector('#stage-design .stage-demo video');
   if(demo) demo.addEventListener('loadedmetadata',function(){try{if(demo.currentTime===0)demo.currentTime=.15}catch(e){}},{once:true});
+})();
+</script>
+
+
+<script id="stageStillFreeze">
+(function(){
+  document.querySelectorAll('video.stage-still').forEach(function(v){
+    function freeze(){
+      var t=parseFloat(v.dataset.stillTime||'1');
+      try{ if(Number.isFinite(t) && v.duration) v.currentTime=Math.min(t, Math.max(.1,v.duration-.15)); }catch(e){}
+    }
+    v.addEventListener('loadedmetadata', freeze, {once:true});
+    v.addEventListener('seeked', function(){ v.pause(); });
+    v.pause();
+  });
 })();
 </script>
 
