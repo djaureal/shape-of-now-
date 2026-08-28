@@ -355,6 +355,21 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 /* ---------- breathing gap between video panels ---------- */
 .chapter,.act{margin-block:clamp(14px,2vh,26px)}
 
+/* ---------- one work / two forms ---------- */
+#formats{background:linear-gradient(180deg,var(--void),#080b10 48%,var(--void))}
+.formats-intro{max-width:900px;margin-bottom:clamp(44px,7vh,80px)}
+.format-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.format-card{position:relative;min-height:560px;padding:clamp(30px,4vw,58px);background:#06080b;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+.format-card::before{content:"";position:absolute;inset:0;opacity:.2;background:radial-gradient(80% 70% at 50% 18%,rgba(207,230,239,.18),transparent 65%);transition:.6s}.format-card:hover::before{opacity:.4}.format-card>*{position:relative;z-index:1}
+.format-num{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer)}
+.format-card h3{font-family:var(--serif);font-weight:300;font-size:clamp(42px,5vw,72px);line-height:.92;margin:18px 0 24px}.format-card h3 em{font-weight:300}
+.format-for{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:22px}
+.format-card p{max-width:48ch;color:var(--ink);font-size:14px;line-height:1.75}.format-card p strong{color:var(--signal);font-weight:400}
+.format-specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.format-specs span{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:8px 10px;color:var(--dim)}
+.format-link{display:inline-flex;align-items:center;gap:12px;margin-top:36px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);text-decoration:none}.format-link::after{content:"→";font-size:14px;transition:.3s}.format-link:hover::after{transform:translateX(5px)}
+.format-note{margin-top:38px;max-width:800px;font-family:var(--serif);font-size:clamp(22px,2.4vw,34px);font-weight:300;line-height:1.35;color:var(--dim)}
+@media(max-width:800px){.format-grid{grid-template-columns:1fr}.format-card{min-height:500px}}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}.filament{height:32vh}.title .l{opacity:1;transform:none}
@@ -389,10 +404,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <a href="#cover" data-s="cover"><span>cover</span><span class="dot"></span></a>
   <a href="#arg" data-s="arg"><span>the thought</span><span class="dot"></span></a>
   <a href="#philosophy" data-s="philosophy"><span>the question</span><span class="dot"></span></a>
+  <a href="#formats" data-s="formats"><span>two forms</span><span class="dot"></span></a>
   <a href="#research" data-s="research"><span>research</span><span class="dot"></span></a>
   <a href="#installation" data-s="installation"><span>the work</span><span class="dot"></span></a>
   <a href="#stage-design" data-s="stage-design"><span>live</span><span class="dot"></span></a>
-  <a href="#room" data-s="room"><span>immersive</span><span class="dot"></span></a>
   <a href="#story" data-s="story"><span>narrative</span><span class="dot"></span></a>
   <a href="#films" data-s="films"><span>the films</span><span class="dot"></span></a>
   <a href="#acts" data-s="acts"><span>the acts</span><span class="dot"></span></a>
@@ -406,9 +421,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="vbg"><video data-vid="d2" muted loop playsinline preload="metadata"></video></div>
   <div class="filament"></div>
   <div class="cover-in">
-    <div class="cover-eye">a cinematic audiovisual experience</div>
-    <h1 class="title"><span class="l">The</span> <span class="l">Shape</span> <span class="l"><em>of Now</em></span></h1>
-    <div class="cover-sub">Tony Funiciello &middot; original score &middot; @Ephemera</div>
+    <div class="cover-eye">Construct of Time &middot; an audiovisual work in two forms</div>
+    <h1 class="title"><span class="l">Construct</span> <span class="l"><em>of Time</em></span></h1>
+    <div class="cover-sub">Tony Funiciello &middot; live performance &middot; immersive installation</div>
     <button class="enter" id="enterBtn">enter</button>
   </div>
   <div class="scrollcue">scroll<i></i></div>
@@ -487,9 +502,29 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   </div>
 </section>
 
+<!-- ============ ONE WORK / TWO FORMS ============ -->
+<section class="panel tall" id="formats">
+  <div class="container">
+    <div class="formats-intro reveal">
+      <div class="eyebrow">one work &middot; two experiences</div>
+      <p class="statement">The same investigation.<br>Two ways to <em>enter it</em>.</p>
+      <p class="body">Construct of Time is a single audiovisual work built around one question: how do human beings perceive, remember and construct time? It can inhabit the concentrated intensity of a live stage or unfold as a spatial installation. The concept, score and visual language remain continuous. The relationship with the audience changes.</p>
+    </div>
+    <div class="format-grid reveal d1">
+      <article class="format-card" id="live-format">
+        <div><div class="format-num">01 &middot; live audiovisual performance</div><h3>Construct of Time<br><em>Live</em></h3><div class="format-for">Festivals &middot; theatres &middot; cultural events</div><p>A large-scale live audiovisual performance in which original electronic music, live musicians, cinematic image, generative systems and architectural lighting operate as one composition. <strong>The stage itself becomes the instrument.</strong></p><div class="format-specs"><span>60–90 min</span><span>9 acts</span><span>live electronic performance</span><span>architectural light</span><span>scalable stage format</span></div></div>
+        <a class="format-link" href="#stage-design">enter the live stage</a>
+      </article>
+      <article class="format-card" id="gallery-format">
+        <div><div class="format-num">02 &middot; immersive gallery experience</div><h3>Construct of Time<br><em>Immersive</em></h3><div class="format-for">Galleries &middot; museums &middot; immersive spaces</div><p>A spatial audiovisual installation where moving image, sound, light and architecture surround the visitor. Without a conventional stage or fixed viewing position, the work shifts from performance into contemplation. <strong>The audience moves through the perceptual field.</strong></p><div class="format-specs"><span>immersive installation</span><span>spatial sound</span><span>moving image</span><span>light</span><span>generative systems</span><span>adaptable to architecture</span></div></div>
+        <a class="format-link" href="#room">explore the immersive language</a>
+      </article>
+    </div>
+    <p class="format-note reveal d2">Not two products. Two manifestations of the same work: one gathers an audience into a shared performance; the other allows each visitor to encounter time at their own pace.</p>
+  </div>
+</section>
 
-
-<!-- ============ LIVE ============ -->
+<!-- ============ LIVE STAGE ============ -->
 <section class="panel tall" id="stage-design">
   <div class="container">
     <div class="stage-design-head reveal">
@@ -504,7 +539,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     </div>
 
     <div class="stage-demo reveal d1">
-      <video controls playsinline preload="metadata" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/74e8c7c2-5276-4c19-877b-afb0f3744f4d.png">
+      <video controls playsinline preload="metadata">
         <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4" type="video/mp4">
       </video>
       <div class="stage-demo-cap"><span>stage demo &middot; We Measure &middot; 02:59–04:14</span><span><b>75 sec</b> &middot; cinematic live-show study</span></div>
@@ -512,16 +547,16 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 
     <div class="stage-gallery">
       <figure class="stage-image reveal">
-        <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>
-        <figcaption class="stage-image-cap"><span><span class="image-index">01</span> &middot; impact state</span><span>portal &middot; strobe architecture &middot; rear visual field</span></figcaption>
+        <video class="stage-still" muted playsinline preload="auto" data-still-time="2.1"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>
+        <figcaption class="stage-image-cap"><span><span class="image-index">01</span> &middot; portal / performance field</span><span>rear film architecture &middot; three performers &middot; haze</span></figcaption>
       </figure>
       <figure class="stage-image narrow reveal">
-        <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>
-        <figcaption class="stage-image-cap"><span><span class="image-index">02</span> &middot; aerial scale</span><span>venue depth &middot; beam geometry &middot; crowd field</span></figcaption>
+        <video class="stage-still" muted playsinline preload="auto" data-still-time="4.6"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>
+        <figcaption class="stage-image-cap"><span><span class="image-index">02</span> &middot; wide venue state</span><span>deep audience perspective &middot; architectural beams</span></figcaption>
       </figure>
       <figure class="stage-image reveal">
-        <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>
-        <figcaption class="stage-image-cap"><span><span class="image-index">03</span> &middot; master wide</span><span>three performers &middot; monochrome field &middot; audience scale</span></figcaption>
+        <video class="stage-still" muted playsinline preload="auto" data-still-time="6.8"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>
+        <figcaption class="stage-image-cap"><span><span class="image-index">03</span> &middot; alternate live scene</span><span>luminous geometry &middot; scale &middot; atmosphere</span></figcaption>
       </figure>
     </div>
   </div>
@@ -546,7 +581,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     <div class="sec-head reveal">
       <div class="eyebrow">construct of time &middot; the artistic response</div>
       <p class="statement">This is where<br>Construct of Time begins.</p>
-      <p class="body">We took these questions about memory, prediction, perception and duration, and asked: what would happen if you could <b>experience</b> them, rather than read about them? The answer is a live show, built from three forces.</p>
+      <p class="body">We took these questions about memory, prediction, perception and duration, and asked: what would happen if you could <b>experience</b> them, rather than read about them? The answer is an audiovisual work built from three forces, expressed differently in its live and immersive forms.</p>
     </div>
     <div class="cols3">
       <div class="imat reveal d1">
@@ -637,8 +672,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="room-ov"><div class="container">
     <div class="room-cap">
       <div class="eyebrow">construct of time &middot; immersive installation &middot; spatial preview</div>
-      <h3>The installation world.</h3>
-      <p>This real-time spatial study previews the immersive installation language of Construct of Time. Drag to look around, zoom, and move through the room. The <b>calm</b> and <b>strobe</b> states explore how image, sound, light and spatial perception can occupy one environment (photosensitivity warning).</p>
+      <h3>Enter the perceptual field.</h3>
+      <p>This real-time spatial study previews the immersive installation language of the gallery form. Drag to move through the environment, zoom, and explore two perceptual states: <b>calm</b>, where duration opens and slows; <b>strobe</b>, where image, rhythm and anticipation compress the sense of now (photosensitivity warning).</p>
     </div>
     <div class="room-ctrl">
       <button id="btnCalm" class="primary"><span class="ic" id="calmIcon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span id="calmLabel">calm loop</span></button>
@@ -1586,5 +1621,19 @@ const roomIO=new IntersectionObserver(es=>{
 },{threshold:.2});
 roomIO.observe(document.getElementById("room"));
 </script>
+
+<script>
+(function(){
+  document.querySelectorAll('video.stage-still').forEach(function(v){
+    var freeze=function(){var t=parseFloat(v.dataset.stillTime||'1');try{if(Number.isFinite(t)&&v.duration)v.currentTime=Math.min(t,Math.max(.1,v.duration-.15));}catch(e){}};
+    v.addEventListener('loadedmetadata',freeze,{once:true});
+    v.addEventListener('seeked',function(){v.pause();});
+    v.pause();
+  });
+  var demo=document.querySelector('#stage-design .stage-demo video');
+  if(demo){demo.addEventListener('loadedmetadata',function(){try{if(demo.currentTime===0)demo.currentTime=.15}catch(e){}},{once:true});}
+})();
+</script>
+
 </body>
 </html>
