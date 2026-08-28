@@ -1,0 +1,122 @@
+name: Update Construct of Time site
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cot-site-update.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch site to current Construct of Time presentation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+
+          # Master identity and metadata
+          s = s.replace('<title>The Shape of Now · Tony Funiciello</title>', '<title>Construct of Time · Tony Funiciello</title>')
+          s = s.replace('content="The Shape of Now · a cinematic audiovisual experience"', 'content="Construct of Time · audiovisual performance and immersive work"')
+          s = s.replace('content="Original score, full-stage projection, and @Ephemera. A journey into the presence of time, by Tony Funiciello."', 'content="An audiovisual work by Tony Funiciello. Live performance and immersive installation exploring how time is perceived, remembered and constructed."')
+          s = s.replace('THE SHAPE OF NOW', 'CONSTRUCT OF TIME')
+          s = s.replace('The Shape of Now', 'Construct of Time')
+          s = s.replace('the shape of now', 'construct of time')
+
+          # Navigation: separate LIVE and IMMERSIVE instead of treating the room as a stage visualiser.
+          old_nav = '''  <a href="#research" data-s="research"><span>research</span><span class="dot"></span></a>\n  <a href="#installation" data-s="installation"><span>the show</span><span class="dot"></span></a>\n  <a href="#room" data-s="room"><span>the stage</span><span class="dot"></span></a>'''
+          new_nav = '''  <a href="#research" data-s="research"><span>research</span><span class="dot"></span></a>\n  <a href="#installation" data-s="installation"><span>the work</span><span class="dot"></span></a>\n  <a href="#stage-design" data-s="stage-design"><span>live</span><span class="dot"></span></a>\n  <a href="#room" data-s="room"><span>immersive</span><span class="dot"></span></a>'''
+          s = s.replace(old_nav, new_nav)
+
+          # Convert the existing real-time 3D room to the IMMERSIVE installation preview.
+          s = s.replace('the stage &middot; visual preview', 'construct of time &middot; immersive installation &middot; spatial preview')
+          s = s.replace('<h3>The stage world.</h3>', '<h3>The installation world.</h3>')
+          s = s.replace('@Ephemera at the centre, the audience in front. Drag to look around, zoom, scroll to continue. Two 15-second loops preview the stage&rsquo;s language: <b>calm</b>, the sub-bass bed of the opening acts; <b>strobe</b>, the accelerating climax (photosensitivity warning).', 'This real-time spatial study previews the immersive installation language of Construct of Time. Drag to look around, zoom, and move through the room. The <b>calm</b> and <b>strobe</b> states explore how image, sound, light and spatial perception can occupy one environment (photosensitivity warning).')
+
+          # LIVE section styles. No stage 3D visualiser: editorial, cinematic, one view at a time.
+          live_css = r'''
+
+          /* ---------- construct of time · live ---------- */
+          #stage-design{background:#05070a;padding:clamp(90px,12vh,150px) 0}
+          .stage-design-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:clamp(32px,7vw,90px);align-items:end;margin-bottom:clamp(46px,7vh,84px)}
+          .stage-design-head .statement{font-size:clamp(32px,5vw,66px);margin-top:15px}
+          .stage-design-copy{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.8;color:var(--ink);max-width:58ch}
+          .stage-design-copy b{color:var(--filament);font-weight:400}
+          .stage-demo{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:18px}
+          .stage-demo video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#020304;border:1px solid var(--line-soft);box-shadow:0 28px 90px rgba(0,0,0,.45)}
+          .stage-demo-cap,.stage-image-cap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:9.5px;line-height:1.65;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+          .stage-demo-cap b,.stage-image-cap b{color:var(--filament);font-weight:400}
+          .stage-gallery{margin-top:clamp(88px,13vh,150px);display:flex;flex-direction:column;gap:clamp(90px,14vh,170px)}
+          .stage-image{margin:0}
+          .stage-image video,.stage-image img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#06070a;border:1px solid var(--line-soft);box-shadow:0 26px 84px rgba(0,0,0,.38)}
+          .stage-image.narrow{width:min(1080px,92%);margin-left:auto;margin-right:auto}
+          .stage-image .image-index{color:var(--filament)}
+          @media(max-width:820px){.stage-design-head{grid-template-columns:1fr}.stage-image.narrow{width:100%}}
+          '''
+          if '/* ---------- construct of time · live ---------- */' not in s:
+              s = s.replace('\n</style>', live_css + '\n</style>')
+
+          # Insert LIVE section before research, using permanent show media already hosted externally.
+          live_html = r'''
+
+          <!-- ============ LIVE ============ -->
+          <section class="panel tall" id="stage-design">
+            <div class="container">
+              <div class="stage-design-head reveal">
+                <div>
+                  <div class="eyebrow">construct of time &middot; live</div>
+                  <p class="statement">The film becomes<br><em>physical architecture</em>.</p>
+                </div>
+                <div class="stage-design-copy">
+                  <p>The live manifestation is built as one cinematic environment: image, electronic performance, bass, drums, architectural light, haze and laser geometry occupying the same visual world.</p>
+                  <p style="margin-top:14px"><b>Three performers only:</b> bass stage left, electronic drums elevated at centre, keys / synth stage right. The rear screen architecture carries the film; lighting extends its geometry into the venue.</p>
+                </div>
+              </div>
+
+              <div class="stage-demo reveal d1">
+                <video controls playsinline preload="metadata" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/74e8c7c2-5276-4c19-877b-afb0f3744f4d.png">
+                  <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4" type="video/mp4">
+                </video>
+                <div class="stage-demo-cap"><span>stage demo &middot; We Measure &middot; 02:59–04:14</span><span><b>75 sec</b> &middot; cinematic live-show study</span></div>
+              </div>
+
+              <div class="stage-gallery">
+                <figure class="stage-image reveal">
+                  <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>
+                  <figcaption class="stage-image-cap"><span><span class="image-index">01</span> &middot; impact state</span><span>portal &middot; strobe architecture &middot; rear visual field</span></figcaption>
+                </figure>
+                <figure class="stage-image narrow reveal">
+                  <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>
+                  <figcaption class="stage-image-cap"><span><span class="image-index">02</span> &middot; aerial scale</span><span>venue depth &middot; beam geometry &middot; crowd field</span></figcaption>
+                </figure>
+                <figure class="stage-image reveal">
+                  <video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>
+                  <figcaption class="stage-image-cap"><span><span class="image-index">03</span> &middot; master wide</span><span>three performers &middot; monochrome field &middot; audience scale</span></figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+          '''
+          marker = '<!-- ============ RESEARCH ============ -->'
+          if 'id="stage-design"' not in s and marker in s:
+              s = s.replace(marker, live_html + '\n\n' + marker)
+
+          # Make the installation language explicit without deleting the existing research/experience content.
+          s = s.replace('<div class="eyebrow">the stage &middot; visual preview</div>', '<div class="eyebrow">construct of time &middot; immersive installation &middot; spatial preview</div>')
+
+          p.write_text(s)
+          PY
+
+          git config user.name "ChatGPT Site Update"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Construct of Time live and immersive presentation"
+            git push
+          fi
