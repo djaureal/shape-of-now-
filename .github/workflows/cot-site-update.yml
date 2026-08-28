@@ -1,4 +1,4 @@
-name: Finish Construct of Time website update
+name: Deploy final Construct of Time site
 
 on:
   push:
@@ -9,54 +9,36 @@ permissions:
   contents: write
 
 jobs:
-  finish-site:
+  deploy-final-site:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply final live and immersive website structure
+
+      - name: Restore final site
         shell: bash
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text()
+          set -euo pipefail
+          cat deploy/cot-index.part* | base64 -d | gzip -dc > index.html
+          mkdir -p media/stage
+          command -v ffmpeg >/dev/null || (sudo apt-get update && sudo apt-get install -y ffmpeg)
 
-          s=s.replace('<div class="cover-eye">a cinematic audiovisual experience</div>\n    <h1 class="title"><span class="l">The</span> <span class="l">Shape</span> <span class="l"><em>of Now</em></span></h1>\n    <div class="cover-sub">Tony Funiciello &middot; original score &middot; @Ephemera</div>', '<div class="cover-eye">Construct of Time &middot; an audiovisual work in two forms</div>\n    <h1 class="title"><span class="l">Construct</span> <span class="l"><em>of Time</em></span></h1>\n    <div class="cover-sub">Tony Funiciello &middot; live performance &middot; immersive installation</div>')
+          curl -fL --retry 3 -o /tmp/stage01.mp4 'https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4'
+          curl -fL --retry 3 -o /tmp/stage02.mp4 'https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4'
+          curl -fL --retry 3 -o /tmp/stage03.mp4 'https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4'
 
-          nav_old='''  <a href="#philosophy" data-s="philosophy"><span>the question</span><span class="dot"></span></a>\n  <a href="#research" data-s="research"><span>research</span><span class="dot"></span></a>\n  <a href="#installation" data-s="installation"><span>the work</span><span class="dot"></span></a>\n  <a href="#stage-design" data-s="stage-design"><span>live</span><span class="dot"></span></a>\n  <a href="#room" data-s="room"><span>immersive</span><span class="dot"></span></a>'''
-          nav_new='''  <a href="#philosophy" data-s="philosophy"><span>the question</span><span class="dot"></span></a>\n  <a href="#formats" data-s="formats"><span>two forms</span><span class="dot"></span></a>\n  <a href="#research" data-s="research"><span>research</span><span class="dot"></span></a>\n  <a href="#installation" data-s="installation"><span>the work</span><span class="dot"></span></a>\n  <a href="#stage-design" data-s="stage-design"><span>live</span><span class="dot"></span></a>'''
-          s=s.replace(nav_old,nav_new)
+          ffmpeg -hide_banner -loglevel error -y -ss 2 -i /tmp/stage01.mp4 -frames:v 1 -vf 'scale=1920:-2' -q:v 3 media/stage/stage-01.jpg
+          ffmpeg -hide_banner -loglevel error -y -ss 4 -i /tmp/stage02.mp4 -frames:v 1 -vf 'scale=1920:-2' -q:v 3 media/stage/stage-02.jpg
+          ffmpeg -hide_banner -loglevel error -y -ss 3 -i /tmp/stage03.mp4 -frames:v 1 -vf 'scale=1920:-2' -q:v 3 media/stage/stage-03.jpg
 
-          formats='''\n<!-- ============ ONE WORK / TWO FORMS ============ -->\n<section class="panel tall" id="formats">\n  <div class="container">\n    <div class="formats-intro reveal">\n      <div class="eyebrow">one work &middot; two experiences</div>\n      <p class="statement">The same investigation.<br>Two ways to <em>enter it</em>.</p>\n      <p class="body">Construct of Time is a single audiovisual work built around one question: how do human beings perceive, remember and construct time? It can inhabit the concentrated intensity of a live stage or unfold as a spatial installation. The concept, score and visual language remain continuous. The relationship with the audience changes.</p>\n    </div>\n    <div class="format-grid reveal d1">\n      <article class="format-card" id="live-format">\n        <div><div class="format-num">01 &middot; live audiovisual performance</div><h3>Construct of Time<br><em>Live</em></h3><div class="format-for">Festivals &middot; theatres &middot; cultural events</div><p>A large-scale live audiovisual performance in which original electronic music, live musicians, cinematic image, generative systems and architectural lighting operate as one composition. <strong>The stage itself becomes the instrument.</strong></p><div class="format-specs"><span>60–90 min</span><span>9 acts</span><span>live electronic performance</span><span>architectural light</span><span>scalable stage format</span></div></div>\n        <a class="format-link" href="#stage-design">enter the live stage</a>\n      </article>\n      <article class="format-card" id="gallery-format">\n        <div><div class="format-num">02 &middot; immersive gallery experience</div><h3>Construct of Time<br><em>Immersive</em></h3><div class="format-for">Galleries &middot; museums &middot; immersive spaces</div><p>A spatial audiovisual installation where moving image, sound, light and architecture surround the visitor. Without a conventional stage or fixed viewing position, the work shifts from performance into contemplation. <strong>The audience moves through the perceptual field.</strong></p><div class="format-specs"><span>immersive installation</span><span>spatial sound</span><span>moving image</span><span>light</span><span>generative systems</span><span>adaptable to architecture</span></div></div>\n        <a class="format-link" href="#room">explore the immersive language</a>\n      </article>\n    </div>\n    <p class="format-note reveal d2">Not two products. Two manifestations of the same work: one gathers an audience into a shared performance; the other allows each visitor to encounter time at their own pace.</p>\n  </div>\n</section>\n'''
-          if 'id="formats"' not in s:
-              s=s.replace('\n\n\n<!-- ============ LIVE ============ -->',formats+'\n<!-- ============ LIVE STAGE ============ -->')
+          test -s index.html
+          grep -q 'Construct of Time' index.html
+          grep -q 'id="stage-design"' index.html
+          grep -q 'id="room"' index.html
+          grep -q '8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4' index.html
+          grep -q 'media/stage/stage-01.jpg' index.html
 
-          css='''\n/* ---------- one work / two forms ---------- */\n#formats{background:linear-gradient(180deg,var(--void),#080b10 48%,var(--void))}\n.formats-intro{max-width:900px;margin-bottom:clamp(44px,7vh,80px)}\n.format-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}\n.format-card{position:relative;min-height:560px;padding:clamp(30px,4vw,58px);background:#06080b;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}\n.format-card::before{content:"";position:absolute;inset:0;opacity:.2;background:radial-gradient(80% 70% at 50% 18%,rgba(207,230,239,.18),transparent 65%);transition:.6s}.format-card:hover::before{opacity:.4}.format-card>*{position:relative;z-index:1}\n.format-num{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer)}\n.format-card h3{font-family:var(--serif);font-weight:300;font-size:clamp(42px,5vw,72px);line-height:.92;margin:18px 0 24px}.format-card h3 em{font-weight:300}\n.format-for{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:22px}\n.format-card p{max-width:48ch;color:var(--ink);font-size:14px;line-height:1.75}.format-card p strong{color:var(--signal);font-weight:400}\n.format-specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.format-specs span{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:8px 10px;color:var(--dim)}\n.format-link{display:inline-flex;align-items:center;gap:12px;margin-top:36px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);text-decoration:none}.format-link::after{content:"→";font-size:14px;transition:.3s}.format-link:hover::after{transform:translateX(5px)}\n.format-note{margin-top:38px;max-width:800px;font-family:var(--serif);font-size:clamp(22px,2.4vw,34px);font-weight:300;line-height:1.35;color:var(--dim)}\n@media(max-width:800px){.format-grid{grid-template-columns:1fr}.format-card{min-height:500px}}\n'''
-          if '/* ---------- one work / two forms ---------- */' not in s:
-              s=s.replace('\n@media (prefers-reduced-motion:reduce)',css+'\n@media (prefers-reduced-motion:reduce)')
-
-          s=s.replace('<video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>', '<video class="stage-still" muted playsinline preload="auto" data-still-time="2.1"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>')
-          s=s.replace('<video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>', '<video class="stage-still" muted playsinline preload="auto" data-still-time="4.6"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>')
-          s=s.replace('<video autoplay muted loop playsinline preload="metadata"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>', '<video class="stage-still" muted playsinline preload="auto" data-still-time="6.8"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>')
-          s=s.replace('01</span> &middot; impact state','01</span> &middot; portal / performance field').replace('portal &middot; strobe architecture &middot; rear visual field','rear film architecture &middot; three performers &middot; haze')
-          s=s.replace('02</span> &middot; aerial scale','02</span> &middot; wide venue state').replace('venue depth &middot; beam geometry &middot; crowd field','deep audience perspective &middot; architectural beams')
-          s=s.replace('03</span> &middot; master wide','03</span> &middot; alternate live scene').replace('three performers &middot; monochrome field &middot; audience scale','luminous geometry &middot; scale &middot; atmosphere')
-          s=s.replace(' poster="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/74e8c7c2-5276-4c19-877b-afb0f3744f4d.png"','')
-
-          s=s.replace('The answer is a live show, built from three forces.','The answer is an audiovisual work built from three forces, expressed differently in its live and immersive forms.')
-          s=s.replace('<h3>The installation world.</h3>\n      <p>This real-time spatial study previews the immersive installation language of Construct of Time. Drag to look around, zoom, and move through the room. The <b>calm</b> and <b>strobe</b> states explore how image, sound, light and spatial perception can occupy one environment (photosensitivity warning).</p>', '<h3>Enter the perceptual field.</h3>\n      <p>This real-time spatial study previews the immersive installation language of the gallery form. Drag to move through the environment, zoom, and explore two perceptual states: <b>calm</b>, where duration opens and slows; <b>strobe</b>, where image, rhythm and anticipation compress the sense of now (photosensitivity warning).</p>')
-
-          freeze='''\n<script>\n(function(){\n  document.querySelectorAll('video.stage-still').forEach(function(v){\n    var freeze=function(){var t=parseFloat(v.dataset.stillTime||'1');try{if(Number.isFinite(t)&&v.duration)v.currentTime=Math.min(t,Math.max(.1,v.duration-.15));}catch(e){}};\n    v.addEventListener('loadedmetadata',freeze,{once:true});\n    v.addEventListener('seeked',function(){v.pause();});\n    v.pause();\n  });\n  var demo=document.querySelector('#stage-design .stage-demo video');\n  if(demo){demo.addEventListener('loadedmetadata',function(){try{if(demo.currentTime===0)demo.currentTime=.15}catch(e){}},{once:true});}\n})();\n</script>\n'''
-          if "document.querySelectorAll('video.stage-still')" not in s:
-              s=s.replace('</body>',freeze+'\n</body>')
-
-          p.write_text(s)
-          PY
-
-          git config user.name "ChatGPT Site Update"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          if ! git diff --cached --quiet; then
-            git commit -m "Finish live demo, stage stills and immersive 3D site"
-            git push
-          fi
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html media/stage/
+          git commit -m 'Restore final COT site with LIVE demo and IMMERSIVE 3D room'
+          git push
