@@ -9,8 +9,6 @@
 <meta property="og:description" content="An audiovisual work by Tony Funiciello. Live performance and immersive installation exploring how time is perceived, remembered and constructed."/>
 <meta property="og:image" content="https://djaureal.github.io/shape-of-now-/media/og.jpg"/>
 <link href="media/fonts/fonts.css" rel="stylesheet">
-<script src="media/lib/three.min.js"></script>
-<script src="media/lib/hls.min.js"></script>
 <style>
 :root{
   --void:#05070a; --void2:#0a0d11; --concrete:#15181c; --signal:#eef4f7;
@@ -229,6 +227,24 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .room-hint{position:absolute;top:calc(50% - 0px);left:50%;transform:translate(-50%,-50%);z-index:2;font-family:var(--mono);
   font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer);pointer-events:none;transition:opacity .6s;text-align:center}
 
+
+/* live stage — final clean showcase */
+#stage-design{background:#05070a;padding:clamp(90px,12vh,150px) 0}
+.stage-design-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:clamp(32px,7vw,90px);align-items:end;margin-bottom:clamp(46px,7vh,84px)}
+.stage-design-head .statement{font-size:clamp(32px,5vw,66px);margin-top:15px}
+.stage-design-copy{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.8;color:var(--ink);max-width:58ch}
+.stage-design-copy b{color:var(--filament);font-weight:400}
+.stage-demo{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:18px}
+.stage-demo video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#020304;border:1px solid var(--line-soft);box-shadow:0 28px 90px rgba(0,0,0,.45)}
+.stage-demo-cap,.stage-image-cap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:9.5px;line-height:1.65;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+.stage-demo-cap b,.stage-image-cap b{color:var(--filament);font-weight:400}
+.stage-gallery{margin-top:clamp(88px,13vh,150px);display:flex;flex-direction:column;gap:clamp(90px,14vh,170px)}
+.stage-image{margin:0}
+.stage-image img{display:block;width:100%;height:auto;background:#06070a;border:1px solid var(--line-soft);box-shadow:0 26px 84px rgba(0,0,0,.38)}
+.stage-image.narrow{width:min(1080px,92%);margin-left:auto;margin-right:auto}
+.stage-image .image-index{color:var(--filament)}
+@media(max-width:820px){.stage-design-head{grid-template-columns:1fr}.stage-image.narrow{width:100%}}
+
 /* score */
 #score{background:linear-gradient(180deg,#070a0e,var(--void))}
 .tracks{margin-top:clamp(40px,6vh,64px);border-top:1px solid var(--line-soft)}
@@ -355,20 +371,26 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 /* ---------- breathing gap between video panels ---------- */
 .chapter,.act{margin-block:clamp(14px,2vh,26px)}
 
+
 /* ---------- one work / two forms ---------- */
 #formats{background:linear-gradient(180deg,var(--void),#080b10 48%,var(--void))}
 .formats-intro{max-width:900px;margin-bottom:clamp(44px,7vh,80px)}
 .format-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-.format-card{position:relative;min-height:560px;padding:clamp(30px,4vw,58px);background:#06080b;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
-.format-card::before{content:"";position:absolute;inset:0;opacity:.2;background:radial-gradient(80% 70% at 50% 18%,rgba(207,230,239,.18),transparent 65%);transition:.6s}.format-card:hover::before{opacity:.4}.format-card>*{position:relative;z-index:1}
+.format-card{position:relative;min-height:620px;padding:clamp(30px,4vw,58px);background:#06080b;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+.format-card::before{content:"";position:absolute;inset:0;opacity:.2;background:radial-gradient(80% 70% at 50% 18%,rgba(185,204,224,.22),transparent 65%);transition:.6s}
+.format-card:hover::before{opacity:.42}.format-card>*{position:relative;z-index:1}
 .format-num{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer)}
 .format-card h3{font-family:var(--serif);font-weight:300;font-size:clamp(42px,5vw,72px);line-height:.92;margin:18px 0 24px}.format-card h3 em{font-weight:300}
 .format-for{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);margin-bottom:22px}
-.format-card p{max-width:48ch;color:var(--ink);font-size:14px;line-height:1.75}.format-card p strong{color:var(--signal);font-weight:400}
-.format-specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.format-specs span{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:8px 10px;color:var(--dim)}
+.format-card p{max-width:48ch;color:var(--muted);font-size:14px;line-height:1.75}.format-card p strong{color:var(--text);font-weight:400}
+.format-specs{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.format-specs span{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:8px 10px;color:var(--muted)}
 .format-link{display:inline-flex;align-items:center;gap:12px;margin-top:36px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--signal);text-decoration:none}.format-link::after{content:"→";font-size:14px;transition:.3s}.format-link:hover::after{transform:translateX(5px)}
-.format-note{margin-top:38px;max-width:800px;font-family:var(--serif);font-size:clamp(22px,2.4vw,34px);font-weight:300;line-height:1.35;color:var(--dim)}
-@media(max-width:800px){.format-grid{grid-template-columns:1fr}.format-card{min-height:500px}}
+.format-note{margin-top:38px;max-width:800px;font-family:var(--serif);font-size:clamp(22px,2.4vw,34px);font-weight:300;line-height:1.35;color:var(--muted)}
+#enquiries{min-height:85vh;background:radial-gradient(70% 60% at 50% 50%,#101720 0%,var(--void) 70%)}
+.enquiry-box{max-width:900px;text-align:center;margin:auto}.enquiry-box .eyebrow{justify-content:center}.enquiry-box .eyebrow::before{display:none}
+.enquiry-box h2{font-family:var(--serif);font-weight:300;font-size:clamp(52px,8vw,108px);line-height:.9;margin:20px 0 28px}.enquiry-box p{max-width:620px;margin:0 auto 34px;color:var(--muted);line-height:1.8}
+.enquiry-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.enquiry-actions a{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--text);border:1px solid var(--line);padding:14px 18px;transition:.3s}.enquiry-actions a:hover{border-color:var(--signal);background:rgba(255,255,255,.04)}
+@media(max-width:800px){.format-grid{grid-template-columns:1fr}.format-card{min-height:540px}}
 
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -376,25 +398,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   .cover-eye,.cover-sub,.enter,.scrollcue{opacity:1}
 }
 
-
-/* ---------- construct of time · live ---------- */
-#stage-design{background:#05070a;padding:clamp(90px,12vh,150px) 0}
-.stage-design-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:clamp(32px,7vw,90px);align-items:end;margin-bottom:clamp(46px,7vh,84px)}
-.stage-design-head .statement{font-size:clamp(32px,5vw,66px);margin-top:15px}
-.stage-design-copy{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.8;color:var(--ink);max-width:58ch}
-.stage-design-copy b{color:var(--filament);font-weight:400}
-.stage-demo{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:18px}
-.stage-demo video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#020304;border:1px solid var(--line-soft);box-shadow:0 28px 90px rgba(0,0,0,.45)}
-.stage-demo-cap,.stage-image-cap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:9.5px;line-height:1.65;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
-.stage-demo-cap b,.stage-image-cap b{color:var(--filament);font-weight:400}
-.stage-gallery{margin-top:clamp(88px,13vh,150px);display:flex;flex-direction:column;gap:clamp(90px,14vh,170px)}
-.stage-image{margin:0}
-.stage-image video,.stage-image img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#06070a;border:1px solid var(--line-soft);box-shadow:0 26px 84px rgba(0,0,0,.38)}
-.stage-image.narrow{width:min(1080px,92%);margin-left:auto;margin-right:auto}
-.stage-image .image-index{color:var(--filament)}
-@media(max-width:820px){.stage-design-head{grid-template-columns:1fr}.stage-image.narrow{width:100%}}
-
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <div class="grain"></div>
@@ -412,6 +417,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <a href="#films" data-s="films"><span>the films</span><span class="dot"></span></a>
   <a href="#acts" data-s="acts"><span>the acts</span><span class="dot"></span></a>
   <a href="#score" data-s="score"><span>the score</span><span class="dot"></span></a>
+  <a href="#enquiries" data-s="enquiries"><span>enquiries</span><span class="dot"></span></a>
 </nav>
 <div class="axis"><span class="lab past">past</span><span class="lab future">future</span><span class="marker" id="marker"></span></div>
 <div class="nowline"><span>. Now</span></div>
@@ -512,12 +518,24 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     </div>
     <div class="format-grid reveal d1">
       <article class="format-card" id="live-format">
-        <div><div class="format-num">01 &middot; live audiovisual performance</div><h3>Construct of Time<br><em>Live</em></h3><div class="format-for">Festivals &middot; theatres &middot; cultural events</div><p>A large-scale live audiovisual performance in which original electronic music, live musicians, cinematic image, generative systems and architectural lighting operate as one composition. <strong>The stage itself becomes the instrument.</strong></p><div class="format-specs"><span>60–90 min</span><span>9 acts</span><span>live electronic performance</span><span>architectural light</span><span>scalable stage format</span></div></div>
+        <div>
+          <div class="format-num">01 &middot; live audiovisual performance</div>
+          <h3>Construct of Time<br><em>Live</em></h3>
+          <div class="format-for">Festivals &middot; theatres &middot; cultural events</div>
+          <p>A large-scale live audiovisual performance in which original electronic music, live musicians, cinematic image, generative systems and architectural lighting operate as one composition. <strong>The stage itself becomes the instrument.</strong></p>
+          <div class="format-specs"><span>60–90 min</span><span>9 acts</span><span>live electronic performance</span><span>architectural light</span><span>scalable stage format</span></div>
+        </div>
         <a class="format-link" href="#stage-design">enter the live stage</a>
       </article>
       <article class="format-card" id="gallery-format">
-        <div><div class="format-num">02 &middot; immersive gallery experience</div><h3>Construct of Time<br><em>Immersive</em></h3><div class="format-for">Galleries &middot; museums &middot; immersive spaces</div><p>A spatial audiovisual installation where moving image, sound, light and architecture surround the visitor. Without a conventional stage or fixed viewing position, the work shifts from performance into contemplation. <strong>The audience moves through the perceptual field.</strong></p><div class="format-specs"><span>immersive installation</span><span>spatial sound</span><span>moving image</span><span>light</span><span>generative systems</span><span>adaptable to architecture</span></div></div>
-        <a class="format-link" href="#room">explore the immersive language</a>
+        <div>
+          <div class="format-num">02 &middot; immersive gallery experience</div>
+          <h3>Construct of Time<br><em>Immersive</em></h3>
+          <div class="format-for">Galleries &middot; museums &middot; immersive spaces</div>
+          <p>A spatial audiovisual installation where moving image, sound, light and architecture surround the visitor. Without a conventional stage or fixed viewing position, the work shifts from performance into contemplation. <strong>The audience moves through the perceptual field.</strong></p>
+          <div class="format-specs"><span>immersive installation</span><span>spatial sound</span><span>moving image</span><span>light</span><span>generative systems</span><span>adaptable to architecture</span></div>
+        </div>
+        <a class="format-link" href="#installation">explore the immersive language</a>
       </article>
     </div>
     <p class="format-note reveal d2">Not two products. Two manifestations of the same work: one gathers an audience into a shared performance; the other allows each visitor to encounter time at their own pace.</p>
@@ -529,7 +547,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   <div class="container">
     <div class="stage-design-head reveal">
       <div>
-        <div class="eyebrow">construct of time &middot; live</div>
+        <div class="eyebrow">construct of time · live</div>
         <p class="statement">The film becomes<br><em>physical architecture</em>.</p>
       </div>
       <div class="stage-design-copy">
@@ -539,29 +557,30 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     </div>
 
     <div class="stage-demo reveal d1">
-      <video controls playsinline preload="metadata">
+      <video controls playsinline preload="metadata" poster="media/stage/stage-01.jpg">
         <source src="https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4" type="video/mp4">
       </video>
-      <div class="stage-demo-cap"><span>stage demo &middot; We Measure &middot; 02:59–04:14</span><span><b>75 sec</b> &middot; cinematic live-show study</span></div>
+      <div class="stage-demo-cap"><span>stage demo · We Measure · 02:59–04:14</span><span><b>75 sec</b> · cinematic live-show study</span></div>
     </div>
 
     <div class="stage-gallery">
       <figure class="stage-image reveal">
-        <video class="stage-still" muted playsinline preload="auto" data-still-time="2.1"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>
-        <figcaption class="stage-image-cap"><span><span class="image-index">01</span> &middot; portal / performance field</span><span>rear film architecture &middot; three performers &middot; haze</span></figcaption>
+        <img src="media/stage/stage-01.jpg" alt="Construct of Time live stage — central portal, rear screen architecture and three performers" loading="lazy">
+        <figcaption class="stage-image-cap"><span><span class="image-index">01</span> · portal / performance field</span><span>rear film architecture · three performers · haze</span></figcaption>
       </figure>
+
       <figure class="stage-image narrow reveal">
-        <video class="stage-still" muted playsinline preload="auto" data-still-time="4.6"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>
-        <figcaption class="stage-image-cap"><span><span class="image-index">02</span> &middot; wide venue state</span><span>deep audience perspective &middot; architectural beams</span></figcaption>
+        <img src="media/stage/stage-02.jpg" alt="Construct of Time live stage — wide monochrome audience view" loading="lazy">
+        <figcaption class="stage-image-cap"><span><span class="image-index">02</span> · wide venue state</span><span>deep audience perspective · architectural beams</span></figcaption>
       </figure>
+
       <figure class="stage-image reveal">
-        <video class="stage-still" muted playsinline preload="auto" data-still-time="6.8"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>
-        <figcaption class="stage-image-cap"><span><span class="image-index">03</span> &middot; alternate live scene</span><span>luminous geometry &middot; scale &middot; atmosphere</span></figcaption>
+        <img src="media/stage/stage-03.jpg" alt="Construct of Time live stage — luminous figure and eclipse visual across the rear screen array" loading="lazy">
+        <figcaption class="stage-image-cap"><span><span class="image-index">03</span> · alternate live scene</span><span>luminous geometry · scale · atmosphere</span></figcaption>
       </figure>
     </div>
   </div>
 </section>
-
 
 <!-- ============ RESEARCH ============ -->
 <section class="panel tall" id="research">
@@ -611,7 +630,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 
         <div class="acc"><div class="acc-h"><div class="l"><span class="n">01</span><h4>The premise: what it is</h4></div><span class="plus">+</span></div>
           <div class="c"><div class="inner">
-            <p><b>Construct of Time</b> is a cinematic audiovisual stage show. A live performance built from original music, full-stage projection, and one luminous figure, @Ephemera. The show tells a single story: that we live most of our lives in memory and anticipation, and that the present, the only place experience actually happens, is stranger and more moving than it seems.</p>
+            <p><b>Construct of Time</b> is a cinematic audiovisual work. A live performance built from original music, full-stage projection, and one luminous figure, @Ephemera. The show tells a single story: that we live most of our lives in memory and anticipation, and that the present, the only place experience actually happens, is stranger and more moving than it seems.</p>
             <p>Three acts build the argument from silence to climax. The audience does not need to understand neuroscience or philosophy. They feel the argument in the music, see it in the visuals, and recognise it in themselves.</p>
           </div></div>
         </div>
@@ -686,6 +705,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   </div></div>
 </section>
 
+
 <!-- ============ NARRATIVE ============ -->
 <section class="panel tall" id="story">
   <div class="container">
@@ -715,43 +735,30 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   </div>
 </section>
 
-<!-- ============ THE FILMS ============ -->
+<!-- ============ VISUAL STUDIES ============ -->
 <section class="panel tall" id="films">
   <div class="container">
     <div class="sec-head reveal">
-      <div class="eyebrow">the films &middot; the three acts on screen</div>
-      <p class="statement">Watch the three acts.</p>
-      <p class="body">The finished films for each act: full length, original sound. Press play and the site&rsquo;s music steps aside. Best fullscreen, in the dark, <b>loud</b>.</p>
+      <div class="eyebrow">selected visual studies</div>
+      <p class="statement">Fragments from the film world.</p>
+      <p class="body">Short moving-image studies from the visual language of Construct of Time. Each appears as a single uninterrupted field rather than a multi-view presentation.</p>
     </div>
     <div class="films reveal d1">
-
       <figure class="film">
-        <div class="fmeta"><span class="fn">Act I</span><span class="ft">We Measure</span><span class="fd">3:51</span></div>
-        <div class="fwrap">
-          <video data-hls="media/video/hls/we_measure/index.m3u8" poster="media/video/hls/we_measure/poster.jpg" preload="none" playsinline></video>
-          <button class="fplay" aria-label="play We Measure"><span class="ring"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="fl">play &middot; sound on</span></button>
-        </div>
-        <figcaption class="fcap">ambient &middot; before division &middot; <b>the present before it is cut</b></figcaption>
+        <div class="fmeta"><span class="fn">Study I</span><span class="ft">Measurement / Field</span><span class="fd">motion study</span></div>
+        <div class="fwrap"><video src="media/video/c1.mp4" muted loop playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">radial systems · measurement · <b>the architecture of division</b></figcaption>
       </figure>
-
       <figure class="film">
-        <div class="fmeta"><span class="fn">Act II</span><span class="ft">You&rsquo;re the Wave</span><span class="fd">4:48</span></div>
-        <div class="fwrap">
-          <video data-hls="media/video/hls/youre_the_wave/index.m3u8" poster="media/video/hls/youre_the_wave/poster.jpg" preload="none" playsinline></video>
-          <button class="fplay" aria-label="play You're the Wave"><span class="ring"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="fl">play &middot; sound on</span></button>
-        </div>
-        <figcaption class="fcap">the cinematic centre &middot; <b>the self as wave, spread across an imagined timeline</b></figcaption>
+        <div class="fmeta"><span class="fn">Study II</span><span class="ft">The Witness</span><span class="fd">motion study</span></div>
+        <div class="fwrap"><video src="media/video/a1.mp4" muted loop playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">luminous figure · brutalist void · <b>presence without biography</b></figcaption>
       </figure>
-
       <figure class="film">
-        <div class="fmeta"><span class="fn">Act III</span><span class="ft">Beyond the End</span><span class="fd">5:09</span></div>
-        <div class="fwrap">
-          <video data-hls="media/video/hls/beyond_the_end/index.m3u8" poster="media/video/hls/beyond_the_end/poster.jpg" preload="none" playsinline></video>
-          <button class="fplay" aria-label="play Beyond the End"><span class="ring"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="fl">play &middot; sound on</span></button>
-        </div>
-        <figcaption class="fcap">one drop &middot; collapse and threshold &middot; <b>the moment the wave is read</b></figcaption>
+        <div class="fmeta"><span class="fn">Study III</span><span class="ft">Threshold</span><span class="fd">motion study</span></div>
+        <div class="fwrap"><video src="media/video/c2.mp4" muted loop playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">stillness · scale · <b>the figure inside the field</b></figcaption>
       </figure>
-
     </div>
   </div>
 </section>
@@ -798,12 +805,26 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   </div>
 </section>
 
+<!-- ============ PROGRAMMING / ENQUIRIES ============ -->
+<section class="panel tall" id="enquiries">
+  <div class="container enquiry-box">
+    <div class="eyebrow reveal">programming &middot; curatorial enquiries</div>
+    <h2 class="reveal d1">Bring Construct of Time<br>to your <em>space</em>.</h2>
+    <p class="reveal d2">For festival directors, curators, museums, galleries, audiovisual arts programs and cultural institutions. The live performance and immersive installation can be scaled in conversation with the venue while preserving the conceptual and audiovisual language of the work.</p>
+    <div class="enquiry-actions reveal d3">
+      <a href="mailto:tony@shufflem.com.au?subject=Construct%20of%20Time%20Programming%20Enquiry">programming enquiry</a>
+      <a href="mailto:tony@shufflem.com.au?subject=Construct%20of%20Time%20Presentation%20Deck">request presentation deck</a>
+      <a href="mailto:tony@shufflem.com.au?subject=Construct%20of%20Time%20Technical%20Specifications">technical specifications</a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CLOSE ============ -->
 <section class="panel" id="close">
   <div class="container" style="text-align:center">
     <p class="statement reveal">You do not have to hold a moment<br>for it to <em>matter</em>.<br>You only have to be there while it happens.</p>
     <p class="sig reveal d1">Construct of Time &middot; <b>Tony Funiciello</b></p>
-    <p class="coda reveal d1">a cinematic audiovisual experience. For the stage.</p>
+    <p class="coda reveal d1">one work. live performance &middot; immersive installation.</p>
   </div>
 </section>
 
@@ -1133,31 +1154,9 @@ document.getElementById("enterBtn").addEventListener("click",()=>{
   document.getElementById("arg").scrollIntoView({behavior:"smooth"});
 });
 
-/* ---------- the films: full clips with sound ---------- */
-const filmVids=[...document.querySelectorAll("#films .fwrap video")];
-let musicWasPlaying=false;
-filmVids.forEach(v=>{
-  const wrap=v.closest(".fwrap");
-  wrap.querySelector(".fplay").addEventListener("click",()=>{
-    if(!v.dataset.ready){
-      const src=v.dataset.hls;
-      if(v.canPlayType("application/vnd.apple.mpegurl"))v.src=src;
-      else if(window.Hls&&Hls.isSupported()){const h=new Hls();h.loadSource(src);h.attachMedia(v);}
-      v.dataset.ready=1;
-    }
-    v.controls=true;v.play().catch(()=>{});});
-  v.addEventListener("play",()=>{
-    wrap.classList.add("playing");
-    filmVids.forEach(o=>{if(o!==v)o.pause();});
-    if(!audio.paused){musicWasPlaying=true;audio.pause();}
-  });
-  v.addEventListener("pause",()=>{if(v.currentTime===0||v.ended)wrap.classList.remove("playing");});
-  v.addEventListener("ended",()=>{
-    wrap.classList.remove("playing");v.controls=false;
-    if(musicWasPlaying){audio.play().catch(()=>{});musicWasPlaying=false;}
-  });
-});
-/* pause films when they scroll out of view */
+/* ---------- selected visual studies ---------- */
+const filmVids=[...document.querySelectorAll("#films video")];
+filmVids.forEach(v=>v.addEventListener("play",()=>filmVids.forEach(o=>{if(o!==v)o.pause();})));
 const filmIO=new IntersectionObserver(es=>{es.forEach(e=>{if(!e.isIntersecting)e.target.pause();});},{threshold:.15});
 filmVids.forEach(v=>filmIO.observe(v));
 
@@ -1175,13 +1174,16 @@ const io=new IntersectionObserver(es=>{
       const lab=e.target.dataset.label;
       if(lab)hudNow.innerHTML=lab;
       else if(e.target.id==="philosophy")hudNow.textContent="· the question";
+      else if(e.target.id==="formats")hudNow.textContent="· one work / two forms";
       else if(e.target.id==="research")hudNow.textContent="· the science of now";
       else if(e.target.id==="installation")hudNow.textContent="· the show";
-      else if(e.target.id==="room")hudNow.textContent="· the stage";
+      else if(e.target.id==="stage-design")hudNow.textContent="· live";
+            else if(e.target.id==="room")hudNow.textContent="· immersive installation";
       else if(e.target.id==="story")hudNow.textContent="· the narrative";
       else if(e.target.id==="prologue")hudNow.textContent="· a thought";
       else if(e.target.id==="films")hudNow.textContent="· the films";
       else if(e.target.id==="score")hudNow.textContent="· the score";
+      else if(e.target.id==="enquiries")hudNow.textContent="· programming enquiries";
       else if(e.target.id==="close")hudNow.textContent="· construct of time";
       else if(e.target.id==="cover")hudNow.textContent="";
     } else {
@@ -1193,7 +1195,7 @@ const io=new IntersectionObserver(es=>{
 document.querySelectorAll(".panel").forEach(p=>io.observe(p));
 
 /* nav active state by scroll */
-const secMap={cover:"cover",arg:"arg",philosophy:"philosophy",research:"research",installation:"installation",room:"room",story:"story",films:"films",acts:"acts",score:"score"};
+const secMap={cover:"cover",arg:"arg",philosophy:"philosophy",formats:"formats",research:"research",installation:"installation",room:"room","stage-design":"stage-design",story:"story",films:"films",acts:"acts",score:"score",enquiries:"enquiries"};
 window.addEventListener("scroll",()=>{
   const y=scrollY+innerHeight*.5;
   let cur="cover";
@@ -1620,18 +1622,19 @@ const roomIO=new IntersectionObserver(es=>{
   es.forEach(e=>{roomOn=e.isIntersecting;if(e.isIntersecting){try{initRoom()}catch(err){roomOn=false;console.warn("room disabled",err)}}else if(R.setLoop&&R.loopActive)R.setLoop(false);});
 },{threshold:.2});
 roomIO.observe(document.getElementById("room"));
+
 </script>
 
 <script>
 (function(){
   document.querySelectorAll('video.stage-still').forEach(function(v){
-    var freeze=function(){var t=parseFloat(v.dataset.stillTime||'1');try{if(Number.isFinite(t)&&v.duration)v.currentTime=Math.min(t,Math.max(.1,v.duration-.15));}catch(e){}};
+    function freeze(){var t=parseFloat(v.dataset.stillTime||'1');try{if(Number.isFinite(t)&&v.duration)v.currentTime=Math.min(t,Math.max(.1,v.duration-.15));}catch(e){}}
     v.addEventListener('loadedmetadata',freeze,{once:true});
     v.addEventListener('seeked',function(){v.pause();});
     v.pause();
   });
   var demo=document.querySelector('#stage-design .stage-demo video');
-  if(demo){demo.addEventListener('loadedmetadata',function(){try{if(demo.currentTime===0)demo.currentTime=.15}catch(e){}},{once:true});}
+  if(demo) demo.addEventListener('loadedmetadata',function(){try{if(demo.currentTime===0)demo.currentTime=.15}catch(e){}},{once:true});
 })();
 </script>
 
