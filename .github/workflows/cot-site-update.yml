@@ -1,4 +1,4 @@
-name: Deploy final Construct of Time site
+name: Assemble exact final Construct of Time site
 
 on:
   push:
@@ -9,36 +9,38 @@ permissions:
   contents: write
 
 jobs:
-  deploy-final-site:
+  assemble-final:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Restore final site
+      - name: Restore exact approved website and stage stills
         shell: bash
         run: |
-          set -euo pipefail
-          cat deploy/cot-index.part* | base64 -d | gzip -dc > index.html
-          mkdir -p media/stage
-          command -v ffmpeg >/dev/null || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+          cat deploy/cot-index.part00 deploy/cot-index.part01 deploy/cot-index.part02 deploy/cot-index.part03 deploy/cot-index.part04 deploy/cot-index.part05 deploy/cot-index.part06 deploy/cot-index.part07 | base64 -d | gzip -d > index.html
 
-          curl -fL --retry 3 -o /tmp/stage01.mp4 'https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4'
-          curl -fL --retry 3 -o /tmp/stage02.mp4 'https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4'
-          curl -fL --retry 3 -o /tmp/stage03.mp4 'https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4'
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
 
-          ffmpeg -hide_banner -loglevel error -y -ss 2 -i /tmp/stage01.mp4 -frames:v 1 -vf 'scale=1920:-2' -q:v 3 media/stage/stage-01.jpg
-          ffmpeg -hide_banner -loglevel error -y -ss 4 -i /tmp/stage02.mp4 -frames:v 1 -vf 'scale=1920:-2' -q:v 3 media/stage/stage-02.jpg
-          ffmpeg -hide_banner -loglevel error -y -ss 3 -i /tmp/stage03.mp4 -frames:v 1 -vf 'scale=1920:-2' -q:v 3 media/stage/stage-03.jpg
+          replacements={
+            '<img src="media/stage/stage-01.png" alt="Construct of Time live stage — central portal, rear screen architecture and three performers" loading="lazy">':'<video class="stage-still" muted playsinline preload="auto" data-still-time="2.1"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>',
+            '<img src="media/stage/stage-02.png" alt="Construct of Time live stage — wide monochrome audience view" loading="lazy">':'<video class="stage-still" muted playsinline preload="auto" data-still-time="4.6"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>',
+            '<img src="media/stage/stage-03.png" alt="Construct of Time live stage — luminous figure and eclipse visual across the rear screen array" loading="lazy">':'<video class="stage-still" muted playsinline preload="auto" data-still-time="6.8"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>'
+          }
+          for a,b in replacements.items(): s=s.replace(a,b)
+          s=s.replace(' poster="media/stage/stage-01.png"','')
 
-          test -s index.html
-          grep -q 'Construct of Time' index.html
-          grep -q 'id="stage-design"' index.html
-          grep -q 'id="room"' index.html
-          grep -q '8ec6a63d-b6c9-4542-b754-30e42b4a6d06.mp4' index.html
-          grep -q 'media/stage/stage-01.jpg' index.html
+          freeze='''\n<script>\n(function(){\n  document.querySelectorAll('video.stage-still').forEach(function(v){\n    function freeze(){var t=parseFloat(v.dataset.stillTime||'1');try{if(Number.isFinite(t)&&v.duration)v.currentTime=Math.min(t,Math.max(.1,v.duration-.15));}catch(e){}}\n    v.addEventListener('loadedmetadata',freeze,{once:true});\n    v.addEventListener('seeked',function(){v.pause();});\n    v.pause();\n  });\n  var demo=document.querySelector('#stage-design .stage-demo video');\n  if(demo) demo.addEventListener('loadedmetadata',function(){try{if(demo.currentTime===0)demo.currentTime=.15}catch(e){}},{once:true});\n})();\n</script>\n'''
+          if "document.querySelectorAll('video.stage-still')" not in s:
+              s=s.replace('</body>',freeze+'\n</body>')
+          p.write_text(s)
+          PY
 
-          git config user.name 'ChatGPT Site Update'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html media/stage/
-          git commit -m 'Restore final COT site with LIVE demo and IMMERSIVE 3D room'
-          git push
+          git config user.name "ChatGPT Site Update"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Deploy exact final COT site with live demo and immersive 3D"
+            git push
+          fi
