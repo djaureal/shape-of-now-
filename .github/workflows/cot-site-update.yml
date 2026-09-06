@@ -1,15 +1,15 @@
 name: Deploy Construct of Time film fragments
 
 on:
-  push:
-    paths:
-      - '.github/workflows/cot-site-update.yml'
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
 
 jobs:
   update-film-fragments:
+    if: github.event.issue.title == 'DEPLOY COT FILM FRAGMENTS'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
