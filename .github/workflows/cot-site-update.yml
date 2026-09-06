@@ -1,77 +1,33 @@
-name: Deploy Construct of Time film fragments
+name: Deploy COT film fragments
 
 on:
   issues:
-    types: [opened]
+    types:
+      - opened
 
 permissions:
   contents: write
 
 jobs:
-  update-film-fragments:
-    if: github.event.issue.title == 'DEPLOY COT FILM FRAGMENTS'
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Restore the three self-hosted film fragments
-        shell: bash
+      - name: Update film fragment players
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import re
-
           p = Path('index.html')
           s = p.read_text()
 
-          old = '''    <div class="films reveal d1">
-      <figure class="film">
-        <div class="fmeta"><span class="fn">Study I</span><span class="ft">Measurement / Field</span><span class="fd">motion study</span></div>
-        <div class="fwrap"><video src="media/video/c1.mp4" muted loop playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">radial systems · measurement · <b>the architecture of division</b></figcaption>
-      </figure>
-      <figure class="film">
-        <div class="fmeta"><span class="fn">Study II</span><span class="ft">The Witness</span><span class="fd">motion study</span></div>
-        <div class="fwrap"><video src="media/video/a1.mp4" muted loop playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">luminous figure · brutalist void · <b>presence without biography</b></figcaption>
-      </figure>
-      <figure class="film">
-        <div class="fmeta"><span class="fn">Study III</span><span class="ft">Threshold</span><span class="fd">motion study</span></div>
-        <div class="fwrap"><video src="media/video/c2.mp4" muted loop playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">stillness · scale · <b>the figure inside the field</b></figcaption>
-      </figure>
-    </div>'''
+          s = s.replace('<div class="fmeta"><span class="fn">Study I</span><span class="ft">Measurement / Field</span><span class="fd">motion study</span></div>\n        <div class="fwrap"><video src="media/video/c1.mp4" muted loop playsinline preload="metadata" controls></video></div>\n        <figcaption class="fcap">radial systems · measurement · <b>the architecture of division</b></figcaption>', '<div class="fmeta"><span class="fn">Film I</span><span class="ft">We Measure</span><span class="fd">film fragment</span></div>\n        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/we_measure/index.m3u8" poster="media/video/hls/we_measure/poster.jpg" playsinline preload="metadata" controls></video></div>\n        <figcaption class="fcap">measurement · perception · <b>the architecture of division</b></figcaption>')
 
-          new = '''    <div class="films reveal d1">
-      <figure class="film">
-        <div class="fmeta"><span class="fn">Film I</span><span class="ft">We Measure</span><span class="fd">film fragment</span></div>
-        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/we_measure/index.m3u8" poster="media/video/hls/we_measure/poster.jpg" playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">measurement · perception · <b>the architecture of division</b></figcaption>
-      </figure>
-      <figure class="film">
-        <div class="fmeta"><span class="fn">Film II</span><span class="ft">You&rsquo;re the Wave</span><span class="fd">film fragment</span></div>
-        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/youre_the_wave/index.m3u8" poster="media/video/hls/youre_the_wave/poster.jpg" playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">identity · interference · <b>the self as wave, not point</b></figcaption>
-      </figure>
-      <figure class="film">
-        <div class="fmeta"><span class="fn">Film III</span><span class="ft">Beyond the End</span><span class="fd">film fragment</span></div>
-        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/beyond_the_end/index.m3u8" poster="media/video/hls/beyond_the_end/poster.jpg" playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">threshold · collapse · <b>beyond the measured edge</b></figcaption>
-      </figure>
-    </div>'''
+          s = s.replace('<div class="fmeta"><span class="fn">Study II</span><span class="ft">The Witness</span><span class="fd">motion study</span></div>\n        <div class="fwrap"><video src="media/video/a1.mp4" muted loop playsinline preload="metadata" controls></video></div>\n        <figcaption class="fcap">luminous figure · brutalist void · <b>presence without biography</b></figcaption>', '<div class="fmeta"><span class="fn">Film II</span><span class="ft">You&rsquo;re the Wave</span><span class="fd">film fragment</span></div>\n        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/youre_the_wave/index.m3u8" poster="media/video/hls/youre_the_wave/poster.jpg" playsinline preload="metadata" controls></video></div>\n        <figcaption class="fcap">identity · interference · <b>the self as wave, not point</b></figcaption>')
 
-          if old in s:
-              s = s.replace(old, new)
-          else:
-              s = re.sub(
-                  r'    <div class="films reveal d1">.*?    </div>\n  </div>\n</section>\n\n<!-- ============ ACTS',
-                  new + '\n  </div>\n</section>\n\n<!-- ============ ACTS',
-                  s,
-                  count=1,
-                  flags=re.S,
-              )
+          s = s.replace('<div class="fmeta"><span class="fn">Study III</span><span class="ft">Threshold</span><span class="fd">motion study</span></div>\n        <div class="fwrap"><video src="media/video/c2.mp4" muted loop playsinline preload="metadata" controls></video></div>\n        <figcaption class="fcap">stillness · scale · <b>the figure inside the field</b></figcaption>', '<div class="fmeta"><span class="fn">Film III</span><span class="ft">Beyond the End</span><span class="fd">film fragment</span></div>\n        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/beyond_the_end/index.m3u8" poster="media/video/hls/beyond_the_end/poster.jpg" playsinline preload="metadata" controls></video></div>\n        <figcaption class="fcap">threshold · collapse · <b>beyond the measured edge</b></figcaption>')
 
-          hls_script = '''
-<script src="media/lib/hls.min.js"></script>
+          if 'id="filmHlsInit"' not in s:
+              s = s.replace('</body>', '''<script src="media/lib/hls.min.js"></script>
 <script id="filmHlsInit">
 (function(){
   document.querySelectorAll('video.film-hls[data-hls]').forEach(function(video){
@@ -86,10 +42,7 @@ jobs:
   });
 })();
 </script>
-'''
-
-          if 'id="filmHlsInit"' not in s:
-              s = s.replace('</body>', hls_script + '\n</body>')
+</body>''')
 
           p.write_text(s)
           PY
