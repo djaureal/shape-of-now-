@@ -745,19 +745,19 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
     </div>
     <div class="films reveal d1">
       <figure class="film">
-        <div class="fmeta"><span class="fn">Study I</span><span class="ft">Measurement / Field</span><span class="fd">motion study</span></div>
-        <div class="fwrap"><video src="media/video/c1.mp4" muted loop playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">radial systems · measurement · <b>the architecture of division</b></figcaption>
+        <div class="fmeta"><span class="fn">Film I</span><span class="ft">We Measure</span><span class="fd">film fragment</span></div>
+        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/we_measure/index.m3u8" poster="media/video/hls/we_measure/poster.jpg" playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">measurement · perception · <b>the architecture of division</b></figcaption>
       </figure>
       <figure class="film">
-        <div class="fmeta"><span class="fn">Study II</span><span class="ft">The Witness</span><span class="fd">motion study</span></div>
-        <div class="fwrap"><video src="media/video/a1.mp4" muted loop playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">luminous figure · brutalist void · <b>presence without biography</b></figcaption>
+        <div class="fmeta"><span class="fn">Film II</span><span class="ft">You&rsquo;re the Wave</span><span class="fd">film fragment</span></div>
+        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/youre_the_wave/index.m3u8" poster="media/video/hls/youre_the_wave/poster.jpg" playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">identity · interference · <b>the self as wave, not point</b></figcaption>
       </figure>
       <figure class="film">
-        <div class="fmeta"><span class="fn">Study III</span><span class="ft">Threshold</span><span class="fd">motion study</span></div>
-        <div class="fwrap"><video src="media/video/c2.mp4" muted loop playsinline preload="metadata" controls></video></div>
-        <figcaption class="fcap">stillness · scale · <b>the figure inside the field</b></figcaption>
+        <div class="fmeta"><span class="fn">Film III</span><span class="ft">Beyond the End</span><span class="fd">film fragment</span></div>
+        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/beyond_the_end/index.m3u8" poster="media/video/hls/beyond_the_end/poster.jpg" playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">threshold · collapse · <b>beyond the measured edge</b></figcaption>
       </figure>
     </div>
   </div>
@@ -1653,5 +1653,21 @@ roomIO.observe(document.getElementById("room"));
 })();
 </script>
 
+
+<script src="media/lib/hls.min.js"></script>
+<script id="filmHlsInit">
+(function(){
+  document.querySelectorAll('video.film-hls[data-hls]').forEach(function(video){
+    var src = video.dataset.hls;
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+    } else if (window.Hls && Hls.isSupported()) {
+      var hls = new Hls({enableWorker:true, lowLatencyMode:false});
+      hls.loadSource(src);
+      hls.attachMedia(video);
+    }
+  });
+})();
+</script>
 </body>
 </html>
