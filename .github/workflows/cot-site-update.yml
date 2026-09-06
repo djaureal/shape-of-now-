@@ -1,4 +1,4 @@
-name: Fix final Construct of Time stage stills
+name: Deploy Construct of Time film fragments
 
 on:
   push:
@@ -9,27 +9,87 @@ permissions:
   contents: write
 
 jobs:
-  fix-stage-stills:
+  update-film-fragments:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Replace missing local stills with frozen stage frames
+      - name: Restore the three self-hosted film fragments
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p=Path('index.html')
-          s=p.read_text()
+          import re
 
-          s=s.replace(' poster="media/stage/stage-01.jpg"','')
+          p = Path('index.html')
+          s = p.read_text()
 
-          s=s.replace('<img src="media/stage/stage-01.jpg" alt="Construct of Time live stage — central portal, rear screen architecture and three performers" loading="lazy">', '<video class="stage-still" muted playsinline preload="metadata" data-still-time="2.1"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" type="video/mp4"></video>')
-          s=s.replace('<img src="media/stage/stage-02.jpg" alt="Construct of Time live stage — wide monochrome audience view" loading="lazy">', '<video class="stage-still" muted playsinline preload="metadata" data-still-time="4.6"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_4b5b88ed-9b1c-4fec-a9d9-a63f2dc41c3a.mp4" type="video/mp4"></video>')
-          s=s.replace('<img src="media/stage/stage-03.jpg" alt="Construct of Time live stage — luminous figure and eclipse visual across the rear screen array" loading="lazy">', '<video class="stage-still" muted playsinline preload="metadata" data-still-time="6.8"><source src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_125257_d58181e1-5e3b-48b3-8b2b-b0627b2a845c.mp4" type="video/mp4"></video>')
+          old = '''    <div class="films reveal d1">
+      <figure class="film">
+        <div class="fmeta"><span class="fn">Study I</span><span class="ft">Measurement / Field</span><span class="fd">motion study</span></div>
+        <div class="fwrap"><video src="media/video/c1.mp4" muted loop playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">radial systems · measurement · <b>the architecture of division</b></figcaption>
+      </figure>
+      <figure class="film">
+        <div class="fmeta"><span class="fn">Study II</span><span class="ft">The Witness</span><span class="fd">motion study</span></div>
+        <div class="fwrap"><video src="media/video/a1.mp4" muted loop playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">luminous figure · brutalist void · <b>presence without biography</b></figcaption>
+      </figure>
+      <figure class="film">
+        <div class="fmeta"><span class="fn">Study III</span><span class="ft">Threshold</span><span class="fd">motion study</span></div>
+        <div class="fwrap"><video src="media/video/c2.mp4" muted loop playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">stillness · scale · <b>the figure inside the field</b></figcaption>
+      </figure>
+    </div>'''
 
-          freeze='''\n<script id="stageStillFreeze">\n(function(){\n  document.querySelectorAll('video.stage-still').forEach(function(v){\n    function freeze(){\n      var t=parseFloat(v.dataset.stillTime||'1');\n      try{ if(Number.isFinite(t) && v.duration) v.currentTime=Math.min(t, Math.max(.1,v.duration-.15)); }catch(e){}\n    }\n    v.addEventListener('loadedmetadata', freeze, {once:true});\n    v.addEventListener('seeked', function(){ v.pause(); });\n    v.pause();\n  });\n})();\n</script>\n'''
-          if 'id="stageStillFreeze"' not in s:
-              s=s.replace('</body>', freeze+'\n</body>')
+          new = '''    <div class="films reveal d1">
+      <figure class="film">
+        <div class="fmeta"><span class="fn">Film I</span><span class="ft">We Measure</span><span class="fd">film fragment</span></div>
+        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/we_measure/index.m3u8" poster="media/video/hls/we_measure/poster.jpg" playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">measurement · perception · <b>the architecture of division</b></figcaption>
+      </figure>
+      <figure class="film">
+        <div class="fmeta"><span class="fn">Film II</span><span class="ft">You&rsquo;re the Wave</span><span class="fd">film fragment</span></div>
+        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/youre_the_wave/index.m3u8" poster="media/video/hls/youre_the_wave/poster.jpg" playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">identity · interference · <b>the self as wave, not point</b></figcaption>
+      </figure>
+      <figure class="film">
+        <div class="fmeta"><span class="fn">Film III</span><span class="ft">Beyond the End</span><span class="fd">film fragment</span></div>
+        <div class="fwrap"><video class="film-hls" data-hls="media/video/hls/beyond_the_end/index.m3u8" poster="media/video/hls/beyond_the_end/poster.jpg" playsinline preload="metadata" controls></video></div>
+        <figcaption class="fcap">threshold · collapse · <b>beyond the measured edge</b></figcaption>
+      </figure>
+    </div>'''
+
+          if old in s:
+              s = s.replace(old, new)
+          else:
+              s = re.sub(
+                  r'    <div class="films reveal d1">.*?    </div>\n  </div>\n</section>\n\n<!-- ============ ACTS',
+                  new + '\n  </div>\n</section>\n\n<!-- ============ ACTS',
+                  s,
+                  count=1,
+                  flags=re.S,
+              )
+
+          hls_script = '''
+<script src="media/lib/hls.min.js"></script>
+<script id="filmHlsInit">
+(function(){
+  document.querySelectorAll('video.film-hls[data-hls]').forEach(function(video){
+    var src = video.dataset.hls;
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+    } else if (window.Hls && Hls.isSupported()) {
+      var hls = new Hls({enableWorker:true, lowLatencyMode:false});
+      hls.loadSource(src);
+      hls.attachMedia(video);
+    }
+  });
+})();
+</script>
+'''
+
+          if 'id="filmHlsInit"' not in s:
+              s = s.replace('</body>', hls_script + '\n</body>')
 
           p.write_text(s)
           PY
@@ -38,6 +98,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           if ! git diff --cached --quiet; then
-            git commit -m "Fix stage stills in final COT website"
+            git commit -m "Restore self-hosted COT film fragments"
             git push
           fi
