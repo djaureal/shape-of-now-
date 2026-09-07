@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-9500 0 19000 12000" width="1900" height="1200">
+<defs>
+<style>
+  .stage{fill:#fafafa;stroke:#111;stroke-width:25}.screen{stroke:#111;stroke-width:120;stroke-linecap:square}.ghost{stroke:#aaa;stroke-width:45;stroke-dasharray:100 70}.guide{stroke:#bbb;stroke-width:15;stroke-dasharray:70 70}.zone{fill:#eee;stroke:#777;stroke-width:18}.pivot{fill:#fff;stroke:#111;stroke-width:20}.dim{stroke:#333;stroke-width:15}.txt{font-family:Arial,sans-serif;fill:#111;font-size:190px}.small{font-family:Arial,sans-serif;fill:#333;font-size:145px}.title{font-family:Arial,sans-serif;fill:#111;font-size:270px;letter-spacing:35px}.note{font-family:Arial,sans-serif;fill:#222;font-size:130px}
+</style>
+</defs>
+<rect x="-9000" y="500" width="18000" height="10000" class="stage"/>
+<text x="-8800" y="-50" class="title">CONSTRUCT OF TIME — A101 FLOOR PLAN</text>
+<text x="-8800" y="230" class="small">DESIGN DEVELOPMENT · TOP VIEW · UNITS mm · AUDIENCE DOWNSTAGE</text>
+<line x1="0" y1="500" x2="0" y2="10500" class="guide"/>
+<line x1="-8200" y1="1500" x2="8200" y2="1500" class="guide"/>
+<line x1="-8200" y1="2000" x2="8200" y2="2000" class="guide"/>
+<line x1="-8200" y1="2500" x2="8200" y2="2500" class="guide"/>
+<line x1="-8200" y1="3000" x2="8200" y2="3000" class="guide"/>
+<!-- Open-state ghost screens -->
+<line x1="-7500" y1="3000" x2="-6000" y2="3000" class="ghost"/><line x1="-5500" y1="2500" x2="-4000" y2="2500" class="ghost"/><line x1="-3500" y1="2000" x2="-2000" y2="2000" class="ghost"/><line x1="-1500" y1="1500" x2="1500" y2="1500" class="ghost"/><line x1="2000" y1="2000" x2="3500" y2="2000" class="ghost"/><line x1="4000" y1="2500" x2="5500" y2="2500" class="ghost"/><line x1="6000" y1="3000" x2="7500" y2="3000" class="ghost"/>
+<!-- Locked 30° converged state. Left side / ; right side \\ -->
+<line x1="-7399.5" y1="3375" x2="-6100.5" y2="2625" class="screen"/>
+<line x1="-5399.5" y1="2875" x2="-4100.5" y2="2125" class="screen"/>
+<line x1="-3399.5" y1="2375" x2="-2100.5" y2="1625" class="screen"/>
+<line x1="-1500" y1="1500" x2="1500" y2="1500" class="screen"/>
+<line x1="2100.5" y1="1625" x2="3399.5" y2="2375" class="screen"/>
+<line x1="4100.5" y1="2125" x2="5399.5" y2="2875" class="screen"/>
+<line x1="6100.5" y1="2625" x2="7399.5" y2="3375" class="screen"/>
+<!-- Rotation-axis centres -->
+<g><circle cx="-6750" cy="3000" r="85" class="pivot"/><circle cx="-4750" cy="2500" r="85" class="pivot"/><circle cx="-2750" cy="2000" r="85" class="pivot"/><circle cx="0" cy="1500" r="85" class="pivot"/><circle cx="2750" cy="2000" r="85" class="pivot"/><circle cx="4750" cy="2500" r="85" class="pivot"/><circle cx="6750" cy="3000" r="85" class="pivot"/></g>
+<!-- Labels -->
+<text x="-6750" y="3550" class="txt" text-anchor="middle">S1</text><text x="-6750" y="3780" class="small" text-anchor="middle">+1500 DS · 30° IN</text>
+<text x="-4750" y="3050" class="txt" text-anchor="middle">S2</text><text x="-4750" y="3280" class="small" text-anchor="middle">+1000 DS · 30° IN</text>
+<text x="-2750" y="2550" class="txt" text-anchor="middle">S3</text><text x="-2750" y="2780" class="small" text-anchor="middle">+500 DS · 30° IN</text>
+<text x="0" y="1260" class="txt" text-anchor="middle">S4 · 3000 W · FIXED 0°</text>
+<text x="2750" y="2550" class="txt" text-anchor="middle">S5</text><text x="2750" y="2780" class="small" text-anchor="middle">+500 DS · 30° IN</text>
+<text x="4750" y="3050" class="txt" text-anchor="middle">S6</text><text x="4750" y="3280" class="small" text-anchor="middle">+1000 DS · 30° IN</text>
+<text x="6750" y="3550" class="txt" text-anchor="middle">S7</text><text x="6750" y="3780" class="small" text-anchor="middle">+1500 DS · 30° IN</text>
+<!-- Performer zones, provisional -->
+<rect x="-6100" y="5000" width="3200" height="2600" class="zone"/><rect x="-2000" y="4800" width="4000" height="3200" class="zone"/><rect x="2900" y="5000" width="3200" height="2600" class="zone"/>
+<text x="-4500" y="6350" class="txt" text-anchor="middle">BASS · STAGE LEFT</text><text x="-4500" y="6580" class="small" text-anchor="middle">PROVISIONAL ZONE</text>
+<text x="0" y="6350" class="txt" text-anchor="middle">DRUMS · CENTRE</text><text x="0" y="6580" class="small" text-anchor="middle">PROVISIONAL ZONE</text>
+<text x="4500" y="6350" class="txt" text-anchor="middle">KEYS · STAGE RIGHT</text><text x="4500" y="6580" class="small" text-anchor="middle">PROVISIONAL ZONE</text>
+<!-- Array width / stage width -->
+<line x1="-7500" y1="4100" x2="7500" y2="4100" class="dim"/><line x1="-7500" y1="4000" x2="-7500" y2="4200" class="dim"/><line x1="7500" y1="4000" x2="7500" y2="4200" class="dim"/><text x="0" y="4050" class="small" text-anchor="middle">OPEN ARRAY WIDTH = 15000 · NOMINAL OPEN GAP = 500 BETWEEN EVERY ADJACENT SCREEN</text>
+<line x1="-9000" y1="10000" x2="9000" y2="10000" class="dim"/><text x="0" y="9900" class="small" text-anchor="middle">PRELIMINARY STAGE ENVELOPE = 18000 W × 10000 D</text>
+<text x="0" y="10950" class="title" text-anchor="middle">AUDIENCE / DOWNSTAGE ↓</text>
+<!-- Notes -->
+<text x="-8800" y="11400" class="note">LOCKED SCREEN GEOMETRY: S1–S3 &amp; S5–S7 = 1500 W × 5000 H · S4 = 3000 W × 5000 H · DS STEPS 500 / 1000 / 1500</text>
+<text x="-8800" y="11610" class="note">30° CONVERGED: LEFT SCREENS READ / · RIGHT SCREENS READ \ · S4 HORIZONTAL · NO TILT · ROTATING BASE ENGINEERING BY STAGING SUPPLIER</text>
+<text x="-8800" y="11820" class="note">STATUS: DESIGN DEVELOPMENT / NOT FOR CONSTRUCTION · FINAL DECK, STRUCTURE, LOADS, INTERLOCKS, RIGGING AND COMPLIANCE BY CERTIFIED SUPPLIERS</text>
+</svg>
