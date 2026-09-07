@@ -1,0 +1,42 @@
+{
+  "drawing": "COT A101 Stage Floor Plan v1.0",
+  "status": "Design Development - Not For Construction",
+  "units": "mm",
+  "coordinate_system": {
+    "origin": "centre of S4 at its screen centreline",
+    "x_axis": "positive stage right",
+    "y_axis": "positive upstage; audience/downstage is negative Y"
+  },
+  "stage_envelope_preliminary": {
+    "width_mm": 18000,
+    "depth_mm": 10000,
+    "note": "Preliminary recommended envelope only; final deck size to be confirmed with staging supplier."
+  },
+  "screen_system": {
+    "total_screens": 7,
+    "side_screen_size_mm": [1500, 5000],
+    "centre_screen_size_mm": [3000, 5000],
+    "nominal_clear_gap_open_mm": 500,
+    "open_array_overall_width_mm": 15000,
+    "rotation_axis": "vertical axis through each side-screen centre; final platform/pivot engineering by staging supplier",
+    "no_tilt": true,
+    "screens": [
+      {"id":"S1","centre_mm":[-6750,-1500],"downstage_offset_mm":1500,"open_deg":0,"converged_deg":30},
+      {"id":"S2","centre_mm":[-4750,-1000],"downstage_offset_mm":1000,"open_deg":0,"converged_deg":30},
+      {"id":"S3","centre_mm":[-2750,-500],"downstage_offset_mm":500,"open_deg":0,"converged_deg":30},
+      {"id":"S4","centre_mm":[0,0],"downstage_offset_mm":0,"open_deg":0,"converged_deg":0},
+      {"id":"S5","centre_mm":[2750,-500],"downstage_offset_mm":500,"open_deg":0,"converged_deg":-30},
+      {"id":"S6","centre_mm":[4750,-1000],"downstage_offset_mm":1000,"open_deg":0,"converged_deg":-30},
+      {"id":"S7","centre_mm":[6750,-1500],"downstage_offset_mm":1500,"open_deg":0,"converged_deg":-30}
+    ]
+  },
+  "orientation_note": "In top view with audience downstage, left-side screens S1-S3 read as / at 30 degrees; right-side screens S5-S7 read as \\ at 30 degrees. S4 remains horizontal.",
+  "supplier_scope": [
+    "motorised rotating screen bases/platforms",
+    "pivot and drive mechanism",
+    "structural support and ballast/rigging",
+    "loads and engineering certification",
+    "movement limits, interlocks and emergency stops",
+    "local compliance and safety"
+  ]
+}
