@@ -1,0 +1,36 @@
+name: Remove obsolete installation visualiser
+
+on:
+  push:
+    paths:
+      - 'docs/.remove-room-replacement-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove temporary 2D visualiser and keep restored original
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('installation/index.html')
+          s=p.read_text()
+          s2,n=re.subn(r'\n?<script id="roomVisualiser">.*?</script>\n?', '\n', s, flags=re.S)
+          if n != 1:
+              raise SystemExit(f'Expected exactly one obsolete roomVisualiser script, found {n}')
+          if 'data-cot-room="original-backup-63cf874"' not in s2:
+              raise SystemExit('Original protected-backup visualiser marker missing; refusing to write')
+          if 'three.js/r128/three.min.js' not in s2:
+              raise SystemExit('Original Three.js dependency missing; refusing to write')
+          p.write_text(s2)
+          PY
+          git config user.name "ChatGPT Site Update"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add installation/index.html
+          git commit -m "Remove obsolete replacement visualiser"
+          git push
