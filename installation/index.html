@@ -10,10 +10,56 @@
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--v);color:var(--s);font-family:var(--sa);font-weight:300;overflow-x:hidden}.hud{position:fixed;z-index:40;top:18px;left:var(--g);font:9px var(--mo);letter-spacing:.2em;text-transform:uppercase}.hud a{color:var(--f);text-decoration:none}.hud small{display:block;color:var(--d);margin-top:5px}.switch{position:fixed;z-index:40;top:18px;right:var(--g);display:flex;gap:15px;font:9px var(--mo);letter-spacing:.18em;text-transform:uppercase}.switch a{color:var(--d);text-decoration:none}.switch .on{color:var(--s)}
 .panel{position:relative;min-height:72svh;display:flex;align-items:center;padding:clamp(72px,10vh,118px) var(--g);overflow:hidden}.hero{min-height:100svh}.inner{width:min(1200px,100%);margin:auto;position:relative;z-index:4}.bg{position:absolute;inset:0}.bg video{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) brightness(.55) contrast(1.1)}.bg:after{content:"";position:absolute;inset:0;background:radial-gradient(90% 82% at 50% 50%,rgba(5,7,10,.48),rgba(5,7,10,.86))}.sectionbar{position:absolute;top:0;left:var(--g);right:var(--g);height:54px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;border-top:1px solid var(--l);z-index:5}.sectionbar i{font:italic 300 26px var(--ser);color:var(--f);min-width:32px}.sectionbar span{height:1px;background:linear-gradient(90deg,var(--l),rgba(207,230,239,.04))}.eye{font:10px var(--mo);letter-spacing:.34em;text-transform:uppercase;color:var(--f);margin-bottom:18px}.h1{font:300 clamp(48px,8vw,110px)/.9 var(--ser);max-width:9ch}.h1 em,.h2 em{color:var(--f);font-style:italic}.h2{font:300 clamp(34px,4.8vw,62px)/1.05 var(--ser)}.copy{max-width:59ch;color:var(--i);font-size:clamp(14.5px,1.3vw,17px);line-height:1.75;margin-top:20px}.quote{font:italic 300 clamp(21px,2.7vw,34px)/1.3 var(--ser);color:var(--f);max-width:29ch;margin-top:25px}.meta{font:9px var(--mo);letter-spacing:.17em;text-transform:uppercase;color:var(--d);margin-top:25px}.states{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--l);border:1px solid var(--l);margin-top:38px}.state{min-height:260px;background:rgba(7,10,14,.88);padding:30px;display:flex;flex-direction:column;justify-content:flex-end}.state b{font:9px var(--mo);letter-spacing:.2em;text-transform:uppercase;color:var(--f);font-weight:400}.state h3{font:300 34px var(--ser);margin:12px 0}.research{margin-top:38px;border-top:1px solid var(--l);background:rgba(5,7,10,.72)}details{border-bottom:1px solid rgba(207,230,239,.1);padding:20px 6px}summary{cursor:pointer;list-style:none;font:400 clamp(20px,2.4vw,28px) var(--ser)}summary span{font:9px var(--mo);color:var(--f);margin-right:16px}details p{color:var(--i);line-height:1.7;max-width:70ch;margin:15px 0 3px 42px}.films{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px}.film img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--l)}.film h3{font:400 23px var(--ser);margin-top:10px}
 .room-intro{position:relative;padding:clamp(74px,9vh,112px) var(--g) clamp(62px,8vh,92px);background:linear-gradient(180deg,#05070a,#080b10)}.room-intro .inner{max-width:1180px}.research-kicker{display:flex;align-items:center;gap:18px;margin-bottom:clamp(30px,4vh,46px)}.research-kicker .eye{margin:0;white-space:normal}.research-kicker:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(207,230,239,.28),rgba(207,230,239,.03))}.research-layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);gap:clamp(36px,6vw,86px);align-items:start}.research-question{font:300 clamp(38px,5.3vw,70px)/1.02 var(--ser);max-width:18ch;letter-spacing:-.012em}.research-question em{color:var(--f);font-style:italic}.research-body{padding-top:clamp(4px,1.2vw,16px)}.research-body .copy{margin-top:0;max-width:64ch}.research-body .quote{max-width:24ch;margin-top:30px}.research-note{margin-top:26px;padding-top:18px;border-top:1px solid rgba(207,230,239,.12);font:9px var(--mo);letter-spacing:.16em;text-transform:uppercase;color:var(--d);line-height:1.7}
-.room{position:relative;height:min(82svh,860px);min-height:620px;background:#030509;overflow:hidden;border-top:1px solid rgba(207,230,239,.12);border-bottom:1px solid rgba(207,230,239,.12)}#roomCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}#roomCanvas:active{cursor:grabbing}.room-ui{position:absolute;inset:0;z-index:3;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(28px,4vw,56px) var(--g)}.room-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.room-label{font:9px var(--mo);letter-spacing:.22em;text-transform:uppercase;color:var(--f);max-width:42ch;line-height:1.7}.room-phase{font:9px var(--mo);letter-spacing:.22em;text-transform:uppercase;color:var(--f);text-align:right;min-height:16px}.room-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap}.room-help{font:9px var(--mo);letter-spacing:.14em;text-transform:uppercase;color:var(--d);line-height:1.8}.room-ctrl{display:flex;gap:8px;flex-wrap:wrap;pointer-events:auto}.room-ctrl button{font:9px var(--mo);letter-spacing:.15em;text-transform:uppercase;color:var(--i);background:rgba(5,7,10,.7);backdrop-filter:blur(7px);border:1px solid var(--l);padding:11px 14px;cursor:pointer}.room-ctrl button.on{background:var(--f);color:#05070a;border-color:var(--f)}.room-ctrl .zoom{min-width:42px;font-size:14px;padding:8px 12px}.warn{position:absolute;inset:0;z-index:8;background:rgba(3,5,9,.92);display:none;place-items:center;padding:24px}.warn.show{display:grid}.warnbox{max-width:460px;border:1px solid var(--l);background:#080b10;padding:34px;text-align:center}.warnbox h3{font:10px var(--mo);letter-spacing:.25em;text-transform:uppercase;color:var(--f);margin-bottom:15px}.warnbox p{font-size:13.5px;line-height:1.7;color:var(--i)}.warnact{display:flex;justify-content:center;gap:10px;margin-top:22px}.warnact button{font:9px var(--mo);letter-spacing:.16em;text-transform:uppercase;padding:11px 17px;border:1px solid var(--l);background:none;color:var(--s);cursor:pointer}.warnact .go{background:var(--f);color:#05070a;border-color:var(--f)}
+
+/* Original COT room compatibility aliases */
+:root{--void:var(--v);--signal:var(--s);--filament:var(--f);--dim:var(--d);--dimmer:#49525a;--ink:var(--i);--line:var(--l);--line-soft:rgba(207,230,239,.07);--glow:rgba(207,230,239,.5);--serif:var(--ser);--mono:var(--mo);--sans:var(--sa)}
+#room .container{width:100%;max-width:1320px;margin-inline:auto;padding-inline:var(--g);position:relative;z-index:3}
+/* 3d room */
+#room{padding:0;min-height:100svh;background:#04060a}
+#roomCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;cursor:grab}
+#roomCanvas:active{cursor:grabbing}
+.room-ov{position:relative;z-index:3;width:100%;align-self:flex-end;pointer-events:none}
+.room-ov .container{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;padding-bottom:clamp(92px,13vh,140px)}
+.room-cap{max-width:430px;pointer-events:auto}
+.room-cap .eyebrow{margin-bottom:18px}
+.room-cap h3{font-family:var(--serif);font-weight:300;font-size:clamp(26px,3.4vw,44px);line-height:1.06}
+.room-cap p{font-family:var(--mono);font-size:11px;letter-spacing:.08em;line-height:1.75;color:var(--dim);margin-top:18px;max-width:42ch}
+.room-ctrl{display:flex;gap:10px;pointer-events:auto}
+.room-ctrl button{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+  background:rgba(8,11,15,.5);backdrop-filter:blur(6px);border:1px solid var(--line);padding:11px 18px;cursor:pointer;transition:.3s}
+.room-ctrl button:hover{color:var(--signal);border-color:var(--glow)}
+.room-ctrl button.on{color:var(--void);background:var(--filament);border-color:var(--filament)}
+.room-ctrl .primary{display:flex;align-items:center;gap:9px;color:var(--void);background:var(--filament);border-color:var(--filament)}
+.room-ctrl .primary:hover{color:var(--void);background:#e6f4fa;letter-spacing:.2em}
+.room-ctrl .primary.on{background:rgba(8,11,15,.55);color:var(--filament);border-color:var(--glow)}
+.room-ctrl .primary .ic{display:inline-flex}
+.room-ctrl .primary .ic svg{width:10px;height:10px;fill:currentColor;display:block}
+.room-ctrl .zoom{padding:11px 15px;font-size:13px;line-height:1;min-width:42px;text-align:center}
+.room-phase{position:absolute;top:clamp(72px,11vh,112px);left:50%;transform:translateX(-50%);z-index:4;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--filament);
+  opacity:0;transition:opacity .5s;pointer-events:none;text-align:center;text-shadow:0 0 14px var(--glow);white-space:nowrap}
+.room-ctrl .primary.strobe{box-shadow:0 0 16px rgba(207,230,239,.4)}
+.strobe-warn{position:absolute;inset:0;z-index:6;display:none;align-items:center;justify-content:center;
+  background:rgba(3,5,9,.85);backdrop-filter:blur(8px);pointer-events:auto;padding:24px}
+.strobe-warn.show{display:flex}
+.sw-box{max-width:460px;border:1px solid var(--line);background:#080b10;padding:36px clamp(24px,3vw,42px);text-align:center}
+.sw-ic{font-size:28px;color:var(--filament);margin-bottom:14px;line-height:1}
+.sw-box h4{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--filament);margin-bottom:16px}
+.sw-box p{font-family:var(--sans);font-weight:300;font-size:13.5px;line-height:1.7;color:var(--ink)}
+.sw-act{display:flex;gap:12px;justify-content:center;margin-top:26px}
+.sw-act button{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--void);background:var(--filament);border:1px solid var(--filament);padding:12px 26px;cursor:pointer;transition:.3s}
+.sw-act button:hover{letter-spacing:.26em}
+.sw-act .ghost{background:none;color:var(--dim);border-color:var(--line)}
+.sw-act .ghost:hover{color:var(--signal)}
+.room-hint{position:absolute;top:calc(50% - 0px);left:50%;transform:translate(-50%,-50%);z-index:2;font-family:var(--mono);
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--dimmer);pointer-events:none;transition:opacity .6s;text-align:center}
+
+
+
 @media(max-width:900px){.research-layout{grid-template-columns:1fr;gap:30px}.research-question{max-width:21ch;font-size:clamp(38px,7vw,58px)}.research-body{padding-top:0}.research-body .copy{max-width:70ch}.research-kicker{margin-bottom:30px}}
 @media(max-width:780px){.switch{top:70px;left:var(--g);right:auto}.panel{padding-left:24px;padding-right:24px}.sectionbar{left:24px;right:24px}.states,.films{grid-template-columns:1fr}.room-intro{padding-left:24px;padding-right:24px}.research-kicker{gap:12px;align-items:flex-start}.research-kicker:after{margin-top:6px}.research-question{font-size:clamp(34px,9vw,48px);line-height:1.03;max-width:18ch}.room{min-height:560px;height:72svh}.room-ui{padding:28px 24px}.room-top{flex-direction:column}.room-phase{text-align:left}.room-bottom{align-items:flex-start}.room-ctrl{width:100%}}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <div class="hud"><a href="../">CONSTRUCT OF TIME</a><small>Tony Funiciello · Immersive Installation</small></div>
@@ -23,7 +69,37 @@
 <section class="panel"><div class="sectionbar"><i>II</i><span></span></div><div class="bg"><video src="../media/installation/many-presents.mp4" muted autoplay loop playsinline preload="metadata"></video></div><div class="inner"><div class="eye">many presents</div><h2 class="h2">The same work can contain completely different experiences of <em>duration</em>.</h2><p class="copy">One visitor stays with an image for ten minutes. Another crosses it in thirty seconds. Someone enters while somebody else leaves.</p><p class="quote">One space can contain many different nows.</p></div></section>
 <section class="panel"><div class="sectionbar"><i>III</i><span></span></div><div class="bg"><video src="../media/installation/field.mp4" muted autoplay loop playsinline preload="metadata"></video></div><div class="inner"><div class="eye">the field</div><h2 class="h2">Image, sound and architecture become one perceptual <em>environment</em>.</h2><p class="copy">Moving image becomes surface and scale. Spatial sound creates events beyond the field of vision. Darkness hides what comes next. Light determines what appears.</p><p class="quote">The room is not where the artwork is placed. The room becomes part of the artwork.</p></div></section>
 <section class="room-intro"><div class="inner"><div class="research-kicker"><div class="eye">spatial research · biological time / linear time</div></div><div class="research-layout"><h2 class="research-question">Can an environment change the duration a body <em>feels</em> without changing the duration a clock measures?</h2><div class="research-body"><p class="copy">The installation develops from research into the difference between linear time and experienced time. Clock time continues at a constant rate, while biological and perceptual time can expand, compress, fragment or seem to suspend according to attention, anticipation, repetition, sensory density and arousal.</p><p class="copy">Moving image, spatial sound, darkness, light and architecture are treated as instruments for disturbing that relationship. A minute remains a minute, but the experience of that minute is allowed to change.</p><p class="quote">The experiment is not to represent time. It is to alter how duration is felt.</p><div class="research-note">constant measured duration · variable experienced duration</div></div></div></div></section>
-<section class="room" id="room"><canvas id="roomCanvas"></canvas><div class="room-ui"><div class="room-top"><div class="room-label">construct of time · immersive installation · real-time spatial preview</div><div class="room-phase" id="roomPhase">calm field</div></div><div class="room-bottom"><div class="room-help">drag to look around · use + / − to zoom · switch perceptual states</div><div class="room-ctrl"><button id="calmBtn" class="on">calm</button><button id="strobeBtn">compression</button><button id="showBtn" class="on">show</button><button id="bonesBtn">bones</button><button id="zin" class="zoom" aria-label="zoom in">+</button><button id="zout" class="zoom" aria-label="zoom out">−</button></div></div></div><div class="warn" id="warn"><div class="warnbox"><h3>Photosensitivity warning</h3><p>The compression state contains flashing light and rapid visual change. It may affect viewers with photosensitive epilepsy.</p><div class="warnact"><button id="cancel">cancel</button><button id="continue" class="go">continue</button></div></div></div></section>
+<!-- ============ 3D ROOM ============ -->
+<section class="panel" id="room">
+  <canvas id="roomCanvas"></canvas>
+  <div class="room-hint" id="roomHint">drag to look around &middot; zoom with + / &minus; &middot; scroll to continue down</div>
+  <div class="room-phase" id="roomPhase"></div>
+  <div class="strobe-warn" id="strobeWarn">
+    <div class="sw-box">
+      <div class="sw-ic">&#9888;</div>
+      <h4>Photosensitivity warning</h4>
+      <p>This stroboscopic sequence contains flashing light and rapid motion, and may affect viewers with photosensitive epilepsy. This on-screen demo is limited to safe flash rates; the live show runs under medical guidance and front-of-house supervision.</p>
+      <div class="sw-act"><button id="strobeGo">continue</button><button id="strobeNo" class="ghost">cancel</button></div>
+    </div>
+  </div>
+  <div class="room-ov"><div class="container">
+    <div class="room-cap">
+      <div class="eyebrow">construct of time &middot; immersive installation &middot; spatial preview</div>
+      <h3>Enter the perceptual field.</h3>
+      <p>This real-time spatial study previews the immersive installation language of the gallery form. Drag to move through the environment, zoom, and explore two perceptual states: <b>calm</b>, where duration opens and slows; <b>strobe</b>, where image, rhythm and anticipation compress the sense of now (photosensitivity warning).</p>
+    </div>
+    <div class="room-ctrl">
+      <button id="btnCalm" class="primary"><span class="ic" id="calmIcon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span id="calmLabel">calm loop</span></button>
+      <button id="btnStrobe" class="primary strobe"><span class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span><span id="strobeLabel">strobe loop</span></button>
+      <button id="btnShow" class="on">show</button>
+      <button id="btnBones">bones</button>
+      <button id="btnZin" class="zoom" aria-label="zoom in">+</button>
+      <button id="btnZout" class="zoom" aria-label="zoom out">&minus;</button>
+    </div>
+  </div></div>
+</section>
+
+
 <section class="panel"><div class="sectionbar"><i>IV</i><span></span></div><div class="bg"><video src="../media/installation/duration.mp4" muted autoplay loop playsinline preload="metadata"></video></div><div class="inner"><div class="eye">duration</div><h2 class="h2">Sixty seconds can contain almost nothing, or almost <em>everything</em>.</h2><p class="copy">Sparse movement can make duration expand. Repetition can make the mind anticipate what comes next. Increasing density can compress attention.</p><div class="states"><div class="state"><b>state 01 · duration</b><h3>Calm / Open</h3><p>Long intervals and slow visual change allow the present to widen.</p></div><div class="state"><b>state 02 · anticipation</b><h3>Compression / Pulse</h3><p>Rhythm and density pull attention toward what comes next.</p></div></div><p class="quote">The measured interval remains unchanged. The person experiencing it does not.</p></div></section>
 <section class="panel"><div class="sectionbar"><i>V</i><span></span></div><div class="bg"><video src="../media/installation/science.mp4" muted autoplay loop playsinline preload="metadata"></video></div><div class="inner"><div class="eye">the science of now</div><h2 class="h2">The artwork begins with <em>perception</em>.</h2><p class="copy">The six findings behind Construct of Time are not an explanation added afterwards. They are the factual questions from which the work developed.</p><div class="research"><details><summary><span>01</span>The present is not an instant.</summary><p>Conscious experience integrates information across a short temporal window.</p></details><details><summary><span>02</span>Now is assembled.</summary><p>The brain synchronises sensory signals arriving at different speeds.</p></details><details><summary><span>03</span>Perception is partly prediction.</summary><p>The brain anticipates what is likely to happen and corrects those predictions against incoming information.</p></details><details><summary><span>04</span>Action can begin before awareness.</summary><p>Neural preparation can precede conscious awareness of a voluntary decision.</p></details><details><summary><span>05</span>The present can revise the recent past.</summary><p>Later information can influence how something moments earlier is perceived.</p></details><details><summary><span>06</span>Clock time is not experienced time.</summary><p>Attention, anticipation, fear, novelty and memory can stretch or collapse duration.</p></details></div></div></section>
 <section class="panel"><div class="sectionbar"><i>VI</i><span></span></div><div class="bg"><video src="../media/installation/film-world.mp4" muted autoplay loop playsinline preload="metadata"></video></div><div class="inner"><div class="eye">the film world</div><h2 class="h2">The films become material rather than <em>screenings</em>.</h2><div class="films"><div class="film"><img src="../media/video/hls/we_measure/poster.jpg"><h3>We Measure</h3></div><div class="film"><img src="../media/video/hls/youre_the_wave/poster.jpg"><h3>You're the Wave</h3></div><div class="film"><img src="../media/video/hls/beyond_the_end/poster.jpg"><h3>Beyond the End</h3></div></div></div></section>
@@ -53,5 +129,426 @@ calm.onclick=()=>state('calm');strobe.onclick=()=>ack?state('compression'):warn.
 </script>
 
 
+
+<script data-cot-room="original-backup-63cf874">
+const audio={paused:true,pause:function(){},play:function(){return Promise.resolve();}};
+const SYNTH={play:function(){},pause:function(){}};
+/* ============ 3D ROOM (three.js r128) ============ */
+let roomInit=false,roomOn=false,R={};
+function makeProjTex(){
+  const c=document.createElement("canvas");c.width=c.height=1024;const x=c.getContext("2d");
+  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
+  const S=1024;
+  const rnd=i=>{const s=Math.sin(i*127.1+31.7)*43758.5453;return s-Math.floor(s);};
+  const W=a=>"rgba(255,255,255,"+a+")";
+
+  function bg(){x.fillStyle="#000";x.fillRect(0,0,S,S);}
+
+  // ── CALM: bold geometric grid, dominant ring, red accent ───────
+  function drawCalm(t,e,fl){
+    bg();
+    const ts=t*0.001;
+    const breath=0.5+0.5*Math.sin(ts*0.18); // slow global pulse 0..1
+
+    // ── Grid — 16 divisions, fine luminous lines ──
+    const gridA=0.035+e*0.02+breath*0.01;
+    x.strokeStyle=W(gridA);x.lineWidth=0.5;
+    for(let i=1;i<16;i++){
+      const p=(i/16)*S;
+      x.beginPath();x.moveTo(p,0);x.lineTo(p,S);x.stroke();
+      x.beginPath();x.moveTo(0,p);x.lineTo(S,p);x.stroke();
+    }
+
+    // ── Centre cross — bolder, structural ──
+    x.strokeStyle=W(0.10+e*0.06+breath*0.03);x.lineWidth=1;
+    x.beginPath();x.moveTo(S*0.5,0);x.lineTo(S*0.5,S);x.stroke();
+    x.beginPath();x.moveTo(0,S*0.5);x.lineTo(S,S*0.5);x.stroke();
+
+    // ── Primary ring — large, dominant, breathing ──
+    const ringR=S*0.34;
+    const ringA=0.28+e*0.18+breath*0.06;
+    x.save();x.strokeStyle=W(ringA);x.lineWidth=1;
+    x.beginPath();x.arc(S*0.5,S*0.5,ringR,0,Math.PI*2);x.stroke();x.restore();
+
+    // Tick marks on primary ring — 64 precise measurement ticks
+    x.save();x.strokeStyle=W(ringA*0.5);x.lineWidth=0.5;
+    for(let i=0;i<64;i++){
+      const a=(i/64)*Math.PI*2;
+      const inner=ringR-3,outer=ringR+(i%8===0?8:3);
+      x.beginPath();
+      x.moveTo(S*0.5+Math.cos(a)*inner,S*0.5+Math.sin(a)*inner);
+      x.lineTo(S*0.5+Math.cos(a)*outer,S*0.5+Math.sin(a)*outer);
+      x.stroke();
+    }
+    x.restore();
+
+    // ── Inner ring — smaller, offset phase ──
+    const innerR=S*0.14;
+    const innerA=0.14+e*0.10+breath*0.04;
+    x.save();x.strokeStyle=W(innerA);x.lineWidth=0.5;
+    x.beginPath();x.arc(S*0.5,S*0.5,innerR,0,Math.PI*2);x.stroke();x.restore();
+
+    // ── Outer ring — wider, almost fills the frame ──
+    const outerR=S*0.46;
+    x.save();x.strokeStyle=W(0.06+e*0.04);x.lineWidth=0.5;
+    x.beginPath();x.arc(S*0.5,S*0.5,outerR,0,Math.PI*2);x.stroke();x.restore();
+
+    // ── Radial line — single diagonal that slowly rotates ──
+    const rAngle=ts*0.04;
+    x.save();x.strokeStyle=W(0.10+e*0.08);x.lineWidth=0.5;
+    x.beginPath();
+    x.moveTo(S*0.5+Math.cos(rAngle)*innerR,S*0.5+Math.sin(rAngle)*innerR);
+    x.lineTo(S*0.5+Math.cos(rAngle)*outerR,S*0.5+Math.sin(rAngle)*outerR);
+    x.stroke();x.restore();
+
+    // Second radial — opposite, dimmer
+    x.save();x.strokeStyle=W(0.06+e*0.04);x.lineWidth=0.5;
+    x.beginPath();
+    x.moveTo(S*0.5+Math.cos(rAngle+Math.PI)*innerR,S*0.5+Math.sin(rAngle+Math.PI)*innerR);
+    x.lineTo(S*0.5+Math.cos(rAngle+Math.PI)*outerR,S*0.5+Math.sin(rAngle+Math.PI)*outerR);
+    x.stroke();x.restore();
+
+    // ── Red accent — single bold horizontal line ──
+    const redY=S*0.5+Math.sin(ts*0.06)*S*0.22;
+    x.save();x.strokeStyle="rgba(180,24,16,"+(0.38+e*0.20+breath*0.08)+")";x.lineWidth=1;
+    x.beginPath();x.moveTo(S*0.04,redY);x.lineTo(S*0.96,redY);x.stroke();x.restore();
+
+    // ── Frame rectangle ──
+    x.strokeStyle=W(0.08+e*0.03);x.lineWidth=0.5;
+    x.strokeRect(16,16,S-32,S-32);
+
+    // ── Corner measurement labels ──
+    x.save();x.fillStyle=W(0.09+e*0.03);x.font="9px 'IBM Plex Mono',monospace";
+    const mins=Math.floor(ts/60),secs=Math.floor(ts%60),ms=Math.floor((ts*1000)%1000);
+    x.fillText(String(mins).padStart(2,"0")+":"+String(secs).padStart(2,"0")+"."+String(ms).padStart(3,"0"),22,30);
+    x.fillText("FIELD",S-52,30);
+    x.fillText("Δt",22,S-18);
+    x.fillText((ts*0.1%1).toFixed(3),S-52,S-18);
+    x.restore();
+
+    // ── Scan line — single horizontal, slow ──
+    const scanY=t*0.06%S;
+    x.fillStyle=W(0.04+e*0.06);x.fillRect(0,scanY,S,1);
+
+    // ── Flash on tone ──
+    if(fl>0.04){x.fillStyle=W(Math.min(0.30,fl*0.4));x.fillRect(0,0,S,S);}
+
+    tex.needsUpdate=true;
+  }
+
+  // ── STROBE: grid intensifies, geometry multiplies ──────────────
+  function drawStrobe(t,e,fl,o){
+    bg();const it=o.inten;const ts=t*0.001;
+
+    // Grid — brighter, denser at high intensity
+    const gridN=16+Math.floor(it*16);
+    const gridA=0.04+it*0.14;
+    x.strokeStyle=W(gridA);x.lineWidth=0.5;
+    for(let i=1;i<gridN;i++){
+      const p=(i/gridN)*S;
+      x.beginPath();x.moveTo(p,0);x.lineTo(p,S);x.stroke();
+      x.beginPath();x.moveTo(0,p);x.lineTo(S,p);x.stroke();
+    }
+
+    // Centre cross — intensifies
+    x.strokeStyle=W(0.14+it*0.22);x.lineWidth=1+it;
+    x.beginPath();x.moveTo(S*0.5,0);x.lineTo(S*0.5,S);x.stroke();
+    x.beginPath();x.moveTo(0,S*0.5);x.lineTo(S,S*0.5);x.stroke();
+
+    // Primary ring — bright, thick
+    const ringR=S*0.34;
+    x.save();x.strokeStyle=W(0.30+it*0.40);x.lineWidth=1+it*1.5;
+    x.beginPath();x.arc(S*0.5,S*0.5,ringR,0,Math.PI*2);x.stroke();x.restore();
+
+    // Ticks — denser
+    const tickN=64+Math.floor(it*64);
+    x.save();x.strokeStyle=W(0.12+it*0.18);x.lineWidth=0.5;
+    for(let i=0;i<tickN;i++){
+      const a=(i/tickN)*Math.PI*2;
+      const len=i%(tickN/8|0)===0?10:3;
+      x.beginPath();
+      x.moveTo(S*0.5+Math.cos(a)*ringR,S*0.5+Math.sin(a)*ringR);
+      x.lineTo(S*0.5+Math.cos(a)*(ringR+len),S*0.5+Math.sin(a)*(ringR+len));
+      x.stroke();
+    }
+    x.restore();
+
+    // Multiple concentric rings emerging
+    const nRings=2+Math.floor(it*5);
+    for(let i=0;i<nRings;i++){
+      const r=S*(0.08+i*0.08);
+      x.save();x.strokeStyle=W(0.06+it*0.10);x.lineWidth=0.5;
+      x.beginPath();x.arc(S*0.5,S*0.5,r,0,Math.PI*2);x.stroke();x.restore();
+    }
+
+    // Radial lines multiply
+    const nRad=2+Math.floor(it*8);
+    const baseAngle=ts*0.08;
+    for(let i=0;i<nRad;i++){
+      const a=baseAngle+(i/nRad)*Math.PI*2;
+      x.save();x.strokeStyle=W(0.06+it*0.12);x.lineWidth=0.5;
+      x.beginPath();
+      x.moveTo(S*0.5+Math.cos(a)*S*0.04,S*0.5+Math.sin(a)*S*0.04);
+      x.lineTo(S*0.5+Math.cos(a)*S*0.48,S*0.5+Math.sin(a)*S*0.48);
+      x.stroke();x.restore();
+    }
+
+    // Red accent — brighter, pulsing
+    x.save();x.strokeStyle="rgba(210,20,10,"+(0.40+it*0.50)+")";x.lineWidth=1+it;
+    x.beginPath();x.moveTo(0,S*0.5);x.lineTo(S,S*0.5);x.stroke();x.restore();
+
+    // Binary data blocks — gamma band only
+    if(o.gamma){
+      const cell=16;const n=Math.ceil(S/cell);
+      x.fillStyle=W(0.12+it*0.22);
+      for(let gy=0;gy<n;gy++)for(let gx=0;gx<n;gx++){
+        if(rnd(gx*131+gy*577+Math.floor(ts*(2+it*5)))<0.06+it*0.18)
+          x.fillRect(gx*cell,gy*cell,cell-1,cell-1);
+      }
+    }
+
+    // Frame
+    x.strokeStyle=W(0.10+it*0.12);x.lineWidth=0.5;
+    x.strokeRect(16,16,S-32,S-32);
+
+    // Scan — fast
+    x.fillStyle=W(0.20+it*0.20);x.fillRect(0,t*(1.5+it*3)%S,S,1);
+
+    // Flash
+    if(o.flash){x.fillStyle="#fff";x.fillRect(0,0,S,S);}
+
+    tex.needsUpdate=true;
+  }
+
+  R.projDraw=(t,e,fl,opts)=>{opts&&opts.strobe?drawStrobe(t,e,fl,opts):drawCalm(t,e,fl);};
+  return tex;
+}
+
+function humanoidLathe(){
+  const pts=[[0.001,0],[0.20,0.03],[0.21,0.10],[0.20,0.45],[0.235,0.78],[0.245,0.95],
+   [0.205,1.18],[0.255,1.42],[0.215,1.55],[0.085,1.63],[0.10,1.70],[0.155,1.80],
+   [0.15,1.90],[0.075,1.97],[0.001,2.0]].map(p=>new THREE.Vector2(p[0],p[1]));
+  return new THREE.LatheGeometry(pts,48);
+}
+function darkFigure(x,z,ry){
+  const g=new THREE.Group();
+  const bm=new THREE.MeshStandardMaterial({color:0x0a0c10,roughness:1,metalness:0});
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(0.10,0.18,1.45,16),bm);body.position.y=0.72;
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.13,18,18),bm);head.position.y=1.6;
+  g.add(body,head);g.position.set(x,0,z);g.rotation.y=ry;return g;
+}
+function initRoom(){
+  if(roomInit)return;roomInit=true;
+  const canvas=document.getElementById("roomCanvas");
+  const host=document.getElementById("room");
+  // roomAudio element kept in DOM for compatibility; actual sound via SYNTH
+  R.roomPhase=document.getElementById("roomPhase");
+  const W=host.clientWidth,H=host.clientHeight;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(2,devicePixelRatio));renderer.setSize(W,H);
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x05070a,0.03);
+  const camera=new THREE.PerspectiveCamera(46,W/H,0.1,300);
+
+  const tex=makeProjTex();
+  const concrete=new THREE.MeshStandardMaterial({color:0x14171b,roughness:.96,metalness:0});
+  const screenMat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:.85});
+  R.screenMat=screenMat;
+
+  // floor (reflective-ish)
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(14,10),
+    new THREE.MeshStandardMaterial({color:0x080a0d,roughness:.32,metalness:.7}));
+  floor.rotation.x=-Math.PI/2;scene.add(floor);
+  const floorScreen=new THREE.Mesh(new THREE.PlaneGeometry(13.4,9.4),
+    new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:.22,blending:THREE.AdditiveBlending}));
+  floorScreen.rotation.x=-Math.PI/2;floorScreen.position.y=0.01;scene.add(floorScreen);R.floorScreen=floorScreen;
+
+  // walls + projection screens
+  function wall(w,px,py,pz,ry){
+    const m=new THREE.Mesh(new THREE.PlaneGeometry(w,6),concrete);
+    m.position.set(px,py,pz);m.rotation.y=ry;scene.add(m);
+    const s=new THREE.Mesh(new THREE.PlaneGeometry(w*0.93,5.4),screenMat.clone());
+    s.position.set(px,py,pz);s.rotation.y=ry;
+    s.position.x+=Math.sin(ry)*0.02;s.position.z+=Math.cos(ry)*0.02;
+    scene.add(s);R.screens=R.screens||[];R.screens.push(s.material);
+  }
+  wall(14,0,3,-5,0);
+  wall(10,-7,3,0,Math.PI/2);
+  wall(10,7,3,0,-Math.PI/2);
+
+  // plinth + figure
+  const plinth=new THREE.Mesh(new THREE.CylinderGeometry(0.85,0.95,0.14,40),
+    new THREE.MeshStandardMaterial({color:0x0c0f12,roughness:.8,metalness:.2}));
+  plinth.position.y=0.07;scene.add(plinth);
+  const figure=new THREE.Mesh(humanoidLathe(),
+    new THREE.MeshStandardMaterial({color:0xf4f8fb,emissive:0xeef4f7,emissiveIntensity:.6,
+      transparent:true,opacity:.6,roughness:.35,metalness:0}));
+  figure.position.y=0.14;figure.scale.set(.96,.96,.96);scene.add(figure);R.figure=figure;
+  const inner=new THREE.PointLight(0xcfe6ef,1.3,7);inner.position.set(0,1.5,0);scene.add(inner);
+
+  // audience. A standing crowd facing the centre figure
+  (function(){
+    let seed=7; const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+    const rings=[{r:2.7,c:6,o:0.2},{r:4.1,c:9,o:0.6},{r:5.4,c:11,o:1.1}];
+    rings.forEach(ring=>{
+      for(let i=0;i<ring.c;i++){
+        const a=(i/ring.c)*Math.PI*2+ring.o;
+        const jr=ring.r+(rnd()-0.5)*0.8, ja=a+(rnd()-0.5)*0.16;
+        const x=Math.cos(ja)*jr, z=Math.sin(ja)*jr;
+        const f=darkFigure(x,z,Math.atan2(-x,-z));
+        const s=0.9+rnd()*0.2; f.scale.set(s,s*(0.95+rnd()*0.12),s);
+        scene.add(f);
+      }
+    });
+  })();
+
+  // light beams
+  const beamMat=new THREE.MeshBasicMaterial({color:0xeef4f7,transparent:true,opacity:.05,blending:THREE.AdditiveBlending,depthWrite:false});
+  for(const bx of [-1.4,1.4]){
+    const beam=new THREE.Mesh(new THREE.ConeGeometry(1.1,5.6,24,1,true),beamMat);
+    beam.position.set(bx,3.0,0.2);scene.add(beam);
+  }
+  R.beams=[beamMat];
+  const key=new THREE.DirectionalLight(0xbcd6e4,.5);key.position.set(3,8,4);scene.add(key);
+  const amb=new THREE.AmbientLight(0x2a3848,.28);scene.add(amb);R.amb=amb;
+
+  // orbit state
+  R.renderer=renderer;R.scene=scene;R.camera=camera;R.target=new THREE.Vector3(0,1.45,0);
+  R.theta=0.85;R.phi=1.12;R.radius=15.5;R.auto=true;R.last=performance.now();R.drag=false;R.px=0;R.py=0;R.spin=0;
+  function setCam(){
+    R.phi=Math.max(0.28,Math.min(1.46,R.phi));R.radius=Math.max(7.5,Math.min(26,R.radius));
+    camera.position.set(
+      R.target.x+R.radius*Math.sin(R.phi)*Math.sin(R.theta),
+      R.target.y+R.radius*Math.cos(R.phi),
+      R.target.z+R.radius*Math.sin(R.phi)*Math.cos(R.theta));
+    camera.lookAt(R.target);
+  }
+  R.setCam=setCam;setCam();
+  const hint=document.getElementById("roomHint");
+  function down(e){R.drag=true;R.auto=false;R.last=performance.now();const t=e.touches?e.touches[0]:e;R.px=t.clientX;R.py=t.clientY;hint.style.opacity=0;}
+  function move(e){if(!R.drag)return;const t=e.touches?e.touches[0]:e;R.theta-=(t.clientX-R.px)*0.005;R.phi-=(t.clientY-R.py)*0.005;R.px=t.clientX;R.py=t.clientY;setCam();}
+  function up(){R.drag=false;R.last=performance.now();}
+  canvas.addEventListener("mousedown",down);addEventListener("mousemove",move);addEventListener("mouseup",up);
+  canvas.addEventListener("touchstart",down,{passive:true});canvas.addEventListener("touchmove",move,{passive:true});canvas.addEventListener("touchend",up);
+  canvas.addEventListener("wheel",e=>{if(!e.shiftKey)return;e.preventDefault();R.radius*=(1+e.deltaY*0.0009);R.auto=false;R.last=performance.now();setCam();},{passive:false});
+
+  addEventListener("resize",()=>{const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();});
+
+  // mode toggles
+  R.modeShow=true;
+  const bShow=document.getElementById("btnShow"),bBones=document.getElementById("btnBones");
+  function mode(show){R.modeShow=show;bShow.classList.toggle("on",show);bBones.classList.toggle("on",!show);}
+  bShow.addEventListener("click",()=>mode(true));
+  bBones.addEventListener("click",()=>mode(false));
+
+  // 15-second audiovisual loops: calm baseline + high-impact stroboscopic entrainment
+  const PLAY="M8 5v14l11-7z",PAUSE="M6 5h4v14H6zM14 5h4v14h-4z";
+  const btnCalm=document.getElementById("btnCalm"),btnStrobe=document.getElementById("btnStrobe");
+  const calmIcon=document.getElementById("calmIcon"),calmLabel=document.getElementById("calmLabel"),strobeLabel=document.getElementById("strobeLabel");
+  R.loopActive=false;R.loopMode="calm";R.reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function refreshBtns(){
+    const calmOn=R.loopActive&&R.loopMode==="calm", strobeOn=R.loopActive&&R.loopMode==="strobe";
+    btnCalm.classList.toggle("on",calmOn);btnStrobe.classList.toggle("on",strobeOn);
+    calmIcon.querySelector("path").setAttribute("d",calmOn?PAUSE:PLAY);
+    calmLabel.textContent=calmOn?"stop":"calm loop";
+    strobeLabel.textContent=strobeOn?"stop":"strobe loop";
+  }
+  function startLoop(m){
+    if(R.dockWasPlaying===undefined)R.dockWasPlaying=!audio.paused;
+    if(!audio.paused)audio.pause();
+    R.loopActive=true;R.loopMode=m;R.loopT=0;
+    SYNTH.play(m);
+    hint.style.opacity=0;R.roomPhase.style.opacity=1;refreshBtns();
+  }
+  function stopLoop(){
+    R.loopActive=false;SYNTH.pause();R.roomPhase.style.opacity=0;
+    if(R.dockWasPlaying)audio.play().catch(()=>{});R.dockWasPlaying=undefined;refreshBtns();
+  }
+  R.setLoop=on=>{if(!on&&R.loopActive)stopLoop();};
+  btnCalm.addEventListener("click",()=>{(R.loopActive&&R.loopMode==="calm")?stopLoop():startLoop("calm");});
+  btnStrobe.addEventListener("click",()=>{
+    if(R.loopActive&&R.loopMode==="strobe"){stopLoop();return;}
+    if(R.strobeAck)startLoop("strobe"); else document.getElementById("strobeWarn").classList.add("show");
+  });
+  document.getElementById("strobeGo").addEventListener("click",()=>{R.strobeAck=true;document.getElementById("strobeWarn").classList.remove("show");startLoop("strobe");});
+  document.getElementById("strobeNo").addEventListener("click",()=>document.getElementById("strobeWarn").classList.remove("show"));
+  document.getElementById("btnZin").addEventListener("click",()=>{R.radius=Math.max(7.5,R.radius*0.85);R.auto=false;R.last=performance.now();setCam();});
+  document.getElementById("btnZout").addEventListener("click",()=>{R.radius=Math.min(26,R.radius*1.18);R.auto=false;R.last=performance.now();setCam();});
+
+  function setPhase(h){if(R.roomPhase&&R.roomPhase.innerHTML!==h)R.roomPhase.innerHTML=h;}
+  function calmFrame(lt,ts,t){
+    const drop=0.53,bp=Math.min(1,lt/drop);let e,fl;
+    if(lt<drop) e=0.12+(lt/drop)*0.52;
+    else if(lt<0.9) e=0.86+0.06*Math.sin(t*0.02);
+    else e=Math.max(0.07,0.86*(1-(lt-0.9)/0.1));
+    fl=Math.exp(-Math.pow((lt-drop)/0.02,2));
+    e=Math.max(0,e+0.06*bp*Math.sin(2*Math.PI*(1.1+1.2*bp)*ts));
+    setPhase(lt<0.30?"field . the undivided present":lt<0.50?"tension . the past appears":lt<0.57?"collapse . the illusion breaks":lt<0.90?"revelation . the only real moment":"release");
+    return {e,fl,opts:null};
+  }
+  function strobeFrame(lt,ts,t,dt){
+    const red=R.reduced, tp=0.86;
+    const inten=lt<tp?(0.30+0.70*(lt/tp)):Math.max(0.06,1-(lt-tp)/0.14*0.94);
+    let band,hz;
+    if(lt<0.15){band="theta";hz=6;} else if(lt<0.33){band="alpha";hz=10;}
+    else if(lt<0.52){band="beta";hz=18;} else if(lt<tp){band="gamma";hz=40;} else {band="release";hz=0;}
+    const gamma=band==="gamma";
+    // full-field flash: ramps to 3 Hz (recognised safe ceiling); self-clocked so it always strobes
+    const fHz=red?1.0:(1.8+1.2*Math.min(1,lt/tp));
+    const duty=red?0.09:(gamma?0.22:0.17);
+    const on=(band!=="release" && (ts*fHz)%1<duty)?1:0;
+    const ff=on*inten*(red?0.35:1);
+    R.spin+=(red?0.5:1)*(1.3+hz*0.10)*(0.6+inten)*(dt/1000)*9;   // faster motion
+    const hue=193-inten*14, e=0.30+inten*0.55+ff*0.6;
+    setPhase(band==="release"?"release":band+" entrainment &middot; "+hz+" Hz");
+    return {e,fl:ff,opts:{strobe:true,spin:R.spin,ring:ts,ff:ff,inten:inten,hue:hue,red:red,flash:on,band:band,gamma:gamma}};
+  }
+  let _lt=performance.now();
+  function loop(){
+    requestAnimationFrame(loop);
+    if(!roomOn)return;
+    const t=performance.now(),dt=Math.min(50,t-_lt);_lt=t;
+    if(R.auto||(t-R.last>4500)){R.theta+=0.0009;setCam();}
+    let e,fl,opts=null;
+    if(R.loopActive){
+      R.loopT+=dt;  // wall-clock accumulator; SYNTH runs in sync via Web Audio scheduler
+      const ts=R.loopT/1000, lt=(ts%15)/15;
+      const o=(R.loopMode==="strobe")?strobeFrame(lt,ts,t,dt):calmFrame(lt,ts,t);
+      e=o.e;fl=o.fl;opts=o.opts;
+    } else { e=R.modeShow?(0.34+0.05*Math.sin(t*0.0006)):0.12; fl=0; }
+    const show=R.modeShow,act=R.loopActive,strobe=act&&R.loopMode==="strobe";
+    if(strobe){
+      const on=opts.flash;
+      amb.intensity = 0.16+e*0.4 + (on?0.5:0);
+      R.screens.forEach(m=>m.opacity = on?1:Math.min(0.95,0.22+e*0.7));
+      R.floorScreen.material.opacity = on?0.9:Math.min(0.6,0.12+e*0.4);
+      figure.material.emissiveIntensity = 0.5+e*1.0 + (on?2.4:0);
+      inner.intensity = 1.0+e*1.8 + (on?4.0:0);
+      R.beams.forEach(m=>m.opacity = Math.min(0.5,0.03+e*0.08+(on?0.3:0)));
+      scene.fog.density = 0.032-e*0.012;
+    } else {
+      const L=(a,b)=>a+(b-a)*0.12;
+      amb.intensity=L(amb.intensity, act?(0.14+e*0.5):(show?0.20:0.85));
+      R.screens.forEach(m=>m.opacity=L(m.opacity, act?Math.min(1,0.18+e*0.8+fl*0.3):(show?0.85:0.10)));
+      R.floorScreen.material.opacity=L(R.floorScreen.material.opacity, act?Math.min(0.6,0.10+e*0.4+fl*0.25):(show?0.22:0.04));
+      figure.material.emissiveIntensity=L(figure.material.emissiveIntensity, act?(0.4+e*1.1+fl*1.8):(show?0.6:0.32));
+      inner.intensity=L(inner.intensity, act?(0.8+e*1.8+fl*3.4):1.3);
+      R.beams.forEach(m=>m.opacity=L(m.opacity, act?Math.min(0.55,0.03+e*0.10+fl*0.35):0.05));
+      scene.fog.density=L(scene.fog.density, act?(0.036-e*0.014):(show?0.03:0.02));
+    }
+    R.projDraw(t,e,fl,opts);
+    figure.rotation.y=Math.sin(t*0.0002)*0.18;
+    figure.position.y=0.14+Math.sin(t*0.0009)*0.02+fl*0.06;
+    const fs=0.96*(1+fl*0.07);figure.scale.set(fs,fs,fs);
+    renderer.render(scene,camera);
+  }
+  loop();
+}
+const roomIO=new IntersectionObserver(es=>{
+  es.forEach(e=>{roomOn=e.isIntersecting;if(e.isIntersecting){try{initRoom()}catch(err){roomOn=false;console.warn("room disabled",err)}}else if(R.setLoop&&R.loopActive)R.setLoop(false);});
+},{threshold:.2});
+roomIO.observe(document.getElementById("room"));
+</script>
 </body>
 </html>
