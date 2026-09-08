@@ -13,32 +13,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Improve immersive background video loading
+      - name: Repair immersive visualiser and videos
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
           p=Path('installation/index.html')
           s=p.read_text()
-          marker='muted autoplay loop playsinline'
-          occ=[m.start() for m in re.finditer(re.escape(marker),s)]
-          if occ:
-              first=occ[0]
-              before,rest=s[:first],s[first:]
-              rest=rest.replace(marker,'muted loop playsinline preload="none"')
-              rest=rest.replace('muted loop playsinline preload="none"','muted autoplay loop playsinline preload="metadata"',1)
-              s=before+rest
-          js="<script id=\"immersiveVideoRefresh\">(function(){var V='20260908-1945',vs=[].slice.call(document.querySelectorAll('.bg video'));if(!vs.length)return;function load(v){if(!v.getAttribute('src')){v.src=v.dataset.base+'?v='+V;v.load()}}function play(v){load(v);var p=v.play();if(p&&p.catch)p.catch(function(){})}vs.forEach(function(v,i){var r=v.getAttribute('src');if(!r)return;v.dataset.base=r.split('?')[0];v.muted=true;v.playsInline=true;if(i===0){v.src=v.dataset.base+'?v='+V;v.load();play(v)}else{v.removeAttribute('autoplay');v.removeAttribute('src');v.load()}});var o=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.dataset.visible='1';play(v)}else{v.dataset.visible='0';v.pause()}})},{rootMargin:'120% 0px 120% 0px',threshold:.01});vs.forEach(function(v){o.observe(v);v.addEventListener('error',function(){if(v.dataset.retry==='1')return;v.dataset.retry='1';v.src=v.dataset.base+'?retry='+Date.now();v.load();if(v.dataset.visible==='1')play(v)})});document.addEventListener('visibilitychange',function(){if(document.hidden)return;vs.forEach(function(v){if(v.dataset.visible==='1')play(v)})})})();</script>"
-          if 'id="immersiveVideoRefresh"' in s or 'id=immersiveVideoRefresh' in s:
-              s=re.sub(r'<script id=[\"\']?immersiveVideoRefresh[\"\']?>.*?</script>',js,s,flags=re.S)
-          else:
-              s=s.replace('</body>',js+'\n</body>')
+
+          # 1) Fix Three.js compatibility: CapsuleGeometry is unavailable in the r128 core build.
+          s=s.replace("new THREE.CapsuleGeometry(.34,1.35,8,20)", "new THREE.CylinderGeometry(.34,.34,2.0,24)")
+
+          # 2) Remove previous src-stripping/lazy-loader script completely.
+          s=re.sub(r'\n?<script id=[\"\']?immersiveVideoRefresh[\"\']?>.*?</script>\n?', '\n', s, flags=re.S)
+
+          # 3) Keep every immersive background film address in the DOM and let the browser preload metadata.
+          s=re.sub(r'muted(?: autoplay)? loop playsinline preload=\"(?:none|metadata)\"', 'muted autoplay loop playsinline preload="metadata"', s)
+          s=re.sub(r'muted autoplay loop playsinline(?! preload)', 'muted autoplay loop playsinline preload="metadata"', s)
+
+          # 4) Add a conservative playback helper: never removes src, just retries play/load.
+          js='''\n<script id="immersiveVideoRefresh">\n(function(){\n  var V='20260908-2000';\n  var videos=[].slice.call(document.querySelectorAll('.bg video'));\n  videos.forEach(function(v){\n    var raw=v.getAttribute('src');\n    if(!raw)return;\n    var base=raw.split('?')[0];\n    v.src=base+'?v='+V;\n    v.muted=true; v.playsInline=true; v.loop=true;\n    v.preload='metadata';\n    v.load();\n    var p=v.play(); if(p&&p.catch)p.catch(function(){});\n    v.addEventListener('error',function(){\n      if(v.dataset.retry)return;\n      v.dataset.retry='1';\n      v.src=base+'?retry='+Date.now();\n      v.load();\n      var q=v.play(); if(q&&q.catch)q.catch(function(){});\n    });\n  });\n  document.addEventListener('visibilitychange',function(){\n    if(document.hidden)return;\n    videos.forEach(function(v){var p=v.play(); if(p&&p.catch)p.catch(function(){});});\n  });\n})();\n</script>\n'''
+          s=s.replace('</body>', js+'\n</body>')
           p.write_text(s)
           PY
           git config user.name "ChatGPT Site Update"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add installation/index.html
           if ! git diff --cached --quiet; then
-            git commit -m "Refresh immersive video loading"
+            git commit -m "Fix immersive visualiser and background videos"
             git push
           fi
