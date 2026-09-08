@@ -1,15 +1,15 @@
 name: Refresh immersive video loading
 
 on:
-  issues:
-    types: [opened]
+  push:
+    paths:
+      - 'docs/.immersive-video-refresh-trigger'
 
 permissions:
   contents: write
 
 jobs:
   refresh:
-    if: github.event.issue.title == '[COT] refresh immersive video loading'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +22,6 @@ jobs:
           p = Path('installation/index.html')
           s = p.read_text()
 
-          # Keep only the hero eager. All other background films load/play when near the viewport.
           marker = 'muted autoplay loop playsinline'
           occurrences = [m.start() for m in re.finditer(re.escape(marker), s)]
           if occurrences:
@@ -35,7 +34,7 @@ jobs:
           refresh_script = r'''
 <script id="immersiveVideoRefresh">
 (function(){
-  var VERSION='20260908-1848';
+  var VERSION='20260908-1940';
   var videos=[].slice.call(document.querySelectorAll('.bg video'));
   if(!videos.length)return;
 
