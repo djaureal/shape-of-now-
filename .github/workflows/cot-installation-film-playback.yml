@@ -1,0 +1,76 @@
+name: Enable installation film playback
+
+on:
+  push:
+    paths:
+      - 'docs/.installation-film-playback-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make moving image films playable and fullscreen
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('installation/index.html')
+          s=p.read_text()
+
+          old='''<div class="films"><div class="film"><img src="../media/video/hls/we_measure/poster.jpg"><h3>We Measure</h3></div><div class="film"><img src="../media/video/hls/youre_the_wave/poster.jpg"><h3>You're the Wave</h3></div><div class="film"><img src="../media/video/hls/beyond_the_end/poster.jpg"><h3>Beyond the End</h3></div></div>'''
+          new='''<div class="films film-player-grid">
+            <div class="film film-player-card"><div class="film-media"><video class="film-hls" data-hls="../media/video/hls/we_measure/index.m3u8" poster="../media/video/hls/we_measure/poster.jpg" playsinline preload="metadata" controls></video></div><div class="film-foot"><h3>We Measure</h3><button type="button" class="film-fullscreen">full screen</button></div></div>
+            <div class="film film-player-card"><div class="film-media"><video class="film-hls" data-hls="../media/video/hls/youre_the_wave/index.m3u8" poster="../media/video/hls/youre_the_wave/poster.jpg" playsinline preload="metadata" controls></video></div><div class="film-foot"><h3>You're the Wave</h3><button type="button" class="film-fullscreen">full screen</button></div></div>
+            <div class="film film-player-card"><div class="film-media"><video class="film-hls" data-hls="../media/video/hls/beyond_the_end/index.m3u8" poster="../media/video/hls/beyond_the_end/poster.jpg" playsinline preload="metadata" controls></video></div><div class="film-foot"><h3>Beyond the End</h3><button type="button" class="film-fullscreen">full screen</button></div></div>
+          </div>'''
+          if old not in s:
+              raise SystemExit('film block not found')
+          s=s.replace(old,new,1)
+
+          css='''
+/* playable moving-image films */
+.film-player-card{min-width:0}.film-media{position:relative;background:#000;border:1px solid var(--l);overflow:hidden}.film-media video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}.film-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:10px}.film-foot h3{margin:0}.film-fullscreen{font:8.5px var(--mo);letter-spacing:.16em;text-transform:uppercase;color:var(--f);background:rgba(5,7,10,.72);border:1px solid var(--l);padding:9px 11px;cursor:pointer;white-space:nowrap}.film-fullscreen:hover{border-color:var(--f);color:var(--s)}
+'''
+          s=s.replace('</style>',css+'\n</style>',1)
+
+          js='''
+<script src="../media/lib/hls.min.js"></script>
+<script id="installationFilmPlayback">
+(function(){
+  var videos=[].slice.call(document.querySelectorAll('.film-hls[data-hls]'));
+  videos.forEach(function(video){
+    var src=video.dataset.hls;
+    if(video.canPlayType('application/vnd.apple.mpegurl')){
+      video.src=src;
+    }else if(window.Hls&&Hls.isSupported()){
+      var hls=new Hls({enableWorker:true,lowLatencyMode:false});
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      video._cotHls=hls;
+    }
+    video.addEventListener('play',function(){
+      videos.forEach(function(other){if(other!==video&&!other.paused)other.pause();});
+    });
+  });
+  document.querySelectorAll('.film-fullscreen').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var video=btn.closest('.film-player-card').querySelector('video');
+      if(video.requestFullscreen){video.requestFullscreen();}
+      else if(video.webkitRequestFullscreen){video.webkitRequestFullscreen();}
+      else if(video.webkitEnterFullscreen){video.webkitEnterFullscreen();}
+    });
+  });
+})();
+</script>
+'''
+          s=s.replace('</body>',js+'\n</body>',1)
+          p.write_text(s)
+          PY
+          git config user.name "ChatGPT Site Update"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add installation/index.html
+          git commit -m "Enable moving image playback and fullscreen"
+          git push
