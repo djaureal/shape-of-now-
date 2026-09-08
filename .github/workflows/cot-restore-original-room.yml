@@ -1,0 +1,85 @@
+name: Restore original COT installation visualiser
+
+on:
+  push:
+    paths:
+      - 'docs/.restore-original-room-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore exact visualiser from protected backup
+        run: |
+          git fetch origin backup/pre-stage-installation-split-2026-09-08:refs/remotes/origin/backup/pre-stage-installation-split-2026-09-08
+          git show refs/remotes/origin/backup/pre-stage-installation-split-2026-09-08:index.html > /tmp/original.html
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          current_path = Path('installation/index.html')
+          current = current_path.read_text()
+          original = Path('/tmp/original.html').read_text()
+
+          # Exact original room CSS from the protected backup.
+          css_start = original.index('/* 3d room */')
+          css_end = original.index('/* live stage', css_start)
+          room_css = original[css_start:css_end]
+
+          # Exact original room markup from the protected backup.
+          html_start = original.index('<!-- ============ 3D ROOM ============ -->')
+          html_end = original.index('<!-- ============ NARRATIVE ============ -->', html_start)
+          room_html = original[html_start:html_end]
+
+          # Exact original Three.js room engine.
+          js_start = original.index('/* ============ 3D ROOM (three.js r128) ============ */')
+          js_end_marker = 'roomIO.observe(document.getElementById("room"));'
+          js_end = original.index(js_end_marker, js_start) + len(js_end_marker)
+          room_js = original[js_start:js_end]
+
+          # Compatibility aliases: preserve the current installation palette while the
+          # original room CSS uses the source site's variable names.
+          compat = '''\n/* Original COT room compatibility aliases */\n:root{--void:var(--v);--signal:var(--s);--filament:var(--f);--dim:var(--d);--dimmer:#49525a;--ink:var(--i);--line:var(--l);--line-soft:rgba(207,230,239,.07);--glow:rgba(207,230,239,.5);--serif:var(--ser);--mono:var(--mo);--sans:var(--sa)}\n#room .container{width:100%;max-width:1320px;margin-inline:auto;padding-inline:var(--g);position:relative;z-index:3}\n'''
+
+          # Remove the replacement/native room CSS and install the exact source CSS.
+          css_cur_start = current.index('.room{position:relative;')
+          css_cur_end = current.index('@media(max-width:900px)', css_cur_start)
+          current = current[:css_cur_start] + compat + room_css + '\n' + current[css_cur_end:]
+
+          # Replace the replacement room markup with the original protected-backup markup.
+          room_cur_start = current.index('<section class="room" id="room">')
+          room_cur_end = current.index('<section class="panel">', room_cur_start)
+          current = current[:room_cur_start] + room_html + current[room_cur_end:]
+
+          # Remove prior visualiser scripts (replacement or previous restored copies).
+          current = re.sub(r'\n?<script[^>]*data-cot-room[^>]*>.*?</script>\n?', '\n', current, flags=re.S)
+          current = re.sub(r'\n?<script>(?=[\s\S]*?roomCanvas)(?:(?!</script>)[\s\S])*?</script>\n?', '\n', current, count=1)
+
+          # Ensure the same Three.js version used by the protected original is loaded.
+          three = '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>'
+          if 'three.min.js' not in current:
+              current = current.replace('</head>', three + '\n</head>')
+
+          # The original website coupled room loops to the global music dock and WebAudio
+          # synth. The installation route has no dock; harmless shims preserve the original
+          # visual states and controls without introducing a second site-wide audio system.
+          shims = '''const audio={paused:true,pause:function(){},play:function(){return Promise.resolve();}};\nconst SYNTH={play:function(){},pause:function(){}};\n'''
+          restored_script = '\n<script data-cot-room="original-backup-63cf874">\n' + shims + room_js + '\n</script>\n'
+          current = current.replace('</body>', restored_script + '</body>')
+
+          current_path.write_text(current)
+          PY
+
+          git config user.name "ChatGPT Site Update"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add installation/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Restore original COT 3D installation visualiser"
+            git push
+          fi
