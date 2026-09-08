@@ -15,3 +15,40 @@ body .stage-gallery > .stage-image::before{content:"";display:block;width:100%;a
 body .stage-gallery > .stage-image:nth-child(1)::before{background-image:url('https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/16986bcb-b8a2-465a-8bac-ee0f3ef6a184.png')}
 body .stage-gallery > .stage-image:nth-child(2)::before{background-image:url('https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/9fcac5f4-6a4c-469f-b66d-af2b37f80660.png')}
 body .stage-gallery > .stage-image:nth-child(3)::before{background-image:url('https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/3de30540-2cea-4d6c-9235-4f684d667cc3.png')}
+
+/* Construct of Time chapter rhythm — restored from pre-split design */
+body .chapter:not(.hero),
+body .panel:not(.hero){
+  min-height:auto!important;
+  padding-top:clamp(72px,8vh,94px)!important;
+  padding-bottom:clamp(52px,7vh,88px)!important;
+  margin-block:clamp(8px,1.2vh,14px)!important;
+}
+body .sectionbar{
+  top:0!important;
+  height:clamp(30px,3.4vh,38px)!important;
+  background:#05070a!important;
+  border-top:0!important;
+  grid-template-columns:auto 1fr!important;
+  gap:18px!important;
+}
+body .sectionbar .roman,
+body .sectionbar i{
+  font-size:clamp(19px,2.2vw,25px)!important;
+  line-height:1!important;
+  opacity:.88!important;
+}
+body .sectionbar .line,
+body .sectionbar span{
+  height:1px!important;
+  background:linear-gradient(90deg,rgba(207,230,239,.32),rgba(207,230,239,.05))!important;
+}
+body .chapter:not(.hero) .vbg,
+body .panel:not(.hero) .bg{
+  top:clamp(30px,3.4vh,38px)!important;
+}
+@media(max-width:780px){
+  body .chapter:not(.hero),body .panel:not(.hero){padding-top:68px!important;padding-bottom:58px!important;margin-block:8px!important}
+  body .sectionbar{height:30px!important}
+  body .chapter:not(.hero) .vbg,body .panel:not(.hero) .bg{top:30px!important}
+}
