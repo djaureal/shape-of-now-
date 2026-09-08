@@ -18,100 +18,23 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-
-          p = Path('installation/index.html')
-          s = p.read_text()
-
-          marker = 'muted autoplay loop playsinline'
-          occurrences = [m.start() for m in re.finditer(re.escape(marker), s)]
-          if occurrences:
-              first = occurrences[0]
-              before, rest = s[:first], s[first:]
-              rest = rest.replace(marker, 'muted loop playsinline preload="none"')
-              rest = rest.replace('muted loop playsinline preload="none"', 'muted autoplay loop playsinline preload="metadata"', 1)
-              s = before + rest
-
-          refresh_script = r'''
-<script id="immersiveVideoRefresh">
-(function(){
-  var VERSION='20260908-1940';
-  var videos=[].slice.call(document.querySelectorAll('.bg video'));
-  if(!videos.length)return;
-
-  videos.forEach(function(v,i){
-    var raw=v.getAttribute('src');
-    if(!raw)return;
-    v.dataset.baseSrc=raw.split('?')[0];
-    v.muted=true;
-    v.playsInline=true;
-    if(i===0){
-      v.src=v.dataset.baseSrc+'?v='+VERSION;
-      v.load();
-      var heroPlay=v.play();
-      if(heroPlay&&heroPlay.catch)heroPlay.catch(function(){});
-    }else{
-      v.removeAttribute('autoplay');
-      v.removeAttribute('src');
-      v.load();
-    }
-  });
-
-  function ensureLoaded(v){
-    if(!v.getAttribute('src')){
-      v.src=v.dataset.baseSrc+'?v='+VERSION;
-      v.load();
-    }
-  }
-
-  function playVideo(v){
-    ensureLoaded(v);
-    var promise=v.play();
-    if(promise&&promise.catch)promise.catch(function(){});
-  }
-
-  var observer=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      var v=entry.target;
-      if(entry.isIntersecting){
-        v.dataset.visible='1';
-        playVideo(v);
-      }else{
-        v.dataset.visible='0';
-        v.pause();
-      }
-    });
-  },{rootMargin:'120% 0px 120% 0px',threshold:0.01});
-
-  videos.forEach(function(v){
-    observer.observe(v);
-    v.addEventListener('error',function(){
-      if(v.dataset.retry==='1')return;
-      v.dataset.retry='1';
-      v.src=v.dataset.baseSrc+'?retry='+Date.now();
-      v.load();
-      if(v.dataset.visible==='1'){
-        var promise=v.play();
-        if(promise&&promise.catch)promise.catch(function(){});
-      }
-    });
-  });
-
-  document.addEventListener('visibilitychange',function(){
-    if(document.hidden)return;
-    videos.forEach(function(v){if(v.dataset.visible==='1')playVideo(v);});
-  });
-})();
-</script>
-'''
-
-          if 'id="immersiveVideoRefresh"' in s:
-              s = re.sub(r'\n?<script id="immersiveVideoRefresh">.*?</script>\n?', '\n'+refresh_script+'\n', s, flags=re.S)
+          p=Path('installation/index.html')
+          s=p.read_text()
+          marker='muted autoplay loop playsinline'
+          occ=[m.start() for m in re.finditer(re.escape(marker),s)]
+          if occ:
+              first=occ[0]
+              before,rest=s[:first],s[first:]
+              rest=rest.replace(marker,'muted loop playsinline preload="none"')
+              rest=rest.replace('muted loop playsinline preload="none"','muted autoplay loop playsinline preload="metadata"',1)
+              s=before+rest
+          js="<script id=\"immersiveVideoRefresh\">(function(){var V='20260908-1945',vs=[].slice.call(document.querySelectorAll('.bg video'));if(!vs.length)return;function load(v){if(!v.getAttribute('src')){v.src=v.dataset.base+'?v='+V;v.load()}}function play(v){load(v);var p=v.play();if(p&&p.catch)p.catch(function(){})}vs.forEach(function(v,i){var r=v.getAttribute('src');if(!r)return;v.dataset.base=r.split('?')[0];v.muted=true;v.playsInline=true;if(i===0){v.src=v.dataset.base+'?v='+V;v.load();play(v)}else{v.removeAttribute('autoplay');v.removeAttribute('src');v.load()}});var o=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.dataset.visible='1';play(v)}else{v.dataset.visible='0';v.pause()}})},{rootMargin:'120% 0px 120% 0px',threshold:.01});vs.forEach(function(v){o.observe(v);v.addEventListener('error',function(){if(v.dataset.retry==='1')return;v.dataset.retry='1';v.src=v.dataset.base+'?retry='+Date.now();v.load();if(v.dataset.visible==='1')play(v)})});document.addEventListener('visibilitychange',function(){if(document.hidden)return;vs.forEach(function(v){if(v.dataset.visible==='1')play(v)})})})();</script>"
+          if 'id="immersiveVideoRefresh"' in s or 'id=immersiveVideoRefresh' in s:
+              s=re.sub(r'<script id=[\"\']?immersiveVideoRefresh[\"\']?>.*?</script>',js,s,flags=re.S)
           else:
-              s = s.replace('</body>', refresh_script + '\n</body>')
-
+              s=s.replace('</body>',js+'\n</body>')
           p.write_text(s)
           PY
-
           git config user.name "ChatGPT Site Update"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add installation/index.html
