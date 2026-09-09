@@ -463,6 +463,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   #prologue .statement{white-space:nowrap;font-size:clamp(40px,4.75vw,70px)!important}
   #prologue .prose{max-width:760px;margin-inline:auto}
 }
+
+/* V3.6 — strict two-line desktop display heading */
+@media (min-width:821px){
+  #prologue .prologue-title{font-size:clamp(38px,4.25vw,64px)!important;white-space:normal!important;max-width:none!important;width:100%!important}
+  #prologue .prologue-title>span{display:inline-block!important;white-space:nowrap!important}
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -504,7 +510,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 <section class="panel tall" id="prologue">
   <div class="container"><div class="col" style="max-width:760px">
     <div class="eyebrow reveal">prologue &middot; before anything else</div>
-    <p class="statement reveal d1">We spend so much of our lives<br>somewhere <em>else</em>.</p>
+    <p class="statement reveal d1 prologue-title"><span>We spend so much of our lives</span><br><span>somewhere <em>else</em>.</span></p>
     <div class="prose reveal d2">
       <p>We remember. We imagine. We carry things that happened. We worry about things that have not happened. We plan. We regret. We hope. We wait.</p>
       <p>This is not a flaw. It is most of what a mind does. Scroll slowly, and let the sound run.</p>
