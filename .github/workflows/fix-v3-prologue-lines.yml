@@ -1,0 +1,29 @@
+name: Fix V3 prologue lines
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-v3-prologue-lines-trigger'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Keep prologue heading to two lines on desktop
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('V3/index.html')
+          s=p.read_text()
+          marker='/* V3.5 — prologue two-line discipline */'
+          if marker not in s:
+              css='''\n/* V3.5 — prologue two-line discipline */\n@media (min-width:821px){\n  #prologue .container>.col{max-width:1100px!important;margin-inline:auto;text-align:center}\n  #prologue .statement{white-space:nowrap;font-size:clamp(40px,4.75vw,70px)!important}\n  #prologue .prose{max-width:760px;margin-inline:auto}\n}\n'''
+              s=s.replace('</style>',css+'</style>',1)
+              p.write_text(s)
+          PY
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html
+          git diff --cached --quiet || git commit -m 'Keep V3 prologue heading to two lines'
+          git push
