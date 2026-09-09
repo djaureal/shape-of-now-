@@ -1,0 +1,21 @@
+name: Tidy V3 headlines
+on:
+  push:
+    paths:
+      - '.github/workflows/tidy-v3-headlines-trigger'
+jobs:
+  tidy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply headline discipline
+        run: python3 scripts/tidy-v3-headlines.py
+      - name: Commit changes
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html V3/stage/index.html V3/installation/index.html
+          git diff --cached --quiet || git commit -m 'Keep V3 display headings tidy'
+          git push
