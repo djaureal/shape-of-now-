@@ -469,6 +469,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   #prologue .prologue-title{font-size:clamp(38px,4.25vw,64px)!important;white-space:normal!important;max-width:none!important;width:100%!important}
   #prologue .prologue-title>span{display:inline-block!important;white-space:nowrap!important}
 }
+
+/* V3.7 — impermanence two-line discipline */
+@media (min-width:821px){
+  section[data-label^="II "] .col{max-width:980px!important;margin-inline:auto;text-align:center}
+  section[data-label^="II "] .statement{white-space:nowrap;font-size:clamp(38px,4.15vw,60px)!important}
+  section[data-label^="II "] .body{max-width:66ch;margin-left:auto;margin-right:auto}
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
