@@ -417,20 +417,20 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 #formats{display:block!important;padding:clamp(84px,11vh,126px) 0 0!important;background:var(--void)!important;overflow:hidden!important}
 #formats .formats-intro{width:100%;max-width:var(--maxw);padding-inline:var(--gutter);margin:0 auto clamp(52px,7vh,84px)}
 #formats .formats-intro .body{max-width:62ch}
-.fork-pair{display:grid;grid-template-columns:minmax(0,1fr) 76px minmax(0,1fr);align-items:stretch;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
-.threshold-door{position:relative;min-height:clamp(540px,66svh,760px);display:flex;align-items:flex-end;text-decoration:none;color:inherit;overflow:hidden}
+.fork-pair{display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr);align-items:stretch;width:min(1420px,88vw);margin:0 auto clamp(30px,4vh,52px);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.threshold-door{position:relative;min-height:clamp(430px,52svh,620px);display:flex;align-items:center;text-decoration:none;color:inherit;overflow:hidden}
 .threshold-door.live{border-right:1px solid rgba(207,230,239,.08)}
 .threshold-door.installation{border-left:1px solid rgba(207,230,239,.08)}
 .threshold-door video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.68;filter:grayscale(.42) contrast(1.08) brightness(.48);transform:scale(1.015);transition:transform 1.6s cubic-bezier(.2,.7,.2,1),opacity 1s ease}
 .threshold-door:hover video{transform:scale(1.045);opacity:.79}
 .threshold-door:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,9,.30) 0%,rgba(4,6,9,.56) 42%,rgba(4,6,9,.94) 100%)}
 .threshold-door.installation:after{background:linear-gradient(180deg,rgba(4,6,9,.24) 0%,rgba(4,6,9,.52) 44%,rgba(4,6,9,.94) 100%)}
-.door-content{position:relative;z-index:2;width:100%;padding:clamp(46px,7vh,74px) clamp(28px,4.3vw,70px)}
+.door-content{position:relative;z-index:2;width:100%;height:100%;padding:clamp(34px,5vh,56px) clamp(26px,3vw,48px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
 .door-index{font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--filament);margin-bottom:20px}
-.door-grid{display:block}
-.door-grid h3{font-family:var(--serif);font-weight:300;font-size:clamp(48px,5.7vw,86px);line-height:.84;letter-spacing:-.015em;margin-bottom:32px}
+.door-grid{display:block;width:min(500px,88%);margin:0 auto}
+.door-grid h3{font-family:var(--serif);font-weight:300;font-size:clamp(46px,4.6vw,74px);line-height:.86;letter-spacing:-.015em;margin-bottom:26px}
 .door-grid h3 em{font-style:italic;color:var(--filament)}
-.door-copy{max-width:43ch;font-size:clamp(13.5px,1.05vw,15.5px);line-height:1.76;color:var(--ink)}
+.door-copy{max-width:40ch;margin:0 auto;font-size:clamp(13.5px,1.02vw,15px);line-height:1.72;color:var(--ink)}
 .door-copy b{color:var(--signal);font-weight:400}
 .door-meta{font-family:var(--mono);font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
 .door-enter{display:inline-block;margin-top:25px;font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--signal);border-bottom:1px solid var(--line);padding-bottom:8px;transition:border-color .3s,letter-spacing .3s}
@@ -445,7 +445,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .enquiry-box h2 em{color:var(--filament);font-style:italic}
 .enquiry-meta{font-family:var(--mono);font-size:9px;line-height:1.8;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin:20px auto 34px;max-width:75ch}
 
-@media(max-width:820px){.fork-pair{grid-template-columns:1fr;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}.threshold-door{min-height:580px}.threshold-door.live,.threshold-door.installation{border-left:0;border-right:0}.fork-divider{width:min(560px,72vw);height:86px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;background:var(--void)}.fork-divider span{width:auto;height:1px;min-height:0;background:linear-gradient(90deg,transparent,var(--glow))}.fork-divider span:last-child{background:linear-gradient(90deg,var(--glow),transparent)}.door-content{padding:54px 24px}.door-grid h3{font-size:clamp(50px,14vw,78px)}.threshold-door:after,.threshold-door.installation:after{background:linear-gradient(180deg,rgba(4,6,9,.34),rgba(4,6,9,.94) 72%)}}
+@media(max-width:820px){.fork-pair{grid-template-columns:1fr;width:min(92vw,620px);margin:0 auto clamp(28px,4vh,46px);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}.threshold-door{min-height:520px}.threshold-door.live,.threshold-door.installation{border-left:0;border-right:0}.fork-divider{width:min(560px,72vw);height:86px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;background:var(--void)}.fork-divider span{width:auto;height:1px;min-height:0;background:linear-gradient(90deg,transparent,var(--glow))}.fork-divider span:last-child{background:linear-gradient(90deg,var(--glow),transparent)}.door-content{padding:54px 24px}.door-grid h3{font-size:clamp(50px,14vw,78px)}.threshold-door:after,.threshold-door.installation:after{background:linear-gradient(180deg,rgba(4,6,9,.34),rgba(4,6,9,.94) 72%)}}
 
 
 /* V3 typography discipline — intentional one/two-line display headings */
