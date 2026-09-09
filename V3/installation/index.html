@@ -93,6 +93,15 @@ body:before{content:"";position:fixed;inset:-40%;z-index:79;pointer-events:none;
 .hero{margin-top:0!important}
 .bg video{opacity:.88!important}
 
+
+/* V3 typography discipline — intentional one/two-line display headings */
+@media(min-width:821px){
+  .tidy-two{max-width:none!important;width:100%!important}
+  .tidy-two .keep-line{display:block;white-space:nowrap}
+  .formats-intro .statement{max-width:1100px}
+}
+@media(max-width:820px){.tidy-two .keep-line{white-space:normal}}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
