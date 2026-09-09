@@ -1,0 +1,28 @@
+name: Fix V3 impermanence two lines
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-v3-impermanence-two-lines-trigger'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lock impermanence heading to two lines
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('V3/index.html')
+          s=p.read_text()
+          css='''\n/* V3.7 — impermanence two-line discipline */\n@media (min-width:821px){\n  section[data-label^="II "] .col{max-width:980px!important;margin-inline:auto;text-align:center}\n  section[data-label^="II "] .statement{white-space:nowrap;font-size:clamp(38px,4.15vw,60px)!important}\n  section[data-label^="II "] .body{max-width:66ch;margin-left:auto;margin-right:auto}\n}\n'''
+          if 'V3.7 — impermanence two-line discipline' not in s:
+              s=s.replace('</style>',css+'</style>',1)
+          p.write_text(s)
+          PY
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html
+          git commit -m 'Keep V3 impermanence heading to two lines' || exit 0
+          git push
