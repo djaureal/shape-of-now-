@@ -1,0 +1,36 @@
+name: Install V3 global media dock
+on:
+  push:
+    paths:
+      - '.github/workflows/install-v3-global-media-dock-trigger'
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add shared media dock to V3 pages
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          pages={
+            Path('V3/index.html'):('./media-dock.css','./media-dock.js'),
+            Path('V3/stage/index.html'):('../media-dock.css','../media-dock.js'),
+            Path('V3/installation/index.html'):('../media-dock.css','../media-dock.js'),
+          }
+          for p,(css,js) in pages.items():
+            s=p.read_text()
+            if 'media-dock.css' not in s:
+              s=s.replace('</head>',f'<link rel="stylesheet" href="{css}">\n</head>',1)
+            if 'media-dock.js' not in s:
+              s=s.replace('</body>',f'<script src="{js}"></script>\n</body>',1)
+            p.write_text(s)
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html V3/stage/index.html V3/installation/index.html
+          git commit -m 'Add persistent V3 media dock across site' || exit 0
+          git push
