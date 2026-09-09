@@ -1,0 +1,32 @@
+name: Force V3 two-line headlines
+on:
+  push:
+    paths:
+      - '.github/workflows/force-v3-two-line-headlines-trigger'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lock prologue to two lines
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('V3/index.html')
+          s=p.read_text()
+          old='<p class="statement reveal d1">We spend so much of our lives<br>somewhere <em>else</em>.</p>'
+          new='<p class="statement reveal d1 prologue-title"><span>We spend so much of our lives</span><br><span>somewhere <em>else</em>.</span></p>'
+          if old in s:
+              s=s.replace(old,new,1)
+          css='''\n/* V3.6 — strict two-line desktop display heading */\n@media (min-width:821px){\n  #prologue .prologue-title{font-size:clamp(38px,4.25vw,64px)!important;white-space:normal!important;max-width:none!important;width:100%!important}\n  #prologue .prologue-title>span{display:inline-block!important;white-space:nowrap!important}\n}\n'''
+          if 'V3.6 — strict two-line desktop display heading' not in s:
+              s=s.replace('</style>',css+'</style>',1)
+          p.write_text(s)
+          PY
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html
+          git commit -m 'Lock V3 prologue to two lines'
+          git push
