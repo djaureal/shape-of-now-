@@ -1,0 +1,23 @@
+name: Build V3 original-language site v2
+on:
+  push:
+    paths:
+      - '.github/workflows/build-v3-original-language-v2-trigger'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build V3
+        run: python3 scripts/build_v3_original_language.py
+      - name: Commit V3
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3
+          git commit -m 'Build V3 in original Construct of Time design language'
+          git push
