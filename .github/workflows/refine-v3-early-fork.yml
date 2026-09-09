@@ -1,0 +1,21 @@
+name: Refine V3 early fork
+on:
+  push:
+    paths:
+      - '.github/workflows/refine-v3-early-fork-trigger'
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply V3 early fork refinement
+        run: python3 .github/scripts/refine_v3_early_fork.py
+      - name: Commit V3 refinement
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html V3/stage/index.html V3/installation/index.html
+          git commit -m 'Refine V3 with early cinematic fork' || exit 0
+          git push
