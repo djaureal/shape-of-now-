@@ -1,0 +1,62 @@
+name: Replace homepage prologue
+on:
+  push:
+    paths:
+      - '.github/workflows/replace-homepage-prologue-trigger'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace opening sequence
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('V3/index.html')
+          s = p.read_text()
+
+          # Remove the existing prologue and the extra interlude before Yesterday.
+          s = re.sub(r'\n<!-- ============ PROLOGUE ============ -->.*?\n<!-- ============ ARGUMENT ============ -->\n<span id="arg"></span>\n<section class="panel interlude">.*?</section>\n', '\n<span id="arg"></span>\n', s, count=1, flags=re.S)
+
+          # Replace Yesterday.
+          s = re.sub(
+              r'<section class="panel chapter" data-label="I &middot; yesterday">.*?</section>',
+              '''<section class="panel chapter" data-label="I &middot; yesterday">\n  <div class="vbg"><video src="media/video/b1.mp4" data-vid="b1" autoplay muted loop playsinline preload="none"></video></div>\n  <div class="container"><div class="col">\n    <div class="eyebrow reveal">Yesterday</div>\n    <p class="statement reveal d1">Yesterday feels like a place behind us.<br>But try <em>going back.</em></p>\n    <p class="body reveal d2">You can revisit the story, the feeling, the face. But not the event itself. What remains is a trace. A pattern carried forward. So maybe the past is not somewhere we left. Maybe it is something the present keeps rebuilding.</p>\n  </div></div>\n</section>''',
+              s, count=1, flags=re.S)
+
+          # Replace Impermanence.
+          s = re.sub(
+              r'<section class="panel chapter" data-label="II &middot; impermanence">.*?</section>',
+              '''<section class="panel chapter" data-label="II &middot; impermanence">\n  <div class="vbg"><video src="media/video/d1.mp4" data-vid="d1" autoplay muted loop playsinline preload="none"></video></div>\n  <div class="container"><div class="col">\n    <div class="eyebrow reveal">Impermanence</div>\n    <p class="statement reveal d1">We keep asking life<br>to <em>hold still.</em></p>\n    <p class="body reveal d2">This moment. This person. This version of ourselves. But nothing really stands still. Even what looks solid is movement held together for a while. A body changes. A city changes. A memory changes every time it returns. The strange thing is not that things pass. The strange thing is how often we expect them not to.</p>\n  </div></div>\n</section>''',
+              s, count=1, flags=re.S)
+
+          # Replace Tomorrow.
+          s = re.sub(
+              r'<section class="panel chapter" data-label="III &middot; tomorrow">.*?</section>',
+              '''<section class="panel chapter" data-label="III &middot; tomorrow">\n  <div class="vbg"><video src="media/video/d2.mp4" data-vid="d2" autoplay muted loop playsinline preload="none"></video></div>\n  <div class="container"><div class="col">\n    <div class="eyebrow reveal">Tomorrow</div>\n    <p class="statement reveal d1">Tomorrow has a strong reputation<br>for a place nobody has <em>ever seen.</em></p>\n    <p class="body reveal d2">We plan for it. We fear it. We sacrifice today for it. But the future never arrives as “the future.” When it comes, it comes as this. Another now. So perhaps tomorrow is not a destination. Perhaps it is a possibility being shaped by what we do here.</p>\n  </div></div>\n</section>''',
+              s, count=1, flags=re.S)
+
+          # Remove chapter IV / The Return.
+          s = re.sub(r'\n<div class="chapdiv"><span></span><i>IV</i><span></span></div>\n<section class="panel chapter" data-label="IV &middot; the return">.*?</section>\n', '\n', s, count=1, flags=re.S)
+
+          # Replace The Question section.
+          s = re.sub(
+              r'<section class="panel tall" id="philosophy">.*?</section>',
+              '''<section class="panel tall" id="philosophy">\n  <div class="container">\n    <div class="sec-head reveal" style="max-width:900px">\n      <div class="eyebrow">the question</div>\n      <p class="statement">And now we get to<br>the difficult part.</p>\n    </div>\n    <div class="prose reveal d1">\n      <p>Where exactly is now? Not the word. Not the clock. The actual thing.</p>\n      <p>There is no single universal beat that the whole cosmos agrees to follow. Speed changes time. Gravity changes time. Even the order of events can depend on where you stand.</p>\n      <p>And at the smallest scales, reality is less like a collection of fixed objects and more like a field of possibilities becoming definite through interaction.</p>\n      <p>Meanwhile, your own mind is doing something similar. It takes fragments, fills gaps, predicts what comes next, and gives you a world that feels continuous.</p>\n      <p>So perhaps “now” is not a tiny slice between past and future. Perhaps it is the meeting place — where memory, possibility, perception, and change all become one experience.</p>\n      <p>Not still. Not fixed. Just taking form.</p>\n    </div>\n    <p class="foot reveal d2"><b>The Shape of Now</b></p>\n  </div>\n</section>''',
+              s, count=1, flags=re.S)
+
+          p.write_text(s)
+
+          # Promote the updated V3 homepage to production root.
+          Path('index.html').write_text(s.replace('href="./media-dock.css"','href="./media-dock.css"'))
+          PY
+
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html index.html
+          git commit -m 'Rewrite homepage opening sequence'
+          git push
