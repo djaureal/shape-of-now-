@@ -14,4 +14,11 @@ for path, src in [
     # Keep the visual Hz phases on screen long enough to match the audio.
     # 24s total cycle preserves the existing theta/alpha/beta/gamma proportions.
     s=s.replace('const ts=R.loopT/1000, lt=(ts%15)/15;', 'const ts=R.loopT/1000, lt=(ts%24)/24;')
+
+    # SHOW and BONES are legacy room controls with no useful effect in the current build.
+    # Hide them without removing their DOM nodes so the existing room script remains untouched.
+    hide_css='\n/* Current 3D room controls — hide inactive legacy buttons. */\n#btnShow,#btnBones{display:none!important}\n'
+    if '#btnShow,#btnBones{display:none!important}' not in s:
+        s=s.replace('</style>', hide_css+'\n</style>', 1)
+
     path.write_text(s)
