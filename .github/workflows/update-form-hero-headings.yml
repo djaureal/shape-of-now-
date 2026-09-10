@@ -1,0 +1,22 @@
+name: Update form hero headings
+on:
+  push:
+    paths:
+      - '.github/workflows/update-form-hero-headings-trigger'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply hero heading update
+        run: python3 scripts/update_form_hero_headings.py
+      - name: Commit changes
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/stage/index.html V3/installation/index.html stage/index.html installation/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Refine Live and Installation hero headings'
+          git push
