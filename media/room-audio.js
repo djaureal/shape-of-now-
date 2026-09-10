@@ -31,23 +31,27 @@
     clearNodes();
     const now=ctx.currentTime;
     master.gain.cancelScheduledValues(now);
-    master.gain.setValueAtTime(Math.max(.0001,master.gain.value),now);
+    master.gain.setValueAtTime(.0001,now);
 
     if(mode==='strobe'){
-      osc(36,'sine',.16);
-      osc(72,'sine',.075);
-      osc(108,'sine',.025);
-      const sweep=osc(54,'sine',.035);
+      osc(36,'sine',.34);
+      osc(72,'sine',.16);
+      osc(108,'sine',.08);
+      osc(216,'sine',.045);
+      osc(432,'sine',.022);
+      const sweep=osc(90,'sine',.07);
       const lfo=ctx.createOscillator(), depth=ctx.createGain();
-      lfo.frequency.value=.11;depth.gain.value=22;lfo.connect(depth);depth.connect(sweep.o.frequency);lfo.start();nodes.push(lfo,depth);
-      master.gain.exponentialRampToValueAtTime(.34,now+.7);
+      lfo.frequency.value=.11;depth.gain.value=34;lfo.connect(depth);depth.connect(sweep.o.frequency);lfo.start();nodes.push(lfo,depth);
+      master.gain.exponentialRampToValueAtTime(.52,now+.35);
     }else{
-      osc(36,'sine',.13);
-      osc(72,'sine',.045);
-      const tone=osc(631,'sine',.009);
-      const pulse=ctx.createGain();
-      pulse.gain.value=.5;tone.g.disconnect();tone.g.connect(pulse);pulse.connect(master);nodes.push(pulse);
-      master.gain.exponentialRampToValueAtTime(.24,now+1.4);
+      osc(36,'sine',.26);
+      osc(72,'sine',.12);
+      osc(144,'sine',.05);
+      osc(288,'sine',.024);
+      const tone=osc(631,'sine',.035);
+      const lfo=ctx.createOscillator(), depth=ctx.createGain();
+      lfo.frequency.value=.08;depth.gain.value=.014;lfo.connect(depth);depth.connect(tone.g.gain);lfo.start();nodes.push(lfo,depth);
+      master.gain.exponentialRampToValueAtTime(.46,now+.65);
     }
     active=true;
   }
@@ -64,14 +68,22 @@
     const calm=document.getElementById('btnCalm');
     const strobe=document.getElementById('btnStrobe');
     const room=document.getElementById('room');
-    if(calm) calm.addEventListener('click',()=>start('calm'),{capture:true});
-    if(strobe) strobe.addEventListener('click',()=>start('strobe'),{capture:true});
+
+    if(calm) calm.addEventListener('click',()=>{
+      start('calm');
+      if(ctx&&ctx.state==='suspended') ctx.resume();
+    },{capture:true});
+
+    if(strobe) strobe.addEventListener('click',()=>{
+      start('strobe');
+      if(ctx&&ctx.state==='suspended') ctx.resume();
+    },{capture:true});
 
     if(room && 'IntersectionObserver' in window){
       new IntersectionObserver(entries=>{
         const visible=entries.some(e=>e.isIntersecting&&e.intersectionRatio>.08);
         if(!active) return;
-        fade(visible?(currentMode==='strobe'?.34:.24):.0001,visible?.8:.45);
+        fade(visible?(currentMode==='strobe'?.52:.46):.0001,visible?.5:.35);
       },{threshold:[0,.08,.2]}).observe(room);
     }
   }
