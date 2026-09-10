@@ -1,0 +1,47 @@
+name: Homepage tight rhythm and video backgrounds
+on:
+  push:
+    paths:
+      - '.github/workflows/homepage-tight-video-fix-trigger'
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tighten homepage and make background videos self-contained
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          s = p.read_text()
+
+          # Give every data-vid background a direct source and autoplay fallback.
+          def repl(m):
+              key = m.group(1)
+              rest = m.group(2)
+              attrs = f'<video src="media/video/{key}.mp4" data-vid="{key}" autoplay'
+              return attrs + rest
+
+          s2, n = re.subn(r'<video\s+data-vid="([a-d][12])"(?![^>]*\bsrc=)([^>]*)>', repl, s)
+          if n == 0:
+              print('No unsourced data-vid videos found; leaving video markup unchanged.')
+          else:
+              s = s2
+              print(f'Added direct sources to {n} background videos.')
+
+          p.write_text(s)
+          PY
+
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo 'No index changes needed'
+          else
+            git commit -m 'Fix homepage background video sources'
+            git push
+          fi
