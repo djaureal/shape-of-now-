@@ -584,7 +584,7 @@ function initRoom(){
     let e,fl,opts=null;
     if(R.loopActive){
       R.loopT+=dt;  // wall-clock accumulator; SYNTH runs in sync via Web Audio scheduler
-      const ts=R.loopT/1000, lt=(ts%15)/15;
+      const ts=R.loopT/1000, lt=(ts%24)/24;
       const o=(R.loopMode==="strobe")?strobeFrame(lt,ts,t,dt):calmFrame(lt,ts,t);
       e=o.e;fl=o.fl;opts=o.opts;
     } else { e=R.modeShow?(0.34+0.05*Math.sin(t*0.0006)):0.12; fl=0; }
