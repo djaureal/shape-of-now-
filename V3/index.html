@@ -404,8 +404,8 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 .find,.imat,.acc,.format-card{background:rgba(8,11,15,.56)!important}
 .find:hover,.format-card:hover{background:rgba(12,16,20,.66)!important}
 .find .fx .plus,.acc-h .plus{font-size:0!important;min-width:112px;text-align:right}
-.find .fx .plus::before,.acc-h .plus::before{content:"open details  ↘";font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--filament);white-space:nowrap}
-.find.open .fx .plus::before,.acc.open .acc-h .plus::before{content:"close details  ↗"}
+.find .fx .plus::before,.acc-h .plus::before{content:"open details";font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--filament);white-space:nowrap}
+.find.open .fx .plus::before,.acc.open .acc-h .plus::before{content:"close details"}
 .format-card p{color:var(--ink)!important}
 
 /* V3.2 — early cinematic fork */
@@ -476,6 +476,10 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
   section[data-label^="II "] .statement{white-space:nowrap;font-size:clamp(38px,4.15vw,60px)!important}
   section[data-label^="II "] .body{max-width:66ch;margin-left:auto;margin-right:auto}
 }
+
+/* Detail tabs stay horizontal. */
+.find.open .fx .plus,.acc.open .acc-h .plus{transform:none!important}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <link rel="stylesheet" href="./media-dock.css">
@@ -517,12 +521,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 <span id="arg"></span>
 
 <div class="chapdiv"><span></span><i>I</i><span></span></div>
-<section class="panel chapter" data-label="I &middot; yesterday">
+<section class="panel chapter" data-label="I &middot; memory">
   <div class="vbg"><video src="media/video/b1.mp4" data-vid="b1" autoplay muted loop playsinline preload="none"></video></div>
   <div class="container"><div class="col">
-    <div class="eyebrow reveal">Yesterday</div>
-    <p class="statement reveal d1">Yesterday feels like a place behind us.<br>But try <em>going back.</em></p>
-    <p class="body reveal d2">You can revisit the story, the feeling, the face. But not the event itself. What remains is a trace. A pattern carried forward. So maybe the past is not somewhere we left. Maybe it is something the present keeps rebuilding.</p>
+    <div class="eyebrow reveal">Memory</div>
+    <p class="statement reveal d1">Memory feels like looking back.<br>But it only happens <em>here.</em></p>
+    <p class="body reveal d2">A face. A room. A moment you thought was gone. None of it returns exactly as it was. The mind rebuilds the past from traces, and every time it does, the memory meets the person you are now. Maybe the past is not somewhere behind us. Maybe it survives as something the present keeps making again.</p>
   </div></div>
 </section>
 
@@ -537,12 +541,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;
 </section>
 
 <div class="chapdiv"><span></span><i>III</i><span></span></div>
-<section class="panel chapter" data-label="III &middot; tomorrow">
+<section class="panel chapter" data-label="III &middot; imagination">
   <div class="vbg"><video src="media/video/d2.mp4" data-vid="d2" autoplay muted loop playsinline preload="none"></video></div>
   <div class="container"><div class="col">
-    <div class="eyebrow reveal">Tomorrow</div>
-    <p class="statement reveal d1">Tomorrow has a strong reputation<br>for a place nobody has <em>ever seen.</em></p>
-    <p class="body reveal d2">We plan for it. We fear it. We sacrifice today for it. But the future never arrives as “the future.” When it comes, it comes as this. Another now. So perhaps tomorrow is not a destination. Perhaps it is a possibility being shaped by what we do here.</p>
+    <div class="eyebrow reveal">Imagination</div>
+    <p class="statement reveal d1">Imagination can take you anywhere.<br>It just cannot take you <em>out of now.</em></p>
+    <p class="body reveal d2">We rehearse conversations that have not happened. We picture places we have never stood. We build whole futures from possibility. Some become real. Most do not. But every future begins the same way: as an image appearing in the present. What comes next matters. It is simply not here yet.</p>
   </div></div>
 </section>
 
