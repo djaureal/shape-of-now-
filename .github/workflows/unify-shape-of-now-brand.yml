@@ -1,0 +1,58 @@
+name: Unify public brand as The Shape of Now
+on:
+  push:
+    paths:
+      - '.github/workflows/unify-shape-of-now-brand-trigger'
+jobs:
+  unify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove competing Construct of Time branding
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          files = [Path('V3/index.html'), Path('V3/stage/index.html'), Path('V3/installation/index.html')]
+          for p in files:
+              s = p.read_text()
+
+              # Clean specific public-facing constructions first.
+              s = s.replace('a Construct of Time work · Tony Funiciello', 'a work by Tony Funiciello')
+              s = s.replace('Construct of Time &middot; artistic + research framework', 'an audiovisual work in two forms')
+              s = s.replace('The Shape of Now turns the central question of Construct of Time into an experience:', 'The Shape of Now turns a question about memory, anticipation and perception into an experience:')
+              s = s.replace('within the Construct of Time artistic and research framework', 'as a live performance and immersive installation')
+              s = s.replace('Construct of Time · Live', 'The Shape of Now · Live')
+              s = s.replace('Construct of Time · Installation', 'The Shape of Now · Installation')
+              s = s.replace('The six findings behind Construct of Time', 'The six findings behind The Shape of Now')
+
+              # Any remaining title/reference uses become the master brand.
+              s = s.replace('CONSTRUCT OF TIME', 'THE SHAPE OF NOW')
+              s = s.replace('Construct of Time', 'The Shape of Now')
+              s = s.replace('construct of time', 'the shape of now')
+
+              # Guard against accidental duplicated phrasing.
+              s = s.replace('The Shape of Now · The Shape of Now', 'The Shape of Now')
+              s = s.replace('the shape of now · the shape of now', 'the shape of now')
+              s = s.replace('within the The Shape of Now', 'within The Shape of Now')
+              p.write_text(s)
+
+          # Publish V3 source to the live routes.
+          Path('index.html').write_text(Path('V3/index.html').read_text().replace('../media/', 'media/'))
+          Path('stage/index.html').write_text(Path('V3/stage/index.html').read_text().replace('../../media/', '../media/'))
+          Path('installation/index.html').write_text(Path('V3/installation/index.html').read_text().replace('../../media/', '../media/'))
+
+          for p in [Path('index.html'), Path('stage/index.html'), Path('installation/index.html')]:
+              s = p.read_text()
+              assert 'The Shape of Now' in s
+              assert 'Construct of Time' not in s
+              assert 'CONSTRUCT OF TIME' not in s
+          PY
+
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html V3/stage/index.html V3/installation/index.html index.html stage/index.html installation/index.html
+          git commit -m 'Unify public branding as The Shape of Now'
+          git push
