@@ -1,0 +1,60 @@
+name: Unify centered editorial layout and remove enter
+on:
+  push:
+    paths:
+      - '.github/workflows/unify-centering-remove-enter-trigger'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update V3 source and production pages
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          # Remove homepage Enter button from source.
+          p = Path('V3/index.html')
+          s = p.read_text()
+          s = s.replace('    <button class="enter" id="enterBtn">enter</button>\n', '')
+          p.write_text(s)
+
+          centered_css = r'''
+
+/* Unified The Shape of Now editorial alignment */
+@media(min-width:781px){
+  .panel>.inner{text-align:center}
+  .panel>.inner .eye{display:flex;justify-content:center;align-items:center}
+  .panel>.inner .h1,.panel>.inner .h2,.panel>.inner .copy,.panel>.inner .quote,.panel>.inner .meta{margin-left:auto;margin-right:auto}
+  .hero>.inner{text-align:center}
+  .score,.films,.research,.states,.editorial-notes{text-align:left}
+}
+'''
+          for path in ['V3/stage/index.html','V3/installation/index.html']:
+              p = Path(path)
+              s = p.read_text()
+              if '/* Unified The Shape of Now editorial alignment */' not in s:
+                  s = s.replace('</style>', centered_css + '\n</style>', 1)
+              p.write_text(s)
+
+          # Promote source to public routes.
+          Path('index.html').write_text(Path('V3/index.html').read_text().replace('../media/','media/'))
+          stage = Path('V3/stage/index.html').read_text().replace('../../media/','../media/')
+          install = Path('V3/installation/index.html').read_text().replace('../../media/','../media/')
+          Path('stage/index.html').write_text(stage)
+          Path('installation/index.html').write_text(install)
+
+          # Validation
+          assert 'id="enterBtn"' not in Path('index.html').read_text()
+          assert 'Unified The Shape of Now editorial alignment' in Path('stage/index.html').read_text()
+          assert 'Unified The Shape of Now editorial alignment' in Path('installation/index.html').read_text()
+          PY
+
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html V3/stage/index.html V3/installation/index.html index.html stage/index.html installation/index.html
+          git commit -m 'Center Live and Installation editorial layout and remove Enter'
+          git push
