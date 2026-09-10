@@ -1,0 +1,27 @@
+name: Add artist section
+on:
+  push:
+    paths:
+      - '.github/workflows/add-artist-section-trigger'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add artist section
+        run: python3 scripts/add_artist_section.py
+      - name: Validate
+        run: |
+          grep -q 'id="artist"' V3/index.html
+          grep -q 'id="artist"' index.html
+          grep -q 'underground dance music' V3/index.html
+      - name: Commit changes
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html index.html
+          git diff --cached --quiet || git commit -m 'Add About the Artist section'
+          git push
