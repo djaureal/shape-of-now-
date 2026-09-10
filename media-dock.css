@@ -1,0 +1,83 @@
+/* The Shape of Now — shared public layout overrides */
+
+/* Live + Installation: center the page composition, not only the headings. */
+@media (min-width: 781px) {
+  .switch ~ .panel > .inner {
+    text-align: center !important;
+  }
+
+  .switch ~ .panel > .inner .eye {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .switch ~ .panel > .inner .h1,
+  .switch ~ .panel > .inner .h2,
+  .switch ~ .panel > .inner .copy,
+  .switch ~ .panel > .inner .quote,
+  .switch ~ .panel > .inner .meta {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  .switch ~ .panel .score,
+  .switch ~ .panel .films,
+  .switch ~ .panel .research,
+  .switch ~ .panel .states,
+  .switch ~ .panel .editorial-notes,
+  .switch ~ .panel .demo {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  .switch ~ .panel .trk,
+  .switch ~ .panel .trk > div,
+  .switch ~ .panel .film,
+  .switch ~ .panel .state,
+  .switch ~ .panel .research details,
+  .switch ~ .panel .research details p,
+  .switch ~ .panel .editorial-notes details,
+  .switch ~ .panel .editorial-notes .dc,
+  .switch ~ .panel .editorial-notes .dc p {
+    text-align: center !important;
+  }
+
+  .switch ~ .panel .state {
+    align-items: center !important;
+  }
+
+  .switch ~ .panel .research details p,
+  .switch ~ .panel .editorial-notes .dc,
+  .switch ~ .panel .editorial-notes .dc p {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Installation research introduction */
+  .switch ~ .room-intro .inner,
+  .switch ~ .room-intro .research-layout,
+  .switch ~ .room-intro .research-kicker,
+  .switch ~ .room-intro .research-body,
+  .switch ~ .room-intro .research-question {
+    text-align: center !important;
+  }
+
+  .switch ~ .room-intro .research-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .switch ~ .room-intro .research-question,
+  .switch ~ .room-intro .research-body .copy,
+  .switch ~ .room-intro .research-body .quote {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .switch ~ .room-intro .research-kicker {
+    justify-content: center !important;
+  }
+}
