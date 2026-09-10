@@ -10,49 +10,29 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Update V3 source and production pages
+      - name: Update source and public pages
+        shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
+          python3 - <<'PY'
           from pathlib import Path
-
-          # Remove homepage Enter button from source.
-          p = Path('V3/index.html')
-          s = p.read_text()
-          s = s.replace('    <button class="enter" id="enterBtn">enter</button>\n', '')
+          p=Path('V3/index.html')
+          s=p.read_text()
+          s=s.replace('<button class="enter" id="enterBtn">enter</button>','')
           p.write_text(s)
-
-          centered_css = r'''
-
-/* Unified The Shape of Now editorial alignment */
-@media(min-width:781px){
-  .panel>.inner{text-align:center}
-  .panel>.inner .eye{display:flex;justify-content:center;align-items:center}
-  .panel>.inner .h1,.panel>.inner .h2,.panel>.inner .copy,.panel>.inner .quote,.panel>.inner .meta{margin-left:auto;margin-right:auto}
-  .hero>.inner{text-align:center}
-  .score,.films,.research,.states,.editorial-notes{text-align:left}
-}
-'''
-          for path in ['V3/stage/index.html','V3/installation/index.html']:
-              p = Path(path)
-              s = p.read_text()
-              if '/* Unified The Shape of Now editorial alignment */' not in s:
-                  s = s.replace('</style>', centered_css + '\n</style>', 1)
+          css='''\n/* Unified The Shape of Now editorial alignment */\n@media(min-width:781px){\n.panel>.inner{text-align:center}\n.panel>.inner .eye{display:flex;justify-content:center;align-items:center}\n.panel>.inner .h1,.panel>.inner .h2,.panel>.inner .copy,.panel>.inner .quote,.panel>.inner .meta{margin-left:auto;margin-right:auto}\n.hero>.inner{text-align:center}\n.score,.films,.research,.states,.editorial-notes{text-align:left}\n}\n'''
+          for path in ('V3/stage/index.html','V3/installation/index.html'):
+              p=Path(path); s=p.read_text()
+              if 'Unified The Shape of Now editorial alignment' not in s:
+                  s=s.replace('</style>',css+'</style>',1)
               p.write_text(s)
-
-          # Promote source to public routes.
           Path('index.html').write_text(Path('V3/index.html').read_text().replace('../media/','media/'))
-          stage = Path('V3/stage/index.html').read_text().replace('../../media/','../media/')
-          install = Path('V3/installation/index.html').read_text().replace('../../media/','../media/')
-          Path('stage/index.html').write_text(stage)
-          Path('installation/index.html').write_text(install)
-
-          # Validation
+          Path('stage/index.html').write_text(Path('V3/stage/index.html').read_text().replace('../../media/','../media/'))
+          Path('installation/index.html').write_text(Path('V3/installation/index.html').read_text().replace('../../media/','../media/'))
           assert 'id="enterBtn"' not in Path('index.html').read_text()
           assert 'Unified The Shape of Now editorial alignment' in Path('stage/index.html').read_text()
           assert 'Unified The Shape of Now editorial alignment' in Path('installation/index.html').read_text()
           PY
-
           git config user.name 'ChatGPT Site Update'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add V3/index.html V3/stage/index.html V3/installation/index.html index.html stage/index.html installation/index.html
