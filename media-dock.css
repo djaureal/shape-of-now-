@@ -27,3 +27,54 @@
   margin-left:auto!important;
   margin-right:auto!important;
 }
+
+/* Main page only — tighter vertical rhythm. */
+#prologue,
+#philosophy,
+#formats,
+#research,
+#installation,
+#stage-design,
+#story,
+#films,
+#acts,
+#score,
+#enquiries{
+  padding-top:clamp(54px,7vh,86px)!important;
+  padding-bottom:clamp(54px,7vh,86px)!important;
+}
+
+.interlude{
+  padding-top:clamp(34px,4.5vh,54px)!important;
+  padding-bottom:clamp(34px,4.5vh,54px)!important;
+}
+
+.chapter{
+  padding-top:clamp(40px,5.5vh,66px)!important;
+  padding-bottom:clamp(40px,5.5vh,66px)!important;
+}
+
+.chapdiv{
+  margin-top:clamp(6px,1vh,12px)!important;
+  margin-bottom:clamp(6px,1vh,12px)!important;
+}
+
+#formats .formats-intro,
+#research .sec-head,
+#installation .sec-head{
+  margin-bottom:clamp(30px,4vh,48px)!important;
+}
+
+#stage-design .stage-gallery,
+#films .films,
+#score .tracks{
+  margin-top:clamp(30px,4.5vh,52px)!important;
+}
+
+@media(max-width:820px){
+  #prologue,#philosophy,#formats,#research,#installation,#stage-design,#story,#films,#acts,#score,#enquiries{
+    padding-top:48px!important;
+    padding-bottom:48px!important;
+  }
+  .chapter{padding-top:38px!important;padding-bottom:38px!important}
+}
