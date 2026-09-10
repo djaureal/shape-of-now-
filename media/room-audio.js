@@ -1,7 +1,11 @@
 (()=>{
   let ctx=null, master=null, active=false, currentMode='calm', nodes=[], syncTimer=null, startedAt=0;
+  let volume=.65;
   const AC=window.AudioContext||window.webkitAudioContext;
   if(!AC) return;
+
+  const modeLevel=()=>currentMode==='strobe'?.48:.42;
+  const audibleLevel=()=>Math.max(.0001,modeLevel()*volume);
 
   function ensure(){
     if(!ctx){
@@ -17,6 +21,16 @@
     if(syncTimer){clearInterval(syncTimer);syncTimer=null;}
     nodes.forEach(n=>{try{n.stop&&n.stop();}catch(e){} try{n.disconnect&&n.disconnect();}catch(e){}});
     nodes=[];
+  }
+
+  function silenceNow(){
+    if(master){
+      const now=ctx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.setValueAtTime(0,now);
+    }
+    clearNodes();
+    active=false;
   }
 
   function osc(freq,type='sine',gain=.1){
@@ -36,7 +50,7 @@
     osc(144,'sine',.05);
     osc(288,'sine',.022);
     osc(631,'sine',.03);
-    master.gain.exponentialRampToValueAtTime(.42,now+.65);
+    master.gain.exponentialRampToValueAtTime(audibleLevel(),now+.45);
   }
 
   function strobeBand(seconds){
@@ -54,8 +68,6 @@
     master.gain.cancelScheduledValues(now);
     master.gain.setValueAtTime(.0001,now);
 
-    // Audible carrier stack. The displayed 6/10/18/40 Hz value is the
-    // actual amplitude-modulation (entrainment) rate applied to this stack.
     const carrier=ctx.createOscillator();carrier.type='sine';carrier.frequency.value=144;
     const harmonic=ctx.createOscillator();harmonic.type='sine';harmonic.frequency.value=288;
     const carrierGain=ctx.createGain();carrierGain.gain.value=.12;
@@ -67,12 +79,13 @@
     const lfoDepth=ctx.createGain();lfoDepth.gain.value=.085;
     lfo.connect(lfoDepth);lfoDepth.connect(carrierGain.gain);
 
-    const sub=osc(36,'sine',.16);
+    osc(36,'sine',.16);
     carrier.start();harmonic.start();lfo.start();
     nodes.push(carrier,harmonic,carrierGain,harmonicGain,lfo,lfoDepth);
 
     startedAt=performance.now();
     const sync=()=>{
+      if(!active||currentMode!=='strobe') return;
       const sec=(performance.now()-startedAt)/1000;
       const hz=strobeBand(sec);
       const t=ctx.currentTime;
@@ -85,32 +98,54 @@
         harmonicGain.gain.setTargetAtTime(.006,t,.10);
       }
     };
+    active=true;
     sync();syncTimer=setInterval(sync,50);
-    master.gain.exponentialRampToValueAtTime(.48,now+.35);
+    master.gain.exponentialRampToValueAtTime(audibleLevel(),now+.3);
   }
 
   function start(mode){
     ensure();
+    silenceNow();
     currentMode=mode;
+    active=true;
     mode==='strobe'?startStrobe():startCalm();
     active=true;
   }
 
-  function stop(){
-    if(!ctx||!master){active=false;return;}
-    const now=ctx.currentTime;
-    master.gain.cancelScheduledValues(now);
-    master.gain.setTargetAtTime(.0001,now,.06);
-    setTimeout(()=>{clearNodes();},260);
-    active=false;
+  function reconcile(){
+    const calm=document.getElementById('btnCalm');
+    const strobe=document.getElementById('btnStrobe');
+    const calmOn=!!(calm&&calm.classList.contains('on'));
+    const strobeOn=!!(strobe&&strobe.classList.contains('on'));
+    if(strobeOn){if(!active||currentMode!=='strobe')start('strobe');return;}
+    if(calmOn){if(!active||currentMode!=='calm')start('calm');return;}
+    silenceNow();
   }
 
-  function fade(to,time=.8){
-    if(!ctx||!master) return;
-    const now=ctx.currentTime;
-    master.gain.cancelScheduledValues(now);
-    master.gain.setValueAtTime(Math.max(.0001,master.gain.value),now);
-    master.gain.exponentialRampToValueAtTime(Math.max(.0001,to),now+time);
+  function setVolume(v){
+    volume=Math.max(0,Math.min(1,Number(v)||0));
+    if(ctx&&master&&active){
+      const now=ctx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.setTargetAtTime(volume===0?0:audibleLevel(),now,.04);
+    }
+  }
+
+  function addVolumeControl(){
+    const controls=document.querySelector('#room .room-ctrl');
+    if(!controls||document.getElementById('roomVolume')) return;
+    const wrap=document.createElement('label');
+    wrap.className='room-volume';
+    wrap.setAttribute('aria-label','3D visualiser volume');
+    wrap.innerHTML='<span>room vol</span><input id="roomVolume" type="range" min="0" max="100" value="65" step="1"><output id="roomVolumeValue">65%</output>';
+    controls.appendChild(wrap);
+    const input=wrap.querySelector('input');
+    const out=wrap.querySelector('output');
+    input.addEventListener('input',()=>{out.textContent=input.value+'%';setVolume(input.value/100);});
+
+    const style=document.createElement('style');
+    style.textContent='.room-volume{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);background:rgba(8,11,15,.5);backdrop-filter:blur(6px);font:8px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);white-space:nowrap}.room-volume input{width:92px;accent-color:var(--filament);cursor:pointer}.room-volume output{min-width:30px;text-align:right;color:var(--filament);font:8px var(--mono);letter-spacing:.04em}@media(max-width:780px){.room-ctrl{flex-wrap:wrap}.room-volume{width:100%;justify-content:flex-end}.room-volume input{width:min(180px,42vw)}}';
+    document.head.appendChild(style);
   }
 
   function bind(){
@@ -118,29 +153,30 @@
     const strobe=document.getElementById('btnStrobe');
     const strobeGo=document.getElementById('strobeGo');
     const room=document.getElementById('room');
+    addVolumeControl();
 
-    if(calm) calm.addEventListener('click',()=>setTimeout(()=>{
-      calm.classList.contains('on')?start('calm'):stop();
-    },0));
+    [calm,strobe,strobeGo].forEach(el=>{
+      if(el) el.addEventListener('click',()=>setTimeout(reconcile,0));
+    });
 
-    if(strobe) strobe.addEventListener('click',()=>setTimeout(()=>{
-      strobe.classList.contains('on')?start('strobe'):stop();
-    },0));
-
-    if(strobeGo) strobeGo.addEventListener('click',()=>setTimeout(()=>{
-      const b=document.getElementById('btnStrobe');
-      if(b&&b.classList.contains('on')) start('strobe');
-    },0));
+    if(calm&&strobe){
+      const mo=new MutationObserver(()=>reconcile());
+      mo.observe(calm,{attributes:true,attributeFilter:['class']});
+      mo.observe(strobe,{attributes:true,attributeFilter:['class']});
+    }
 
     if(room && 'IntersectionObserver' in window){
       new IntersectionObserver(entries=>{
         const visible=entries.some(e=>e.isIntersecting&&e.intersectionRatio>.08);
-        if(!active) return;
-        fade(visible?(currentMode==='strobe'?.48:.42):.0001,visible?.5:.35);
+        if(!active||!master) return;
+        const now=ctx.currentTime;
+        master.gain.cancelScheduledValues(now);
+        master.gain.setTargetAtTime(visible?audibleLevel():0,now,visible?.08:.04);
       },{threshold:[0,.08,.2]}).observe(room);
     }
   }
 
+  window.COTRoomAudio={stop:silenceNow,setVolume,reconcile};
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind,{once:true});
   else bind();
 })();
