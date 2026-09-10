@@ -1,0 +1,31 @@
+name: Repair homepage background video tags
+on:
+  push:
+    paths:
+      - '.github/workflows/homepage-video-tag-repair-trigger'
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair malformed background video tags
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text()
+          # Repair any data-vid opening tags where the prior pass dropped the final >.
+          s2,n=re.subn(r'(<video\s+src="media/video/[a-d][12]\.mp4"\s+data-vid="[a-d][12]"\s+autoplay[^<>]*?)(?=</video>)', r'\1>', s)
+          if n == 0:
+              raise SystemExit('No malformed background video tags found')
+          p.write_text(s2)
+          print(f'Repaired {n} background video tags')
+          PY
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Repair homepage background video tags'
+          git push
