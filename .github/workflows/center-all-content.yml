@@ -1,0 +1,54 @@
+name: Center all public content
+on:
+  push:
+    paths:
+      - '.github/workflows/center-all-content-trigger'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Center Live and Installation content blocks
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          css = r'''
+
+/* Full centered content alignment */
+@media(min-width:781px){
+  .panel>.inner{text-align:center!important}
+  .panel>.inner .eye{display:flex!important;justify-content:center!important;align-items:center!important;text-align:center!important}
+  .panel>.inner .h1,.panel>.inner .h2,.panel>.inner .copy,.panel>.inner .quote,.panel>.inner .meta{margin-left:auto!important;margin-right:auto!important;text-align:center!important}
+  .score,.films,.research,.states,.editorial-notes{text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+  .trk{grid-template-columns:45px 1fr auto!important;text-align:center!important}
+  .trk>div:nth-child(2){text-align:center!important}
+  .films .film,.research details,.editorial-notes details,.states .state{text-align:center!important}
+  .research details p,.editorial-notes .dc,.editorial-notes .dc p{margin-left:auto!important;margin-right:auto!important;text-align:center!important}
+  .state{align-items:center!important}
+  .demo{margin-left:auto!important;margin-right:auto!important}
+  .room-intro .inner,.research-layout,.research-kicker,.research-body,.research-question{text-align:center!important}
+  .research-layout{grid-template-columns:1fr!important}
+  .research-question,.research-body .copy,.research-body .quote{margin-left:auto!important;margin-right:auto!important}
+  .research-kicker{justify-content:center!important}
+}
+'''
+
+          for path in ['V3/stage/index.html','V3/installation/index.html']:
+              p=Path(path); s=p.read_text()
+              if '/* Full centered content alignment */' not in s:
+                  s=s.replace('</style>', css+'\n</style>', 1)
+              p.write_text(s)
+
+          Path('stage/index.html').write_text(Path('V3/stage/index.html').read_text().replace('../../media/','../media/'))
+          Path('installation/index.html').write_text(Path('V3/installation/index.html').read_text().replace('../../media/','../media/'))
+          PY
+
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/stage/index.html V3/installation/index.html stage/index.html installation/index.html
+          git commit -m 'Center all Live and Installation content'
+          git push
