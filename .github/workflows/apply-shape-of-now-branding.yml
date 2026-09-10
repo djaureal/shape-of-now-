@@ -1,0 +1,83 @@
+name: Apply Shape of Now branding
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-shape-of-now-branding-trigger'
+jobs:
+  brand:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply naming hierarchy to V3 source
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace(path, pairs):
+              p = Path(path)
+              s = p.read_text()
+              original = s
+              for old, new in pairs:
+                  s = s.replace(old, new)
+              if s == original:
+                  print(f'No changes made in {path}')
+              p.write_text(s)
+
+          replace('V3/index.html', [
+              ('<title>Construct of Time · Tony Funiciello</title>', '<title>The Shape of Now · Tony Funiciello</title>'),
+              ('<meta property="og:title" content="Construct of Time · audiovisual performance and immersive work"/>', '<meta property="og:title" content="The Shape of Now · Live + Installation · Tony Funiciello"/>'),
+              ('<meta property="og:description" content="An audiovisual work by Tony Funiciello. Live performance and immersive installation exploring how time is perceived, remembered and constructed."/>', '<meta property="og:description" content="The Shape of Now is an audiovisual artwork by Tony Funiciello, presented as a live performance and immersive installation within the Construct of Time artistic and research framework."/>'),
+              ('<div class="hud"><b>CONSTRUCT OF TIME</b><span class="by">a work by Tony Funiciello</span>', '<div class="hud"><b>THE SHAPE OF NOW</b><span class="by">a Construct of Time work · Tony Funiciello</span>'),
+              ('<div class="cover-eye">Construct of Time &middot; an audiovisual work in two forms</div>', '<div class="cover-eye">Construct of Time &middot; artistic + research framework</div>'),
+              ('<h1 class="title"><span class="l">Construct</span> <span class="l"><em>of Time</em></span></h1>', '<h1 class="title"><span class="l">The Shape</span> <span class="l"><em>of Now</em></span></h1>'),
+              ('<div class="eyebrow">one work · two forms</div>', '<div class="eyebrow">the shape of now · one artwork · two forms</div>'),
+              ('Construct of Time begins with one question: if memory and anticipation are both experienced now, what exactly is the present we are living inside? From here the work divides by situation, not by idea.', 'The Shape of Now turns the central question of Construct of Time into an experience: if memory and anticipation are both experienced now, what exactly is the present we are living inside? From here the artwork divides by situation, not by idea.'),
+              ('aria-label="Enter Construct of Time Live Performance"', 'aria-label="Enter The Shape of Now Live"'),
+              ('<div class="door-index">01 · live performance</div>', '<div class="door-index">01 · THE SHAPE OF NOW</div>'),
+              ('<h3>Live<br><em>Performance</em></h3>', '<h3><em>Live</em></h3>'),
+              ('<span class="door-enter">enter the live performance →</span>', '<span class="door-enter">enter The Shape of Now — Live →</span>'),
+              ('aria-label="Enter Construct of Time Immersive Installation"', 'aria-label="Enter The Shape of Now Installation"'),
+              ('<div class="door-index">02 · immersive installation</div>', '<div class="door-index">02 · THE SHAPE OF NOW</div>'),
+              ('<h3>Immersive<br><em>Installation</em></h3>', '<h3><em>Installation</em></h3>'),
+              ('<span class="door-enter">enter the installation →</span>', '<span class="door-enter">enter The Shape of Now — Installation →</span>'),
+              ('<div class="eyebrow">construct of time · live</div>', '<div class="eyebrow">the shape of now · live</div>'),
+          ])
+
+          replace('V3/stage/index.html', [
+              ('<title>Construct of Time · Live Performance</title>', '<title>The Shape of Now · Live · Tony Funiciello</title>'),
+              ('<div class="hud"><a href="../">CONSTRUCT OF TIME</a><small>Tony Funiciello · Live Performance</small></div>', '<div class="hud"><a href="../">THE SHAPE OF NOW</a><small>Construct of Time · Live</small></div>'),
+              ('<div class="eye">construct of time · live performance</div>', '<div class="eye">the shape of now · live</div>'),
+          ])
+
+          replace('V3/installation/index.html', [
+              ('<title>Construct of Time · Immersive Installation</title>', '<title>The Shape of Now · Installation · Tony Funiciello</title>'),
+              ('<div class="hud"><a href="../">CONSTRUCT OF TIME</a><small>Tony Funiciello · Immersive Installation</small></div>', '<div class="hud"><a href="../">THE SHAPE OF NOW</a><small>Construct of Time · Installation</small></div>'),
+              ('construct of time · immersive installation', 'the shape of now · installation'),
+          ])
+          PY
+
+          # Promote the updated V3 source to the live public routes.
+          cp V3/index.html index.html
+          cp V3/stage/index.html stage/index.html
+          cp V3/installation/index.html installation/index.html
+
+          # Correct relative media paths for production locations.
+          sed -i 's#\.\./media/#media/#g' index.html
+          sed -i 's#\.\./\.\./media/#../media/#g' stage/index.html
+          sed -i 's#\.\./\.\./media/#../media/#g' installation/index.html
+
+          # Verify the new public identity exists on all three pages.
+          grep -q 'The Shape of Now' index.html
+          grep -q 'The Shape of Now' stage/index.html
+          grep -q 'The Shape of Now' installation/index.html
+          grep -q 'Construct of Time' index.html
+          grep -q 'Construct of Time' stage/index.html
+          grep -q 'Construct of Time' installation/index.html
+
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/index.html V3/stage/index.html V3/installation/index.html index.html stage/index.html installation/index.html
+          git commit -m 'Rebrand public artwork as The Shape of Now'
+          git push
