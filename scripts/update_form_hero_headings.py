@@ -4,18 +4,18 @@ updates = [
     (
         Path('V3/stage/index.html'),
         '<h1 class="h1">Many people.<br>One shared <em>present.</em></h1>',
-        '<h1 class="h1">Time gathers.<br><em>We arrive in the same moment.</em></h1>'
+        '<h1 class="h1">Time gathers.<br>We arrive in the same <em>moment.</em></h1>'
     ),
     (
         Path('V3/installation/index.html'),
         '<h1 class="h1">One work.<br>Many <em>presents.</em></h1>',
-        '<h1 class="h1">Time disperses.<br><em>Each person finds their own moment.</em></h1>'
+        '<h1 class="h1">Time disperses.<br>The present becomes <em>personal.</em></h1>'
     ),
 ]
 
 for path, old, new in updates:
     s = path.read_text()
-    if old not in s:
+    if old not in s and new not in s:
         raise SystemExit(f'Expected hero heading not found in {path}')
     path.write_text(s.replace(old, new, 1))
 
