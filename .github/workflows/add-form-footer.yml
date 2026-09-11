@@ -1,0 +1,28 @@
+name: Add form footer
+on:
+  push:
+    paths:
+      - '.github/workflows/add-form-footer-trigger'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add shared footer
+        run: python3 scripts/add_form_footer.py
+      - name: Validate
+        run: |
+          grep -q 'Programming and presentation enquiries' V3/stage/index.html
+          grep -q 'Programming and presentation enquiries' V3/installation/index.html
+          grep -q 'The%20Shape%20of%20Now%20Programming%20Enquiry' stage/index.html
+          grep -q 'The%20Shape%20of%20Now%20Programming%20Enquiry' installation/index.html
+      - name: Commit changes
+        run: |
+          git config user.name 'ChatGPT Site Update'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add V3/stage/index.html V3/installation/index.html stage/index.html installation/index.html
+          git diff --cached --quiet || git commit -m 'Add shared programming footer to Live and Installation'
+          git push
