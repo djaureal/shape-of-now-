@@ -79,6 +79,54 @@ body:before{content:"";position:fixed;inset:-40%;z-index:79;pointer-events:none;
   .hero .hero-secondary{font-size:clamp(22px,6.2vw,34px);margin-top:12px}
 }
 
+
+
+/* Shared programming footer — Live + Installation */
+.form-footer{
+  position:relative;
+  z-index:4;
+  padding:clamp(54px,7vh,82px) var(--g,clamp(22px,6vw,104px)) clamp(64px,8vh,96px);
+  border-top:1px solid rgba(207,230,239,.10);
+  text-align:center;
+  background:linear-gradient(180deg,rgba(5,7,10,.12),rgba(5,7,10,.72));
+}
+.form-footer-meta{
+  max-width:760px;
+  margin:0 auto 30px;
+  font:8.5px/2 var(--mo,"IBM Plex Mono",monospace);
+  letter-spacing:.30em;
+  text-transform:uppercase;
+  color:var(--d,#7b858b);
+}
+.form-footer-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:11px;
+}
+.form-footer-actions a{
+  min-width:154px;
+  padding:14px 18px;
+  border:1px solid rgba(207,230,239,.22);
+  color:var(--i,#b8c2c8);
+  text-decoration:none;
+  font:8px var(--mo,"IBM Plex Mono",monospace);
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  transition:border-color .3s,color .3s,background .3s;
+}
+.form-footer-actions a:hover{
+  color:var(--s,#eef4f7);
+  border-color:rgba(207,230,239,.48);
+  background:rgba(207,230,239,.035);
+}
+@media(max-width:700px){
+  .form-footer{padding-left:22px;padding-right:22px}
+  .form-footer-meta{font-size:7.5px;letter-spacing:.22em}
+  .form-footer-actions{flex-direction:column;align-items:stretch;max-width:360px;margin:auto}
+  .form-footer-actions a{width:100%}
+}
+
 </style><link rel="stylesheet" href="../media-dock.css">
 </head><body><div class="hud"><a href="../">THE SHAPE OF NOW</a><small>The Shape of Now · Live</small></div><div class="switch"><a class="on" href="./">LIVE ●</a><a href="../installation/">INSTALLATION ○</a></div>
 <section class="panel hero"><div class="bg"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/hf_20260828_123540_7ab088c1-269d-4b13-8a41-5f9bb0119d3d.mp4" muted autoplay loop playsinline></video></div><div class="inner"><div class="eye">the shape of now · live</div><h1 class="h1 hero-two-line"><span class="hero-primary">Time gathers.</span><span class="hero-secondary">We arrive in the same moment.</span></h1><div class="meta">nine-part audiovisual work · three performers · seven screens · cinematic image · architectural light</div></div></section>
@@ -93,5 +141,15 @@ body:before{content:"";position:fixed;inset:-40%;z-index:79;pointer-events:none;
 <details><summary><span class="dn">04</span><b>The audience experience</b><span class="more">open details ↓</span></summary><div class="dc"><p>The opening removes familiar markers: no immediate beat, no exposition, no spectacle asking to be admired. Expectation is built gradually. At the climax, sound, image and light converge into a single event, then release.</p><p>The arc moves from stillness to pressure to release without confusing intensity with meaning.</p></div></details>
 <details><summary><span class="dn">05</span><b>Live performance and touring</b><span class="more">open details ↓</span></summary><div class="dc"><p>The production is designed to scale from black-box presentation to festival stage while preserving the seven-screen visual logic, full-range sound, darkness and architectural light that make the perceptual argument work.</p><p>Engineering, rigging, screen support, ballast, safety systems and venue compliance remain supplier and venue scope.</p></div></details>
 <details><summary><span class="dn">06</span><b>The creative authorship</b><span class="more">open details ↓</span></summary><div class="dc"><p>Conceived, written and scored by Tony Funiciello. The project joins electronic composition, moving image, performance, spatial design and research into one authored system. Its visual language stays brutalist, cold and architectural: real materials, restrained light, no decorative futurism.</p></div></details></div></div></section>
+
+<footer class="form-footer" aria-label="Programming and presentation enquiries">
+  <div class="form-footer-meta">live performance · immersive installation · festivals · museums · galleries · cultural institutions</div>
+  <div class="form-footer-actions">
+    <a href="mailto:tony@shufflem.com.au?subject=The%20Shape%20of%20Now%20Programming%20Enquiry">programming enquiry</a>
+    <a href="mailto:tony@shufflem.com.au?subject=The%20Shape%20of%20Now%20Presentation%20Deck">request presentation deck</a>
+    <a href="mailto:tony@shufflem.com.au?subject=The%20Shape%20of%20Now%20Technical%20Specifications">technical specifications</a>
+  </div>
+</footer>
+
 <div class="dock" aria-label="Audio player"><button class="prev" id="prev" aria-label="Previous track" title="Previous track">‹</button><button class="play" id="pp" aria-label="Play or pause" title="Play / pause">▶</button><button class="next" id="next" aria-label="Next track" title="Next track">›</button><div class="trackname" id="now">We Measure</div><div class="time" aria-label="Track time"><span class="elapsed" id="elapsed">0:00</span><span>/</span><span id="duration">0:00</span></div><input class="seek" id="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Track position" title="Drag to move through the track"><button class="mute" id="mute" aria-label="Audio on or off" title="Audio on / off">AUDIO ON</button><label class="volwrap"><span>VOL</span><input class="vol" id="vol" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume" title="Volume"></label></div><audio id="audio"></audio><script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script><script id="filmPlayback">document.querySelectorAll('.film-player').forEach(function(v){var src=v.dataset.hls;if(v.canPlayType('application/vnd.apple.mpegurl')){v.src=src}else if(window.Hls&&Hls.isSupported()){var h=new Hls({enableWorker:true});h.loadSource(src);h.attachMedia(v);v._hls=h}else{v.insertAdjacentHTML('afterend','<p style="font:9px var(--mo);color:var(--d);margin-top:8px">Video playback is not supported in this browser.</p>')}});</script><script>const T=[['We Measure','../../media/audio/we_measure.mp3'],["You're the Wave",'../../media/audio/youre_the_wave.mp3'],['Beyond the End','../../media/audio/beyond_the_end.mp3'],['Pattern','../../media/audio/pattern.mp3'],['The Arrival','https://d2ol7oe51mr4n9.cloudfront.net/user_3DwFIbiz6zkSYGJkFtQ3nlc5Uqo/5a86e101-40e6-4e6f-8fc0-2cb64c97a642.mp3'],['CloK','../../media/audio/clok.mp3'],['Threshold',null],['Drift',null],['The Return',null]],el=document.getElementById('tracks'),a=document.getElementById('audio'),n=document.getElementById('now'),p=document.getElementById('pp'),seek=document.getElementById('seek'),vol=document.getElementById('vol'),mute=document.getElementById('mute'),prev=document.getElementById('prev'),next=document.getElementById('next'),elapsed=document.getElementById('elapsed'),duration=document.getElementById('duration');let cur=0,rows=[];const fmt=t=>{if(!isFinite(t)||t<0)return'0:00';const m=Math.floor(t/60),sec=Math.floor(t%60);return m+':'+String(sec).padStart(2,'0')};const playable=()=>T.map((t,i)=>t[1]?i:null).filter(i=>i!==null);function setActive(){rows.forEach((r,i)=>r.classList.toggle('active',i===cur&&!!T[i][1]))}function load(i,autoplay=true){if(!T[i]||!T[i][1])return;cur=i;a.src=T[i][1];n.textContent=T[i][0];seek.value=0;elapsed.textContent='0:00';duration.textContent='0:00';setActive();if(autoplay){a.play();p.textContent='Ⅱ'}}function step(dir){const P=playable(),pos=Math.max(0,P.indexOf(cur)),ni=P[(pos+dir+P.length)%P.length];load(ni,true)}T.forEach((t,i)=>{let r=document.createElement('div');r.className='trk'+(t[1]?' playable':'');r.innerHTML='<div class="n">0'+(i+1)+'</div><div><h3>'+t[0]+'</h3><p>'+(t[1]?'music available':'in development')+'</p></div><div class="status">'+(t[1]?'play':'in development')+'</div>';if(t[1])r.onclick=()=>load(i,true);rows.push(r);el.appendChild(r)});a.volume=.8;p.onclick=()=>{if(!a.src)load(cur,false);a.paused?(a.play(),p.textContent='Ⅱ'):(a.pause(),p.textContent='▶')};prev.onclick=()=>step(-1);next.onclick=()=>step(1);mute.onclick=()=>{a.muted=!a.muted;mute.textContent=a.muted?'AUDIO OFF':'AUDIO ON'};vol.oninput=()=>{a.volume=parseFloat(vol.value);if(a.volume>0&&a.muted){a.muted=false;mute.textContent='AUDIO ON'}};a.onloadedmetadata=()=>{duration.textContent=fmt(a.duration)};a.ondurationchange=()=>{duration.textContent=fmt(a.duration)};a.ontimeupdate=()=>{elapsed.textContent=fmt(a.currentTime);duration.textContent=fmt(a.duration);if(a.duration&&!seek.matches(':active'))seek.value=a.currentTime/a.duration*100};seek.oninput=()=>{if(a.duration){a.currentTime=(parseFloat(seek.value)/100)*a.duration;elapsed.textContent=fmt(a.currentTime)}};a.onplay=()=>p.textContent='Ⅱ';a.onpause=()=>p.textContent='▶';a.onended=()=>step(1);setActive();</script><script src="../../media/lib/hls.min.js"></script><script>(function(){document.querySelectorAll('video.film-hls[data-hls]').forEach(function(v){var src=v.dataset.hls;if(v.canPlayType('application/vnd.apple.mpegurl'))v.src=src;else if(window.Hls&&Hls.isSupported()){var h=new Hls({enableWorker:true});h.loadSource(src);h.attachMedia(v)}})})();</script><script src="../media-dock.js"></script>
 </body></html>
